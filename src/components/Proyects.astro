@@ -1,0 +1,31 @@
+---
+// Este componente muestra la sección de proyectos
+---
+
+<section>
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-mono text-indigo-600">Mis Proyectos</h2>
+    <button
+      class="cursor-pointer text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-colors px-4 py-2 rounded"
+    >
+      <span class="sr-only">Ver todos los proyectos</span>→
+    </button>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div
+      class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden shadow-md hover:bg-indigo-50 transition-colors"
+    >
+      <p class="text-gray-700 p-4">Proyecto 1</p>
+    </div>
+    <div
+      class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden shadow-md hover:bg-indigo-50 transition-colors"
+    >
+      <p class="text-gray-700 p-4">Proyecto 2</p>
+    </div>
+    <div
+      class="relative aspect-square bg-gray-100 rounded-lg overflow-hidden shadow-md hover:bg-indigo-50 transition-colors"
+    >
+      <p class="text-gray-700 p-4">Proyecto 3</p>
+    </div>
+  </div>
+</section>
