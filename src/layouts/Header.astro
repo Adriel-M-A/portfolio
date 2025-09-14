@@ -1,0 +1,70 @@
+---
+import { Github, Linkedin, Mail } from "lucide-astro";
+---
+
+<header
+  class="fixed top-0 w-full bg-[hsl(var(--background)/.8)] backdrop-blur-md border-b border-[hsl(var(--border))] z-50"
+>
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div>Montes Adriel</div>
+
+    <nav class="flex space-x-8">
+      <a
+        href="#inicio"
+        class="nav-link text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"
+        style="transition: var(--transition-smooth);"
+      >
+        Inicio
+      </a>
+      <a
+        href="#proyectos"
+        class="nav-link text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"
+        style="transition: var(--transition-smooth);"
+      >
+        Proyectos
+      </a>
+      <a
+        href="#sobre-mi"
+        class="nav-link text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"
+        style="transition: var(--transition-smooth);"
+      >
+        Sobre Mí
+      </a>
+      <a
+        href="#contacto"
+        class="nav-link text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))]"
+        style="transition: var(--transition-smooth);"
+      >
+        Contacto
+      </a>
+    </nav>
+
+    <div class="flex space-x-2">
+      <a
+        href="https://github.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="p-2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] hover:bg-[hsl(var(--muted))] rounded-lg glow-effect"
+        style="transition: var(--transition-smooth);"
+      >
+        <Github class="w-5 h-5" />
+      </a>
+      <a
+        href="https://linkedin.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="p-2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] hover:bg-[hsl(var(--muted))] rounded-lg glow-effect"
+        style="transition: var(--transition-smooth);"
+      >
+        <Linkedin class="w-5 h-5" />
+      </a>
+      <a
+        href="mailto:tu-email@ejemplo.com"
+        class="p-2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] hover:bg-[hsl(var(--muted))] rounded-lg glow-effect"
+        style="transition: var(--transition-smooth);"
+      >
+        <Mail class="w-5 h-5" />
+      </a>
+    </div>
+  </div>
+</header>
