@@ -1,23 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
-import Projects from "../components/Proyects.astro";
-import SideBar from "../components/SideBar.astro";
-import Stack from "../components/Stack.astro";
+import Layout from "../layouts/Layout.astro";
+import SideBar from "../layouts/SideBar.astro";
 ---
 
-<Layout>
-  <div class="bg-white text-gray-800">
-    <div class="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 p-6">
-      <!-- Sidebar -->
-      <SideBar />
-
-      <!-- Contenido Principal -->
-      <div class="space-y-8">
-        <Projects />
-        <!-- Uso del componente de Proyectos -->
-        <Stack />
-      </div>
-    </div>
-  </div>
-</Layout>
+<Layout />
