@@ -9,13 +9,13 @@ const { title, description, tecnologias, github, demo, cover } = data;
 ---
 
 <article class="bg-card border border-border rounded-lg overflow-hidden flex flex-col transition-colors hover:border-muted-foreground/30">
-  <a href={`/proyectos/${id}`} class="aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center hover:opacity-90 transition-opacity overflow-hidden">
+  <div class="aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
     {cover ? (
       <Image src={cover} alt={`Portada de ${title}`} width={600} height={400} class="w-full h-full object-cover" />
     ) : (
       <span class="text-muted-foreground font-medium p-6">{title}</span>
     )}
-  </a>
+  </div>
 
   <div class="p-4 flex flex-col grow gap-4">
     <div>
@@ -27,7 +27,7 @@ const { title, description, tecnologias, github, demo, cover } = data;
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-2 mt-auto">
+    <div class="flex flex-wrap gap-2">
       {tecnologias?.map((tech:string) => (
         <span class="text-xs font-mono border border-border px-2 py-0.5 rounded-full text-muted-foreground">
           {tech}
@@ -35,7 +35,7 @@ const { title, description, tecnologias, github, demo, cover } = data;
       ))}
     </div>
     
-    <div class="flex items-center gap-4 pt-2">
+    <div class="flex items-center justify-end flex-wrap gap-4 mt-auto pt-2">
       {github && github.length > 0 && (
         github.toLowerCase() === 'privado' ? (
           <span class="text-sm text-muted-foreground inline-flex items-center gap-1.5 cursor-not-allowed" title="Repositorio Privado">
@@ -55,6 +55,9 @@ const { title, description, tecnologias, github, demo, cover } = data;
           Demo
         </a>
       )}
+      <a href={`/proyectos/${id}`} class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-white text-black hover:bg-white/90 px-4 py-1.5">
+        Ver detalles
+      </a>
     </div>
   </div>
 </article>
