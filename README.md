@@ -8,8 +8,7 @@ Este proyecto está construido con herramientas modernas enfocadas en el rendimi
 
 - **[Astro 5](https://astro.build/)**: Framework web para generar sitios estáticos ultrarrápidos (SSG).
 - **[Tailwind CSS v4](https://tailwindcss.com/)**: Framework de CSS utilitario para un diseño ágil y responsivo.
-- **[shadcn/ui](https://ui.shadcn.com/)**: Inspiración y utilidad para componentes accesibles y minimalistas.
-- **[Lucide React](https://lucide.dev/)**: Colección de íconos hermosos y consistentes.
+- **Iconos SVG Inline**: Íconos incrustados directamente en el código para mantener el rendimiento y soportar temas sin dependencias externas.
 
 ## 📂 Arquitectura del Proyecto
 

@@ -2,8 +2,20 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import MobileMenuOverlay from '../components/MobileMenuOverlay.astro';
 
-const { title = "Portfolio" } = Astro.props;
+// Valores por defecto del PRD.md
+const defaultDescription = "Portfolio de Adriel Montes — Analista Programador Universitario en Trelew, Argentina. Experiencia en desarrollo de software y soporte técnico.";
+const siteName = "Adriel Montes";
+
+const {
+	title = "Portfolio",
+	description = defaultDescription,
+	ogImage,
+} = Astro.props;
+
+// URL canónica de la página actual
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
 ---
 
 <!doctype html>
@@ -13,10 +25,24 @@ const { title = "Portfolio" } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO -->
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- Open Graph -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content={siteName} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
 	</head>
 	<body class="antialiased min-h-screen flex flex-col bg-background text-primary">
 		<Navbar />
+		<!-- Overlay del menú móvil (fuera del header para z-index correcto) -->
+		<MobileMenuOverlay />
 		<div class="grow">
 			<slot />
 		</div>

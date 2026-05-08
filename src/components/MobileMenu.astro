@@ -1,0 +1,90 @@
+---
+// Menú móvil fullscreen (Vanilla Astro)
+
+const { currentPath } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Inicio' },
+  { href: '/sobreMi', label: 'Sobre mí' },
+  { href: '/proyectos', label: 'Proyectos' },
+  { href: '/contacto', label: 'Contacto' },
+];
+---
+
+<!-- Botón hamburguesa (visible solo en mobile) -->
+<button
+  id="mobile-menu-btn"
+  class="md:hidden flex items-center justify-center size-9 rounded-md text-foreground hover:bg-surface transition-colors"
+  aria-label="Abrir menú"
+  aria-expanded="false"
+  aria-controls="mobile-menu-overlay"
+  type="button"
+>
+  <!-- Icono hamburguesa -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" />
+  </svg>
+</button>
+
+<script>
+  // Lógica mínima para abrir/cerrar el menú móvil
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const closeBtn = document.getElementById('mobile-menu-close');
+
+    if (!btn || !overlay || !closeBtn) return;
+
+    function openMenu() {
+      if (!btn || !overlay) return;
+      overlay.classList.remove('pointer-events-none');
+      overlay.classList.add('pointer-events-auto');
+      overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-full');
+      overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-0');
+      overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-0');
+      overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-100');
+      overlay.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      if (!btn || !overlay) return;
+      overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-0');
+      overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-full');
+      overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-100');
+      overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-0');
+      overlay.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      // Deshabilitar pointer-events después de la animación
+      setTimeout(() => {
+        if (!overlay) return;
+        overlay.classList.remove('pointer-events-auto');
+        overlay.classList.add('pointer-events-none');
+      }, 300);
+    }
+
+    btn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+      }
+    });
+
+    // Cerrar al click en el backdrop
+    overlay.querySelector('[data-menu-backdrop]')?.addEventListener('click', closeMenu);
+
+    // Cerrar al hacer click en un link del menú
+    overlay.querySelectorAll('nav a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+
+  // Inicializar al cargar y después de transiciones de página (View Transitions)
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>

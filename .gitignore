@@ -27,3 +27,4 @@ pnpm-debug.log*
 docs/
 .agents/
 CLAUDE.md
+skills-lock.json

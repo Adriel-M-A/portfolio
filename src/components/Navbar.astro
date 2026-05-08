@@ -1,5 +1,5 @@
 ---
-import { MobileMenu } from './MobileMenu.jsx';
+import MobileMenu from './MobileMenu.astro';
 
 // Para quitar la barra al final si existe, y hacer que el path matchee de forma consistente
 const pathname = Astro.url.pathname;
@@ -34,6 +34,6 @@ const links = [
       </nav>
     </div>
 
-    <MobileMenu client:load currentPath={currentPath} />
+    <MobileMenu currentPath={currentPath} />
   </div>
 </header>

@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Mail, MapPin } from 'lucide-react';
+
 
 const email = "adriel.agustin.montes@gmail.com";
 const location = "Chubut, Argentina";
@@ -16,13 +16,13 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 		</div>
 
 		<div class="flex flex-col gap-6">
-			{/* Card de Información de Contacto */}
+			<!-- Card de Información de Contacto -->
 			<div class="bg-card border border-border rounded-lg p-6">
 				<h2 class="text-lg font-bold text-foreground mb-6">Información de Contacto</h2>
 				
 				<div class="flex flex-col gap-6">
 					<div class="flex items-start gap-4">
-						<Mail className="w-5 h-5 mt-0.5 text-muted-foreground" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mt-0.5 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
 						<div>
 							<h3 class="font-medium text-foreground text-sm">Email</h3>
 							<a href={`mailto:${email}`} class="text-sm text-muted-foreground hover:text-foreground transition-colors">
@@ -32,7 +32,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 					</div>
 
 					<div class="flex items-start gap-4">
-						<MapPin className="w-5 h-5 mt-0.5 text-muted-foreground" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mt-0.5 text-muted-foreground"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
 						<div>
 							<h3 class="font-medium text-foreground text-sm">Ubicación</h3>
 							<p class="text-sm text-muted-foreground">
@@ -43,7 +43,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 				</div>
 			</div>
 
-			{/* Card de Redes Sociales */}
+			<!-- Card de Redes Sociales -->
 			<div class="bg-card border border-border rounded-lg p-6">
 				<h2 class="text-lg font-bold text-foreground mb-6">Conectá conmigo</h2>
 				
@@ -70,7 +70,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 						href={`mailto:${email}`} 
 						class="inline-flex items-center gap-2 bg-surface hover:bg-muted border border-border px-4 py-2 rounded-md text-sm font-medium transition-colors text-foreground"
 					>
-						<Mail className="w-[18px] h-[18px] text-muted-foreground" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[18px] h-[18px] text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
 						Email
 					</a>
 				</div>

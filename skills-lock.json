@@ -7,12 +7,6 @@
       "skillPath": "skills/astro/SKILL.md",
       "computedHash": "3a70f9666e7b6a03efb939b7e62938f4d3a6a5d956b2cc3c10011fda6ba27e9b"
     },
-    "code-review": {
-      "source": "coderabbitai/skills",
-      "sourceType": "github",
-      "skillPath": "skills/code-review/SKILL.md",
-      "computedHash": "38fa1a6b131fc7c97969deae97c4ddfc6adb3c444d8e91a24fab9c69467f2673"
-    },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
@@ -30,6 +24,12 @@
       "sourceType": "github",
       "skillPath": "plugins/tailwind-v4-shadcn/skills/tailwind-v4-shadcn/SKILL.md",
       "computedHash": "cf83bc010cc7afe91ad4b61adad527b69b433804a2c2a3ec3869605d8596b216"
+    },
+    "web-perf": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-perf/SKILL.md",
+      "computedHash": "a411d7a1d052e39069ad7c898d6b7e22100945a3f104794e0b76e3af480d3f44"
     }
   }
 }
