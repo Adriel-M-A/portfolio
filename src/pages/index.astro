@@ -6,6 +6,17 @@ import { getCollection } from 'astro:content';
 const proyectosEntries = await getCollection('proyectos');
 proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 const proyectosDestacados = proyectosEntries.slice(0, 3);
+
+// Extraer, contar y ordenar tecnologías
+const todasTecnologias = proyectosEntries.flatMap((p) => p.data.tecnologias || []);
+const techFrequencies = todasTecnologias.reduce((acc: Record<string, number>, tech) => {
+	acc[tech] = (acc[tech] || 0) + 1;
+	return acc;
+}, {});
+
+const sortedTechs = Object.entries(techFrequencies)
+	.sort((a, b) => b[1] - a[1])
+	.map(([tech]) => tech);
 ---
 
 <Layout title="Adriel Montes | Analista Programador Universitario">
@@ -67,6 +78,23 @@ const proyectosDestacados = proyectosEntries.slice(0, 3);
 				<p>
 					Técnico en informática con experiencia práctica en soporte técnico y desarrollo de software. He trabajado en organismos provinciales gestionando infraestructuras de red y desarrollando aplicaciones internas en C#, Python y JavaScript. Me caracterizo por mi actitud proactiva y compromiso con la mejora continua.
 				</p>
+			</div>
+		</section>
+
+		<!-- Separador visual -->
+		<hr class="border-t border-border my-16" />
+
+		<!-- Tecnologías -->
+		<section>
+			<h2 class="text-2xl md:text-3xl font-semibold mb-6">Tecnologías</h2>
+			<div class="flex flex-wrap gap-3">
+				{
+					sortedTechs.map((tech) => (
+						<span class="text-sm font-mono border border-border px-3 py-1.5 rounded-full text-muted-foreground bg-surface/50 hover:bg-surface hover:text-foreground transition-colors cursor-default">
+							{tech}
+						</span>
+					))
+				}
 			</div>
 		</section>
 
