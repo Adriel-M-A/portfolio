@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProyectoCard from '../components/ProyectoCard.astro';
+import { getCollection } from 'astro:content';
+
+const proyectosEntries = await getCollection('proyectos');
+proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
+const proyectosDestacados = proyectosEntries.slice(0, 3);
+---
+
+<Layout title="Adriel Montes | Analista Programador Universitario">
+	<main class="max-w-6xl mx-auto px-6">
+		{/* Sección Hero */}
+		<section class="pt-20 pb-10 grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-12 items-center">
+			<div class="flex flex-col gap-6 order-last md:order-first">
+				<div class="space-y-2">
+					<h1 class="text-4xl md:text-5xl font-bold tracking-tight">Adriel Montes</h1>
+					<p class="text-xl md:text-2xl text-muted-foreground font-medium">Analista Programador Universitario</p>
+					<p class="text-base text-muted-foreground">Chubut, Argentina</p>
+				</div>
+				
+				<div class="flex flex-wrap gap-4 pt-2">
+					<a href="/sobreMi" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-white text-black hover:bg-white/90 px-6 py-2">
+						Sobre mí
+					</a>
+					<a href="/contacto" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-white text-white bg-transparent hover:bg-white/10 px-6 py-2">
+						Contacto
+					</a>
+				</div>
+
+				<div class="flex items-center gap-4 pt-4">
+					<a 
+						href="https://github.com/Adriel-M-A" 
+						target="_blank" 
+						rel="noopener noreferrer"
+						class="text-muted-foreground hover:text-foreground transition-colors duration-150"
+						aria-label="GitHub"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+					</a>
+					<a 
+						href="https://www.linkedin.com/in/adriel-agustin-montes-66460b202/" 
+						target="_blank" 
+						rel="noopener noreferrer"
+						class="text-muted-foreground hover:text-foreground transition-colors duration-150"
+						aria-label="LinkedIn"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+					</a>
+				</div>
+			</div>
+
+			<div class="flex justify-center md:justify-end order-first md:order-last">
+				<div class="w-[220px] h-[220px] md:w-[260px] md:h-[260px] rounded-full overflow-hidden border border-border bg-surface flex items-center justify-center">
+					<span class="text-muted-foreground text-sm font-medium">Avatar</span>
+				</div>
+			</div>
+		</section>
+
+		{/* Separador visual */}
+		<hr class="border-t border-border my-12" />
+
+		{/* Sobre mí */}
+		<section>
+			<h2 class="text-2xl md:text-3xl font-semibold mb-6">Sobre mí</h2>
+			<div class="max-w-2xl text-foreground leading-relaxed">
+				<p>
+					Técnico en informática con experiencia práctica en soporte técnico y desarrollo de software. He trabajado en organismos provinciales gestionando infraestructuras de red y desarrollando aplicaciones internas en C#, Python y JavaScript. Me caracterizo por mi actitud proactiva y compromiso con la mejora continua.
+				</p>
+			</div>
+		</section>
+
+		{/* Separador visual */}
+		<hr class="border-t border-border my-16" />
+
+		{/* Proyectos Destacados */}
+		<section class="pb-24">
+			<div class="flex items-center justify-between mb-8">
+				<h2 class="text-2xl md:text-3xl font-semibold">Proyectos destacados</h2>
+				<a href="/proyectos" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
+					Ver todos <span aria-hidden="true">&rarr;</span>
+				</a>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				{
+					proyectosDestacados.map((proyecto) => (
+						<ProyectoCard proyecto={proyecto} />
+					))
+				}
+			</div>
+		</section>
+	</main>
+</Layout>

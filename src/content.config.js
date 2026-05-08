@@ -1,0 +1,29 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+export const collections = {
+  proyectos: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/proyectos" }),
+    schema: ({ image }) => z.object({
+      title: z.string(),
+      description: z.string(),
+      tecnologias: z.array(z.string()),
+      github: z.string().url().or(z.string().length(0)).or(z.literal("privado")),
+      demo: z.string().url().or(z.string().length(0)).optional(),
+      cover: image().optional(),
+      imagenes: z.array(z.string()).optional(),
+    }),
+  }),
+  experiencia: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/experiencia" }),
+    schema: z.object({
+      empresa: z.string(),
+      nombreCompleto: z.string(),
+      rol: z.string(),
+      tipo: z.string(),
+      desde: z.string(),
+      hasta: z.string(),
+      ubicacion: z.string(),
+    }),
+  }),
+};

@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExperienciaCard from '../components/ExperienciaCard.astro';
+import { getCollection, render } from 'astro:content';
+
+const experienciaEntries = await getCollection('experiencia');
+
+// Ordenar por la propiedad 'orden' de menor a mayor
+experienciaEntries.sort((a, b) => a.id.localeCompare(b.id));
+---
+
+<Layout title="Sobre mí | Adriel Montes">
+	<main class="max-w-3xl mx-auto px-6 py-24">
+		<div class="mb-12">
+			<h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Sobre mí</h1>
+			<p class="text-lg text-muted-foreground">Mi experiencia laboral en detalle.</p>
+		</div>
+
+		<section class="flex flex-col gap-6">
+			{
+				experienciaEntries.map(async (entry) => {
+					const { Content } = await render(entry);
+					return (
+						<ExperienciaCard experiencia={entry}>
+							<Content />
+						</ExperienciaCard>
+					);
+				})
+			}
+		</section>
+	</main>
+</Layout>
