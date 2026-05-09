@@ -2,14 +2,14 @@
 title: "Sistema de Trazabilidad de Expedientes"
 description: "Aplicación interna desarrollada para el ENRE Chubut que permite controlar la ubicación, circulación y custodia de expedientes físicos dentro de la institución."
 tecnologias:
-  ["C#", "Visual Studio", "PostgreSQL", "Windows", "Sistema cliente-servidor"]
+  ["C#", "Visual Studio", "PostgreSQL", "Windows", "cliente-servidor"]
 github: "privado"
 demo: ""
 imagenes:
-  - "screenshot-1.png"
-  - "screenshot-2.png"
-  - "screenshot-3.png"
-  - "screenshot-4.png"
+  - "./screenshot-1.png"
+  - "./screenshot-2.png"
+  - "./screenshot-3.png"
+  - "./screenshot-4.png"
 ---
 
 ## Sobre el proyecto

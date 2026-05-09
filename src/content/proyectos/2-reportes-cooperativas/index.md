@@ -3,11 +3,11 @@ title: "Sistema de Reportes de Cooperativas"
 description: "Herramienta de escritorio en Python que automatiza la generación de reportes mensuales a partir de datos de 32 cooperativas eléctricas de la provincia del Chubut."
 tecnologias: ["Python", "Excel", "Macros", "Automatización de datos"]
 github: "privado"
-demo: ""
+cover: "./cover-reporte-cooperativas.png"
 imagenes:
-  - "screenshot-1.png"
-  - "screenshot-2.png"
-  - "screenshot-3.png"
+  - "./screenshot-1.png"
+  - "./screenshot-2.png"
+  - "./screenshot-3.png"
 ---
 
 ## Sobre el proyecto

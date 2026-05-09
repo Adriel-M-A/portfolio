@@ -14,9 +14,9 @@ tecnologias:
 github: "https://github.com/Adriel-M-A/pos-elixir"
 demo: ""
 imagenes:
-  - "screenshot-1.png"
-  - "screenshot-2.png"
-  - "screenshot-3.png"
+  - "./screenshot-1.png"
+  - "./screenshot-2.png"
+  - "./screenshot-3.png"
 ---
 
 ## Sobre el proyecto

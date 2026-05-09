@@ -5,10 +5,11 @@ tecnologias:
   ["Tauri", "Rust", "React", "Vite", "Tailwind CSS", "SQLite", "Recharts"]
 github: "https://github.com/Adriel-M-A/pos-tauri"
 demo: ""
+cover: "./cover.png"
 imagenes:
-  - "screenshot-1.png"
-  - "screenshot-2.png"
-  - "screenshot-3.png"
+  - "./screenshot-1.png"
+  - "./screenshot-2.png"
+  - "./screenshot-3.png"
 ---
 
 ## Sobre el proyecto

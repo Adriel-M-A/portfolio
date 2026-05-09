@@ -10,7 +10,7 @@ export const collections = {
       tecnologias: z.array(z.string()),
       github: z.string().url().or(z.string().length(0)).or(z.literal("privado")),
       demo: z.string().url().or(z.string().length(0)).optional(),
-      cover: image().optional(),
+      cover: z.string().optional(),
       imagenes: z.array(z.string()).optional(),
     }),
   }),
