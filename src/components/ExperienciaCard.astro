@@ -7,8 +7,8 @@ const { empresa, nombreCompleto, rol, tipo, desde, hasta, ubicacion } = data;
 <article class="bg-card border border-border rounded-lg p-6 flex flex-col gap-4 transition-colors hover:border-muted-foreground/30">
   <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
     <div>
-      <h3 class="font-bold text-foreground text-lg">{rol} <span class="text-xs font-normal px-2 py-0.5 border border-border rounded-full ml-2 text-muted-foreground align-middle">{tipo}</span></h3>
-      <p class="text-sm text-muted-foreground mt-1" title={nombreCompleto}>{empresa}</p>
+      <h3 class="font-bold text-foreground text-lg">{rol}</h3>
+      <p class="text-sm text-muted-foreground mt-1">{nombreCompleto || empresa}</p>
     </div>
     <div class="flex flex-col sm:items-end">
       <span class="text-sm text-muted-foreground">{desde} — {hasta}</span>

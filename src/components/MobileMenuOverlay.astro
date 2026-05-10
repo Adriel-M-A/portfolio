@@ -1,6 +1,7 @@
 ---
 // Overlay fullscreen del menú móvil — renderizado fuera del <header>
 // para evitar problemas de stacking context
+import ThemeToggle from './ThemeToggle.astro';
 
 const pathname = Astro.url.pathname;
 const currentPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
@@ -67,5 +68,10 @@ const links = [
         </a>
       ))}
     </nav>
+
+    <!-- Theme Toggle Centered at Bottom -->
+    <div class="mt-auto mb-8 flex justify-center border-t border-border mx-6 pt-8">
+      <ThemeToggle />
+    </div>
   </div>
 </div>

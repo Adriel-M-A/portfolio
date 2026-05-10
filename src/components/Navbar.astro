@@ -1,5 +1,6 @@
 ---
 import MobileMenu from './MobileMenu.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 // Para quitar la barra al final si existe, y hacer que el path matchee de forma consistente
 const pathname = Astro.url.pathname;
@@ -15,25 +16,29 @@ const links = [
 
 <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <div class="flex items-center gap-6">
-      <a href="/" class="text-2xl font-bold tracking-tight text-foreground">
-        AM
-      </a>
-      
-      <nav class="hidden md:flex items-center gap-6">
-        {links.map((link) => (
-          <a
-            href={link.href}
-            class={`text-sm transition-colors hover:text-foreground ${
-              currentPath === link.href ? 'text-foreground font-medium' : 'text-muted-foreground'
-            }`}
-          >
-            {link.label}
-          </a>
-        ))}
-      </nav>
-    </div>
+    <!-- Logo (Izquierda) -->
+    <a href="/" class="text-2xl font-bold tracking-tight text-foreground">
+      AM
+    </a>
+    
+    <!-- Navegación y Toggle (Derecha en Desktop) -->
+    <nav class="hidden md:flex items-center gap-6">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class={`text-sm transition-colors hover:text-foreground ${
+            currentPath === link.href ? 'text-foreground font-medium' : 'text-muted-foreground'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="pl-2 border-l border-border flex items-center h-5">
+        <ThemeToggle />
+      </div>
+    </nav>
 
+    <!-- Menú Móvil (Derecha en Mobile) -->
     <MobileMenu currentPath={currentPath} />
   </div>
 </header>

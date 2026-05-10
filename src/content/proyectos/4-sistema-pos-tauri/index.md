@@ -2,14 +2,24 @@
 title: "Sistema de Ventas para Comercios Locales"
 description: "Aplicación de escritorio desarrollada para pequeños comercios y quioscos, enfocada en registrar ventas, controlar stock y generar reportes de forma simple, rápida y completamente offline."
 tecnologias:
-  ["Tauri", "Rust", "React", "Vite", "Tailwind CSS", "SQLite", "Recharts"]
+  [
+    "Tauri",
+    "Rust",
+    "React",
+    "Vite",
+    "JavaScript",
+    "Tailwind CSS",
+    "SQLite",
+    "Recharts",
+  ]
 github: "https://github.com/Adriel-M-A/pos-tauri"
 demo: ""
-cover: "./cover.png"
+cover: "./cover.webp"
 imagenes:
-  - "./screenshot-1.png"
-  - "./screenshot-2.png"
-  - "./screenshot-3.png"
+  - "./screenshot-1.webp"
+  - "./screenshot-2.webp"
+  - "./screenshot-3.webp"
+  - "./screenshot-4.webp"
 ---
 
 ## Sobre el proyecto
@@ -43,4 +53,4 @@ La arquitectura backend fue desarrollada en Rust utilizando Tauri, separando cla
 
 ## Estado
 
-Proyecto en producción — vendido y entregado al cliente.
+Proyecto Terminado — vendido y entregado al cliente.

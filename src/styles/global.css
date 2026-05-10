@@ -2,8 +2,43 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Paleta única — el sitio opera siempre en modo oscuro (html class="dark") */
 :root {
+  /* Light Mode Colors */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 4%);
+  
+  --surface: hsl(0 0% 96%);
+  --border: hsl(0 0% 90%);
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+
+  --primary: hsl(0 0% 9%);
+  --primary-foreground: hsl(0 0% 98%);
+
+  --secondary: var(--surface);
+  --secondary-foreground: var(--foreground);
+
+  --muted: var(--surface);
+  --muted-foreground: hsl(240 4% 46%);
+
+  --accent: var(--surface);
+  --accent-foreground: var(--foreground);
+
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+
+  --input: var(--border);
+  --ring: var(--border);
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Dark Mode Colors */
   --background: hsl(0 0% 4%);      /* #0a0a0a */
   --foreground: hsl(0 0% 100%);    /* #ffffff */
   
@@ -33,8 +68,6 @@
 
   --input: var(--border);
   --ring: var(--border);
-
-  --radius: 0.5rem;
 }
 
 @theme inline {

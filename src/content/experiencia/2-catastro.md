@@ -1,6 +1,6 @@
 ---
 empresa: "Catastro"
-nombreCompleto: "Dirección General de Catastro de la Provincia de Chubut"
+nombreCompleto: "Dirección General de Catastro de la Provincia del Chubut"
 rol: "Soporte Técnico y Desarrollo Web"
 tipo: "Pasantía"
 desde: "2022"

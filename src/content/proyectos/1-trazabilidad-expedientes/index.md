@@ -4,12 +4,13 @@ description: "Aplicación interna desarrollada para el ENRE Chubut que permite c
 tecnologias:
   ["C#", "Visual Studio", "PostgreSQL", "Windows", "cliente-servidor"]
 github: "privado"
-demo: ""
+cover: "./cover.webp"
 imagenes:
-  - "./screenshot-1.png"
-  - "./screenshot-2.png"
-  - "./screenshot-3.png"
-  - "./screenshot-4.png"
+  - "./screenshot-1.webp"
+  - "./screenshot-2.webp"
+  - "./screenshot-3.webp"
+  - "./screenshot-4.webp"
+  - "./screenshot-5.webp"
 ---
 
 ## Sobre el proyecto
@@ -43,4 +44,4 @@ Otro desafío importante fue estructurar la arquitectura cliente-servidor utiliz
 
 ## Estado
 
-Proyecto en producción — desarrollado y entregado durante mi pasantía en el ENRE. Repositorio privado.
+Proyecto Terminado — desarrollado y entregado durante mi pasantía en el ENRE. Repositorio privado.

@@ -17,6 +17,8 @@ const techFrequencies = todasTecnologias.reduce((acc: Record<string, number>, te
 const sortedTechs = Object.entries(techFrequencies)
 	.sort((a, b) => b[1] - a[1])
 	.map(([tech]) => tech);
+
+const maxTechs = sortedTechs.slice(0, 20);
 ---
 
 <Layout title="Adriel Montes | Analista Programador Universitario">
@@ -31,10 +33,10 @@ const sortedTechs = Object.entries(techFrequencies)
 				</div>
 				
 				<div class="flex flex-wrap gap-4 pt-2">
-					<a href="/sobreMi" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-white text-black hover:bg-white/90 px-6 py-2">
+					<a href="/sobreMi" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2">
 						Sobre mí
 					</a>
-					<a href="/contacto" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-white text-white bg-transparent hover:bg-white/10 px-6 py-2">
+					<a href="/contacto" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-border text-foreground bg-transparent hover:bg-surface px-6 py-2">
 						Contacto
 					</a>
 				</div>
@@ -74,7 +76,7 @@ const sortedTechs = Object.entries(techFrequencies)
 		<!-- Sobre mí -->
 		<section>
 			<h2 class="text-2xl md:text-3xl font-semibold mb-6">Sobre mí</h2>
-			<div class="max-w-2xl text-foreground leading-relaxed">
+			<div class="max-w-3xl text-foreground leading-relaxed">
 				<p>
 					Técnico en informática con experiencia práctica en soporte técnico y desarrollo de software. He trabajado en organismos provinciales gestionando infraestructuras de red y desarrollando aplicaciones internas en C#, Python y JavaScript. Me caracterizo por mi actitud proactiva y compromiso con la mejora continua.
 				</p>
@@ -89,11 +91,20 @@ const sortedTechs = Object.entries(techFrequencies)
 			<h2 class="text-2xl md:text-3xl font-semibold mb-6">Tecnologías</h2>
 			<div class="flex flex-wrap gap-3">
 				{
-					sortedTechs.map((tech) => (
-						<span class="text-sm font-mono border border-border px-3 py-1.5 rounded-full text-muted-foreground bg-surface/50 hover:bg-surface hover:text-foreground transition-colors cursor-default">
-							{tech}
-						</span>
-					))
+					maxTechs.map((tech, index) => {
+						let displayClass = "inline-flex";
+						if (index >= 15) {
+							displayClass = "hidden lg:inline-flex"; // Max 20 en Desktop
+						} else if (index >= 10) {
+							displayClass = "hidden md:inline-flex"; // Max 15 en Tablet
+						} // Max 10 en Mobile (siempre visible)
+
+						return (
+							<span class={`text-sm items-center font-mono border border-border px-3 py-1.5 rounded-full text-muted-foreground bg-surface/50 hover:bg-surface hover:text-foreground transition-colors cursor-default ${displayClass}`}>
+								{tech}
+							</span>
+						)
+					})
 				}
 			</div>
 		</section>

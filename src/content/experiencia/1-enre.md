@@ -1,6 +1,6 @@
 ---
 empresa: "ENRE"
-nombreCompleto: "Ente Regulador de Servicios de la Provincia de Chubut"
+nombreCompleto: "Ente Regulador de Servicios Publicos de la Provincia del Chubut"
 rol: "Soporte Técnico y Desarrollo de Software"
 tipo: "Pasantía"
 desde: "2023"

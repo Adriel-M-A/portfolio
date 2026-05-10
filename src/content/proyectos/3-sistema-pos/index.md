@@ -12,11 +12,11 @@ tecnologias:
     "Recharts",
   ]
 github: "https://github.com/Adriel-M-A/pos-elixir"
-demo: ""
+cover: "./cover.webp"
 imagenes:
-  - "./screenshot-1.png"
-  - "./screenshot-2.png"
-  - "./screenshot-3.png"
+  - "./screenshot-1.webp"
+  - "./screenshot-2.webp"
+  - "./screenshot-3.webp"
 ---
 
 ## Sobre el proyecto
@@ -43,4 +43,4 @@ El mayor desafío fue integrar Electron con better-sqlite3, una dependencia nati
 
 ## Estado
 
-Proyecto en producción — vendido y entregado al cliente.
+Proyecto Terminado — vendido y entregado al cliente.
