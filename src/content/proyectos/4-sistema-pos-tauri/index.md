@@ -2,16 +2,17 @@
 title: "Sistema de Ventas para Comercios Locales"
 description: "Aplicación de escritorio desarrollada para pequeños comercios y quioscos, enfocada en registrar ventas, controlar stock y generar reportes de forma simple, rápida y completamente offline."
 tecnologias:
-  [
-    "Tauri",
-    "Rust",
-    "React",
-    "Vite",
-    "JavaScript",
-    "Tailwind CSS",
-    "SQLite",
-    "Recharts",
-  ]
+  frontend:
+    - "JavaScript"
+    - "React"
+    - "Tailwind CSS"
+    - "Recharts"
+  backend:
+    - "Rust"
+    - "SQLite"
+  herramientas:
+    - "Tauri"
+    - "Vite"
 github: "https://github.com/Adriel-M-A/pos-tauri"
 demo: ""
 cover: "./cover.webp"

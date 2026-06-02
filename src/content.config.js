@@ -7,7 +7,15 @@ export const collections = {
     schema: ({ image }) => z.object({
       title: z.string(),
       description: z.string(),
-      tecnologias: z.array(z.string()),
+      tecnologias: z.object({
+        frontend: z.array(z.string()).default([]),
+        backend: z.array(z.string()).default([]),
+        herramientas: z.array(z.string()).default([]),
+      }).transform((val) => [
+        ...val.frontend,
+        ...val.backend,
+        ...val.herramientas
+      ]),
       github: z.string().url().or(z.string().length(0)).or(z.literal("privado")),
       demo: z.string().url().or(z.string().length(0)).optional(),
       cover: z.string().optional(),

@@ -2,15 +2,16 @@
 title: "Sistema POS — Control de Ventas"
 description: "Aplicación de escritorio para punto de venta de una heladería: registro de ventas, historial, reportes y control de stock de helados."
 tecnologias:
-  [
-    "Electron",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "SQLite",
-    "shadcn/ui",
-    "Recharts",
-  ]
+  frontend:
+    - "TypeScript"
+    - "React"
+    - "Tailwind CSS"
+    - "shadcn/ui"
+    - "Recharts"
+  backend:
+    - "SQLite"
+  herramientas:
+    - "Electron"
 github: "https://github.com/Adriel-M-A/pos-elixir"
 demo: ""
 cover: "./cover.webp"

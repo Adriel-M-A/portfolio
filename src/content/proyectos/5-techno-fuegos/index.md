@@ -2,19 +2,20 @@
 title: "Techno Fuegos System"
 description: "Aplicación de escritorio desarrollada para automatizar la generación de presupuestos en una empresa de herrería artesanal, permitiendo calcular costos, emitir cotizaciones profesionales y reducir la dependencia del conocimiento técnico del taller."
 tecnologias:
-  [
-    "Tauri",
-    "Rust",
-    "React",
-    "Vite",
-    "JavaScript",
-    "Tailwind CSS",
-    "SQLite",
-    "Zustand",
-    "React Hook Form",
-    "Zod",
-    "jsPDF",
-  ]
+  frontend:
+    - "JavaScript"
+    - "React"
+    - "Tailwind CSS"
+    - "Zustand"
+    - "React Hook Form"
+    - "Zod"
+    - "jsPDF"
+  backend:
+    - "Rust"
+    - "SQLite"
+  herramientas:
+    - "Tauri"
+    - "Vite"
 github: ""
 demo: ""
 cover: "./cover.webp"
