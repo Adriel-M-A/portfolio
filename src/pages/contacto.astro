@@ -1,6 +1,7 @@
+---
 import Layout from '../layouts/Layout.astro';
-import Icon from '../components/Icon.astro';
-
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const email = "adriel.agustin.montes@gmail.com";
 const location = "Chubut, Argentina";
@@ -17,7 +18,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 
 		<div class="flex flex-col gap-6">
 			<!-- Card de Información de Contacto -->
-			<div class="bg-card border border-border rounded-lg p-6">
+			<div class="bg-card border border-border p-6">
 				<h2 class="text-lg font-bold text-foreground mb-6">Información de Contacto</h2>
 				
 				<div class="flex flex-col gap-6">
@@ -44,35 +45,38 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 			</div>
 
 			<!-- Card de Redes Sociales -->
-			<div class="bg-card border border-border rounded-lg p-6">
+			<div class="bg-card border border-border p-6">
 				<h2 class="text-lg font-bold text-foreground mb-6">Conectá conmigo</h2>
 				
 				<div class="flex flex-wrap gap-4">
-					<a 
+					<Button 
 						href={githubUrl} 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						class="inline-flex items-center gap-2 bg-surface hover:bg-muted border border-border px-4 py-2 rounded-md text-sm font-medium transition-colors text-foreground"
+						variant="secondary"
+						class="gap-2"
 					>
 						<Icon name="github" size={18} class="text-muted-foreground" />
 						GitHub
-					</a>
-					<a 
+					</Button>
+					<Button 
 						href={linkedinUrl} 
 						target="_blank" 
 						rel="noopener noreferrer" 
-						class="inline-flex items-center gap-2 bg-surface hover:bg-muted border border-border px-4 py-2 rounded-md text-sm font-medium transition-colors text-foreground"
+						variant="secondary"
+						class="gap-2"
 					>
 						<Icon name="linkedin" size={18} class="text-muted-foreground" />
 						LinkedIn
-					</a>
-					<a 
+					</Button>
+					<Button 
 						href={`mailto:${email}`} 
-						class="inline-flex items-center gap-2 bg-surface hover:bg-muted border border-border px-4 py-2 rounded-md text-sm font-medium transition-colors text-foreground"
+						variant="secondary"
+						class="gap-2"
 					>
 						<Icon name="mail" class="size-icon-sm text-muted-foreground" />
 						Email
-					</a>
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -1,11 +1,12 @@
 ---
-import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import MobileMenuOverlay from '../components/MobileMenuOverlay.astro';
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import MobileMenuOverlay from "../components/MobileMenuOverlay.astro";
 
 // Valores por defecto del PRD.md
-const defaultDescription = "Portfolio de Adriel Montes — Analista Programador Universitario en Trelew, Argentina. Experiencia en desarrollo de software y soporte técnico.";
+const defaultDescription =
+	"Portfolio de Adriel Montes — Analista Programador Universitario en Trelew, Argentina. Experiencia en desarrollo de software y soporte técnico.";
 const siteName = "Adriel Montes";
 
 const {
@@ -15,7 +16,8 @@ const {
 } = Astro.props;
 
 // URL canónica de la página actual
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
+	.href;
 ---
 
 <!doctype html>
@@ -24,22 +26,25 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 		<meta charset="UTF-8" />
 		<script is:inline>
 			const theme = (() => {
-				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-					return localStorage.getItem('theme');
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
 				}
-				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-					return 'dark';
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
 				}
-				return 'light';
+				return "light";
 			})();
-			if (theme === 'dark') {
-				document.documentElement.classList.add('dark');
+			if (theme === "dark") {
+				document.documentElement.classList.add("dark");
 			} else {
-				document.documentElement.classList.remove('dark');
+				document.documentElement.classList.remove("dark");
 			}
 		</script>
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/logo-white.svg" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- SEO -->
@@ -55,7 +60,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 		<meta property="og:site_name" content={siteName} />
 		{ogImage && <meta property="og:image" content={ogImage} />}
 	</head>
-	<body class="antialiased min-h-screen flex flex-col bg-background text-primary">
+	<body
+		class="antialiased min-h-screen flex flex-col bg-background text-primary"
+	>
 		<Navbar />
 		<!-- Overlay del menú móvil (fuera del header para z-index correcto) -->
 		<MobileMenuOverlay />

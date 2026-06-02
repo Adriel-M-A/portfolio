@@ -2,7 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import Icon from '../../components/Icon.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
 
 const images = import.meta.glob('../../content/proyectos/**/*.{jpeg,jpg,png,gif,webp}');
 
@@ -16,7 +18,12 @@ export async function getStaticPaths() {
 
 const { proyecto } = Astro.props;
 const { Content } = await render(proyecto);
-const { title, description, tecnologias, github, demo, cover, imagenes } = proyecto.data;
+const { title, description, tecnologias: tecnologiasObj, github, demo, cover, imagenes } = proyecto.data;
+const tecnologias = tecnologiasObj ? [
+	...tecnologiasObj.frontend,
+	...tecnologiasObj.backend,
+	...tecnologiasObj.herramientas
+] : [];
 
 let resolvedCover: any = null;
 if (cover) {
@@ -41,51 +48,49 @@ if (cover) {
 			
 			<div class="flex flex-wrap items-center gap-4 mb-8">
 				{tecnologias?.map((tech: string) => (
-					<span class="text-xs font-mono border border-border px-3 py-1 rounded-full text-muted-foreground bg-surface/50">
+					<Badge size="md">
 						{tech}
-					</span>
+					</Badge>
 				))}
 			</div>
 
 			<div class="flex items-center gap-4">
 				{github && github.length > 0 && (
 					github.toLowerCase() === 'privado' ? (
-						<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 rounded-md text-sm font-medium text-muted-foreground cursor-not-allowed">
+						<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 text-sm font-medium text-muted-foreground cursor-not-allowed">
 							<Icon name="lock" class="w-4 h-4" />
 							Repositorio privado
 						</span>
 					) : (
-						<a href={github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-surface hover:bg-muted border border-border px-4 py-2 rounded-md text-sm font-medium transition-colors text-foreground">
+						<Button href={github} target="_blank" rel="noopener noreferrer" variant="secondary" size="md" class="gap-2">
 							<Icon name="github" size={16} />
 							Código
-						</a>
+						</Button>
 					)
 				)}
 				{demo && demo.length > 0 && (
-					<a href={demo} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium transition-colors border border-transparent">
+					<Button href={demo} target="_blank" rel="noopener noreferrer" variant="primary" size="md" class="gap-2">
 						<Icon name="external-link" class="w-4 h-4" />
 						Ver Demo
-					</a>
+					</Button>
 				)}
 			</div>
 		</header>
-
-
 
 		<!-- Imagen Principal -->
 		<div class="mb-16">
 			{cover ? (
 				resolvedCover ? (
-					<div class="w-full aspect-video bg-surface border border-border rounded-lg overflow-hidden">
+					<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
 						<Image src={resolvedCover} alt={`Portada del proyecto ${title}`} width={1200} height={675} class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90" />
 					</div>
 				) : (
-					<div class="w-full aspect-video bg-surface border border-border rounded-lg flex items-center justify-center">
+					<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
 						<span class="text-xl text-muted-foreground font-medium">{cover.replace('./', '')} (Placeholder)</span>
 					</div>
 				)
 			) : (
-				<div class="w-full aspect-video bg-surface border border-border rounded-lg flex items-center justify-center">
+				<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
 					<span class="text-xl text-muted-foreground font-medium">{title}</span>
 				</div>
 			)}
@@ -106,7 +111,7 @@ if (cover) {
 						const resolvedImg = images[imgPath] ? (await images[imgPath]()).default : null;
 						
 						return resolvedImg ? (
-							<div class="aspect-video bg-surface border border-border rounded-lg overflow-hidden group">
+							<div class="aspect-video bg-surface border border-border overflow-hidden group">
 								<Image 
 									src={resolvedImg} 
 									alt={`Captura ${index + 1} de ${title}`} 
@@ -116,7 +121,7 @@ if (cover) {
 								/>
 							</div>
 						) : (
-							<div class="aspect-video bg-surface border border-border rounded-lg overflow-hidden flex items-center justify-center">
+							<div class="aspect-video bg-surface border border-border overflow-hidden flex items-center justify-center">
 								<span class="text-sm text-muted-foreground">{img.replace('./', '')} (Placeholder)</span>
 							</div>
 						);
@@ -128,10 +133,10 @@ if (cover) {
 		<!-- Lightbox Modal -->
 		<dialog id="lightbox" class="m-auto bg-transparent border-none p-0 focus:outline-none backdrop:bg-black/40 backdrop:backdrop-blur-sm z-50 overflow-visible max-w-90vw max-h-90vh">
 			<div class="relative inline-flex items-center justify-center">
-				<button id="close-lightbox" class="absolute -top-4 -right-4 bg-surface text-foreground w-10 h-10 rounded-full flex items-center justify-center border border-border shadow-xl hover:bg-muted transition-colors z-50 cursor-pointer" aria-label="Cerrar imagen">
+				<Button id="close-lightbox" variant="secondary" size="icon" class="absolute -top-4 -right-4 shadow-xl z-50">
 					<Icon name="x" size={20} />
-				</button>
-				<img id="lightbox-img" src="" alt="" class="block max-w-90vw max-h-90vh w-auto h-auto object-contain rounded-xl shadow-2xl ring-1 ring-border/50" />
+				</Button>
+				<img id="lightbox-img" src="" alt="" class="block max-w-90vw max-h-90vh w-auto h-auto object-contain shadow-2xl ring-1 ring-border/50" />
 			</div>
 		</dialog>
 

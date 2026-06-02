@@ -2,7 +2,8 @@
 // Overlay fullscreen del menú móvil — renderizado fuera del <header>
 // para evitar problemas de stacking context
 import ThemeToggle from "./ThemeToggle.astro";
-import Icon from "./Icon.astro";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
 
 const pathname = Astro.url.pathname;
 const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
@@ -52,15 +53,17 @@ const links = [
           class="h-4 w-auto hidden dark:block"
         />
       </a>
-      <button
+      <Button
         id="mobile-menu-close"
-        class="flex items-center justify-center size-9 rounded-md text-foreground hover:bg-surface transition-colors"
+        variant="ghost"
+        size="icon-sm"
+        class="flex items-center justify-center text-foreground hover:bg-surface transition-colors"
         aria-label="Cerrar menú"
         type="button"
       >
         <!-- Icono X -->
         <Icon name="x" size={20} />
-      </button>
+      </Button>
     </div>
 
     <!-- Links de navegación apilados verticalmente -->
@@ -70,7 +73,7 @@ const links = [
           <a
             href={link.href}
             class:list={[
-              "text-lg py-3 px-4 rounded-lg transition-colors duration-150",
+              "text-lg py-3 px-4 transition-colors duration-150",
               currentPath === link.href
                 ? "text-foreground font-medium bg-surface"
                 : "text-muted-foreground hover:text-foreground hover:bg-surface/50",

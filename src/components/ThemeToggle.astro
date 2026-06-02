@@ -1,9 +1,12 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
 ---
 
-<button
-  class="theme-toggle relative inline-flex items-center justify-center size-10 rounded-md text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+<Button
+  variant="ghost"
+  size="icon"
+  class="theme-toggle relative"
   aria-label="Alternar tema"
   type="button"
 >
@@ -20,7 +23,7 @@ import Icon from "./Icon.astro";
     class="moon-icon absolute transition-all scale-0 rotate-90 dark:scale-100 dark:rotate-0"
   />
   <span class="sr-only">Alternar tema</span>
-</button>
+</Button>
 
 <script>
   const handleToggleClick = () => {

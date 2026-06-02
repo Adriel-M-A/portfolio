@@ -1,0 +1,22 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { size = 'md', class: className = '' } = Astro.props;
+
+const baseStyles = "inline-flex items-center font-mono border border-border text-muted-foreground bg-surface/50 transition-colors cursor-default hover:bg-surface hover:text-foreground";
+
+const sizes = {
+  sm: "text-xs px-2 py-0.5",
+  md: "text-xs px-3 py-1",
+  lg: "text-sm px-3 py-1.5",
+};
+
+const classes = `${baseStyles} ${sizes[size]} ${className}`;
+---
+
+<span class={classes}>
+  <slot />
+</span>

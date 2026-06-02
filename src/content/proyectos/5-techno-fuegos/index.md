@@ -16,7 +16,7 @@ tecnologias:
   herramientas:
     - "Tauri"
     - "Vite"
-github: ""
+github: "https://github.com/Adriel-M-A/techno-fuegos-system"
 demo: ""
 cover: "./cover.webp"
 imagenes:
@@ -28,41 +28,78 @@ imagenes:
 
 ## Resumen
 
-Aplicación de escritorio orientada a digitalizar el conocimiento de producción y automatizar la cotización de estructuras metálicas personalizadas para herreros artesanos.
+Aplicación de escritorio desarrollada para una empresa de herrería artesanal que
+fabrica fogoneros, parrillas y hornos a medida. El sistema reemplazó el proceso
+manual de cotización — que dependía exclusivamente del conocimiento del herrero
+— por una herramienta que cualquier persona del equipo puede usar para generar
+presupuestos precisos en PDF sin intervención del taller.
 
-## Problema
+## El problema
 
-La cotización de fogoneros, parrillas y hornos dependía del responsable de la producción física en el taller, quien calculaba empíricamente las cantidades de hierro, electrodos, pintura y horas de mano de obra necesarias. Esta dinámica provocaba cuellos de botella administrativos, demoras prolongadas para los clientes y constantes interrupciones al personal de producción en el taller para resolver consultas de precios.
+Cotizar un fogonero o una parrilla a medida requería interrumpir al responsable
+de producción para que calculara de memoria cuánto hierro, cuántos electrodos,
+cuánta pintura y cuántas horas de trabajo implicaba cada pedido. Esos cálculos
+vivían en la cabeza de una sola persona.
 
-## Solución
+Esto generaba tres problemas concretos: cuellos de botella cuando había varios
+presupuestos pendientes, demoras para los clientes que esperaban una cotización,
+y el riesgo permanente de que ese conocimiento no estuviera disponible.
 
-Se propuso una solución offline que centraliza la lista de insumos del taller y sistematiza las fórmulas empíricas en una herramienta dinámica. Cualquier personal administrativo puede seleccionar un tipo de producto, ingresar sus medidas customizadas y generar automáticamente un PDF formal de presupuesto con cálculos precisos de costos y margen comercial.
+## La solución
 
-## Características principales
+Trabajé junto con el cliente para relevar y formalizar todas las fórmulas de
+cálculo que el herrero aplicaba empíricamente. Una vez documentadas, las
+implementé como algoritmos parametrizables dentro de la aplicación.
 
-* Cotización guiada mediante fórmulas de cálculo dinámicas y plantillas predefinidas.
-* Gestión integrada de insumos, costos base y proveedores.
-* Generación instantánea de presupuestos comerciales en PDF profesional (jsPDF).
-* Control de validez temporal y expiración automática de cotizaciones frente a inflación.
-* Resguardo automático en caliente de borradores activos para evitar pérdida de datos.
-* Respaldos incrementales locales de bases de datos.
+El resultado es una herramienta donde cualquier empleado puede seleccionar un
+tipo de producto, ingresar las medidas personalizadas del cliente, y obtener
+automáticamente el desglose de materiales, costos y margen comercial — listo
+para exportar como PDF profesional.
 
-## Arquitectura y tecnologías
+## El desafío técnico central
 
-El software adopta un modelo offline-first híbrido para asegurar portabilidad en las computadoras del taller:
-* **UI y Estado**: React (Vite) acoplado a Zustand para el manejo de estado global de las cotizaciones complejas, y React Hook Form junto con Zod para validar las entradas de herrería en tiempo real.
-* **Core Desktop**: Tauri con Rust, administrando el ciclo de vida del ejecutable e interactuando directamente con el sistema de archivos local de forma segura.
-* **Persistencia**: SQLite embebido para el almacenamiento rápido y estructurado de las listas de precios.
+La parte más compleja no fue escribir código sino entender el oficio. Las
+fórmulas del herrero no estaban documentadas en ningún lado: eran reglas
+aprendidas con años de práctica, expresadas en términos como "para una costura
+de tanto largo uso tantos electrodos" o "el peso del perfil depende de su
+sección y longitud".
 
-## Desafíos técnicos
+El proceso fue iterativo: el cliente describía cómo calculaba, yo lo
+formalizaba en algoritmos, lo mostraba funcionando con casos reales, y
+ajustábamos juntos hasta que los resultados coincidían con lo que él haría
+manualmente. Ese trabajo de traducción entre conocimiento artesanal y lógica
+de software fue lo más valioso del proyecto.
 
-* **Traducción de Reglas de Negocio Informales**: Estructurar algoritmos de cálculo parametrizados basados en la experiencia física del herrero (ej: consumo de soldadura estimado por centímetro de costura o peso teórico de perfiles de hierro).
-* **Robustez ante Fallos Eléctricos**: En un taller con soldadoras eléctricas y maquinaria pesada, los cortes de luz o bajas de tensión son recurrentes. Se diseñó un middleware de guardado continuo automático para restaurar instantáneamente el presupuesto activo ante cualquier apagón imprevisto.
+A nivel técnico, el manejo de estado fue otro punto de atención: una cotización
+en curso tiene múltiples secciones interdependientes cuyos totales se
+recalculan en cascada. Usé Zustand para centralizar ese estado y React Hook
+Form con Zod para validar cada entrada en tiempo real, evitando que un dato
+inválido propagara errores al cálculo final.
+
+## Características
+
+- Cotización guiada por plantillas predefinidas con fórmulas parametrizables
+  por medida.
+- Gestión de insumos, costos base y proveedores actualizable sin tocar el código.
+- Generación de presupuestos en PDF profesional listos para enviar al cliente.
+- Control de validez temporal: las cotizaciones expiran automáticamente para
+  evitar precios desactualizados por inflación.
+- Guardado automático continuo de borradores activos para sobrevivir cortes de
+  luz en el taller.
+- Copias de seguridad y restauración de la base de datos integradas.
+
+## Arquitectura
+
+- **Frontend**: React con JavaScript, Tailwind CSS, Zustand para estado global
+  y React Hook Form + Zod para validación de formularios complejos.
+- **Generación de PDF**: jsPDF, ejecutado en el cliente sin dependencias externas.
+- **Backend**: Rust con Tauri, manejando el sistema de archivos, los backups y
+  la persistencia en SQLite.
+- **Por qué Tauri**: mismo razonamiento que en proyectos anteriores — ejecutable
+  liviano, sin runtime pesado, viable en el hardware disponible en el taller.
 
 ## Resultado
 
-La aplicación se encuentra en desarrollo activo y pruebas beta, logrando automatizar el 90% del proceso de cotización estándar y permitiendo la delegación de presupuestos a personal no especializado sin riesgo de pérdidas por mal cálculo de costos.
-
-## Estado
-
-Proyecto en desarrollo.
+El sistema fue terminado y entregado. El equipo de la herrería puede generar
+presupuestos completos sin depender del responsable de producción, con cálculos
+consistentes y documentos listos para presentar al cliente.

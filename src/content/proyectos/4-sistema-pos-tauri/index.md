@@ -25,41 +25,76 @@ imagenes:
 
 ## Resumen
 
-Aplicación de escritorio ligera y autónoma diseñada para automatizar las operaciones comerciales diarias de pequeños quioscos y almacenes de barrio.
+Segunda generación de mi sistema POS para comercios locales, desarrollada con
+Tauri y Rust para reemplazar la versión anterior basada en Electron. El objetivo
+fue el mismo — digitalizar la operación diaria de un almacén o quiosco — pero
+con una arquitectura más liviana, pensada específicamente para hardware modesto
+y sin dependencia de un runtime pesado.
 
-## Problema
+## El problema
 
-El comercio operaba anotando todas sus ventas diarias y precios con lápiz y papel. La falta de control de stock físico propiciaba pérdidas involuntarias y dificultaba saber con exactitud cuáles eran los márgenes reales de ganancia diarios. El cliente requería una herramienta digital rápida, pero que no necesitara internet ni configuraciones complejas de servidores locales, adaptada a computadoras de bajos recursos.
+El comercio anotaba ventas y precios con lápiz y papel. Sin control de stock,
+las pérdidas eran invisibles y los márgenes reales de cada jornada eran una
+estimación. El cliente necesitaba algo rápido y simple que funcionara en una
+computadora vieja, completamente offline, sin instalaciones complejas ni
+servidores.
 
-## Solución
+El punto de partida técnico también tenía sus limitaciones: mi solución anterior
+con Electron funcionaba, pero su consumo de RAM era considerablemente alto para
+equipos con recursos limitados. Quería una alternativa que resolviera el mismo
+problema con mucho menos overhead.
 
-Se desarrolló una aplicación nativa liviana mediante Tauri y Rust con almacenamiento local persistente. La interfaz simplificada permite facturar productos con códigos de barra o pesables, actualizar stock automáticamente, realizar cierres diarios mediante gráficos analíticos y asegurar los datos mediante backups rápidos.
+## La solución
 
-## Características principales
+Desarrollé la aplicación con Tauri, que usa el WebView nativo del sistema
+operativo en lugar de empaquetar Chromium completo como hace Electron. El
+backend corre en Rust, lo que se traduce en tiempos de arranque rápidos y un
+consumo de memoria mínimo incluso en hardware antiguo.
 
-* Facturación veloz de productos unitarios o pesables (fiambres, verduras).
-* Registro completo de transacciones en base de datos SQLite offline.
-* Visualización gráfica de productos con mayor margen de ganancia e historial de ventas diario, semanal y mensual.
-* Control estricto de inventario con avisos de stock mínimo configurable.
-* Módulo interno de manual de usuario que procesa y muestra archivos Markdown informativos.
-* Mecanismo embebido de respaldo (copias de seguridad) y restauración de la base de datos a archivos externos.
+La interfaz cubre todo el flujo del punto de venta: facturación de productos
+unitarios y pesables, control de stock con alertas de mínimo, cierres diarios
+con gráficos, y copias de seguridad integradas.
 
-## Arquitectura y tecnologías
+## Características
 
-Para asegurar alto rendimiento en hardware modesto, se optó por una arquitectura híbrida moderna:
-* **Backend**: Rust utilizando Tauri para un consumo de memoria RAM y CPU extremadamente bajo comparado con entornos clásicos de Electron.
-* **Frontend**: React (Vite) estructurado con componentes dinámicos y estilizado mediante Tailwind CSS.
-* **Base de Datos**: SQLite nativo conectado a comandos de Rust, manteniendo un flujo desacoplado por capas.
+- Facturación de productos unitarios o pesables (fiambres, verduras, a granel).
+- Control de inventario con avisos de stock mínimo configurable por producto.
+- Historial de ventas con visualización gráfica diaria, semanal y mensual.
+- Métricas de margen de ganancia por producto.
+- Copias de seguridad y restauración de la base de datos integradas en la app.
+- Módulo de ayuda interno que renderiza archivos Markdown como manual de usuario.
+- Arquitectura 100% offline: sin internet, sin servidores, sin configuración
+  de red.
 
-## Desafíos técnicos
+## El desafío técnico central
 
-* **Optimización en Hardware Antiguo**: Lograr tiempos de respuesta instantáneos al leer códigos de barra en computadoras de oficina antiguas. Esto se resolvió delegando las consultas complejas y la indexación de productos directamente al motor nativo de SQLite y Rust, liberando la carga visual del frontend.
-* **Desacoplamiento de Código**: Diseñar un puente de comunicación (Tauri Commands) modularizado mediante patrones de diseño orientados a objetos (repositorios y modelos) para mantener ordenado el flujo de negocio entre Rust y la vista web.
+El aspecto más interesante de este proyecto fue diseñar el puente de comunicación
+entre el backend en Rust y el frontend en React mediante **Tauri Commands**.
+
+En Tauri, toda interacción entre la vista web y el sistema nativo pasa por
+comandos explícitamente definidos en Rust. Esto obliga a pensar la arquitectura
+en capas desde el principio: las consultas a SQLite, la lógica de negocio y la
+validación de datos viven en Rust, mientras que el frontend solo se encarga de
+la presentación y dispara comandos con los parámetros necesarios.
+
+Para mantener el código ordenado a medida que el sistema crecía, organicé el
+backend en Rust siguiendo un patrón de repositorios y modelos — una capa de
+acceso a datos separada de la lógica de negocio — que hace que cada comando
+expuesto al frontend sea simple, predecible y fácil de mantener.
+
+## Arquitectura
+
+- **Backend**: Rust con Tauri. Maneja toda la lógica de negocio, las consultas
+  a SQLite y la exposición de comandos al frontend.
+- **Frontend**: React con JavaScript, Tailwind CSS y Recharts para los gráficos.
+- **Base de datos**: SQLite nativo gestionado desde Rust, sin ORM.
+- **Por qué Tauri sobre Electron**: el binario final es significativamente más
+  liviano y el consumo de RAM en reposo es una fracción del que tenía la versión
+  anterior, lo que lo hace viable en equipos con recursos limitados.
 
 ## Resultado
 
-La solución digitalizó por completo la operación del almacén, eliminando los registros manuales en papel. El sistema optimizó la reposición de mercadería y eliminó las diferencias de caja en los cierres de jornada diaria.
-
-## Estado
-
-Proyecto terminado.
+El sistema fue entregado y adoptado por el comercio, digitalizando por completo
+el registro de ventas y el control de stock. A nivel técnico, este proyecto
+consolidó mi conocimiento de Rust y Tauri como stack para aplicaciones de
+escritorio donde el rendimiento y el tamaño del ejecutable importan.

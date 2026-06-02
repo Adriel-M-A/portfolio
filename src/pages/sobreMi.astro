@@ -1,32 +1,252 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ExperienciaCard from '../components/ExperienciaCard.astro';
+import Badge from '../components/ui/Badge.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 import { getCollection, render } from 'astro:content';
 
 const experienciaEntries = await getCollection('experiencia');
-
-// Ordenar por la propiedad 'orden' de menor a mayor
 experienciaEntries.sort((a, b) => a.id.localeCompare(b.id));
+
+const proyectosEntries = await getCollection('proyectos');
+
+// Contar frecuencias por categoría de tecnología
+const frontendFreqs: Record<string, number> = {};
+const backendFreqs: Record<string, number> = {};
+const herramientasFreqs: Record<string, number> = {};
+
+proyectosEntries.forEach((p) => {
+  const techs = p.data.tecnologias;
+  if (techs) {
+    (techs.frontend || []).forEach((t) => {
+      frontendFreqs[t] = (frontendFreqs[t] || 0) + 1;
+    });
+    (techs.backend || []).forEach((t) => {
+      backendFreqs[t] = (backendFreqs[t] || 0) + 1;
+    });
+    (techs.herramientas || []).forEach((t) => {
+      herramientasFreqs[t] = (herramientasFreqs[t] || 0) + 1;
+    });
+  }
+});
+
+// Ordenar por frecuencia
+const sortedFrontend = Object.entries(frontendFreqs)
+  .sort((a, b) => b[1] - a[1])
+  .map(([tech]) => tech);
+
+const sortedBackend = Object.entries(backendFreqs)
+  .sort((a, b) => b[1] - a[1])
+  .map(([tech]) => tech);
+
+const sortedHerramientas = Object.entries(herramientasFreqs)
+  .sort((a, b) => b[1] - a[1])
+  .map(([tech]) => tech);
 ---
 
 <Layout title="Sobre mí | Adriel Montes">
-	<main class="max-w-3xl mx-auto px-6 py-24">
-		<div class="mb-12">
-			<h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Sobre mí</h1>
-			<p class="text-lg text-muted-foreground">Mi experiencia laboral en detalle.</p>
-		</div>
+	<main class="max-w-5xl mx-auto px-6 py-24">
+		<!-- Sobre mí (Texto y Botones) -->
+		<section class="mb-16">
+			<h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Sobre mí</h1>
+			<div class="max-w-3xl flex flex-col gap-5 text-muted-foreground leading-relaxed">
+				<p>
+					Soy desarrollador de software y técnico en informática, recibido como
+					Analista Programador Universitario. Vivo y trabajo en Trelew, Chubut, y
+					me dedico a construir aplicaciones que resuelven problemas concretos: 
+					sistemas de gestión interna, herramientas de automatización y 
+					aplicaciones de escritorio para pequeños y medianos comercios u organismos.
+				</p>
+				<p>
+					Lo que más me define como desarrollador es que trabajo de principio a fin:
+					analizo el problema con el cliente, diseño la solución, la construyo y la
+					despliego. No me quedo solo en el código — entiendo el contexto y busco
+					que el software que entrego realmente cambie la forma de trabajar de quien
+					lo usa.
+				</p>
+				<p>
+					Tengo experiencia con entornos web modernos (React, JavaScript, Tailwind CSS)
+					y también con aplicaciones nativas de escritorio usando Tauri y Electron.
+					Del lado del backend trabajo con Python, Rust, C# y bases de datos como
+					PostgreSQL y SQLite. Me siento cómodo tanto en proyectos frontend-heavy
+					como en integraciones más cercanas al sistema operativo.
+				</p>
+				<p>
+					Estoy disponible para trabajo en relación de dependencia o proyectos
+					freelance. Si tenés un problema que resolver o un proyecto para arrancar,
+					podés contactarme directamente.
+				</p>
+			</div>
+		</section>
 
-		<section class="flex flex-col gap-6">
-			{
-				experienciaEntries.map(async (entry) => {
-					const { Content } = await render(entry);
-					return (
-						<ExperienciaCard experiencia={entry}>
-							<Content />
-						</ExperienciaCard>
-					);
-				})
-			}
+		<!-- Experiencia Laboral -->
+		<section class="mb-20 border-t border-border pt-16">
+			<h2 class="text-2xl md:text-3xl font-semibold mb-10">Experiencia laboral</h2>
+			<div class="relative pl-6 md:pl-8 flex flex-col gap-12 ml-2 md:ml-4">
+				{
+					experienciaEntries.map(async (entry) => {
+						const { Content } = await render(entry);
+						const { rol, empresa, nombreCompleto, desde, hasta, tipo } = entry.data;
+						return (
+							<div class="relative group pb-2 last:pb-0">
+								<!-- Segmento de línea de tiempo -->
+								<div class="absolute -left-6 md:-left-8 top-1.5 bottom-0 w-[1px] bg-border last:hidden" />
+								
+								<!-- Dot de la línea de tiempo (cuadrado) -->
+								<div class="absolute -left-[30px] md:-left-[38px] top-1.5 w-3 h-3 bg-background border-2 border-border group-hover:border-primary transition-colors" />
+								
+								<div class="flex flex-col gap-2">
+									<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
+										{desde} — {hasta}
+									</span>
+									<h3 class="text-xl font-bold text-foreground tracking-tight">
+										{rol}
+									</h3>
+									<div class="flex flex-wrap items-center gap-2">
+										<p class="text-sm font-medium text-muted-foreground">
+											{nombreCompleto || empresa}
+										</p>
+										{tipo && <Badge size="sm">{tipo}</Badge>}
+									</div>
+									<div class="experiencia-content mt-3 text-muted-foreground leading-relaxed">
+										<Content />
+									</div>
+								</div>
+							</div>
+						);
+					})
+				}
+			</div>
+		</section>
+
+		<!-- Stack Tecnológico -->
+		<section class="my-20 border-t border-border pt-16">
+			<h2 class="text-2xl md:text-3xl font-semibold text-center mb-10">Stack Tecnológico</h2>
+			
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- Frontend -->
+				<div class="bg-card border border-border p-6 flex flex-col gap-4">
+					<div class="flex items-center gap-3">
+						<Icon name="terminal" size={24} class="text-muted-foreground" />
+						<h3 class="text-xl font-bold text-foreground tracking-tight">Frontend</h3>
+					</div>
+					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
+						{sortedFrontend.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
+					</div>
+				</div>
+
+				<!-- Backend -->
+				<div class="bg-card border border-border p-6 flex flex-col gap-4">
+					<div class="flex items-center gap-3">
+						<Icon name="database" size={24} class="text-muted-foreground" />
+						<h3 class="text-xl font-bold text-foreground tracking-tight">Backend</h3>
+					</div>
+					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
+						{sortedBackend.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
+					</div>
+				</div>
+
+				<!-- Herramientas -->
+				<div class="bg-card border border-border p-6 flex flex-col gap-4">
+					<div class="flex items-center gap-3">
+						<Icon name="wrench" size={24} class="text-muted-foreground" />
+						<h3 class="text-xl font-bold text-foreground tracking-tight">Herramientas</h3>
+					</div>
+					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
+						{sortedHerramientas.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Datos Extra: Educación e Intereses -->
+		<section class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border pt-16">
+			<!-- Educación -->
+			<div>
+				<h2 class="text-2xl md:text-3xl font-semibold mb-6">Educación</h2>
+				<div class="flex flex-col gap-3">
+					<div class="bg-card border border-border p-6 relative overflow-hidden h-[140px] flex flex-col justify-center">
+						<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">
+							Graduado 2026
+						</span>
+						<h3 class="text-lg font-bold text-foreground tracking-tight">
+							Analista Programador Universitario
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Universidad Nacional de la Patagonia San Juan Bosco
+						</p>
+						<!-- Icono de marca de agua -->
+						<Icon name="graduation-cap" size={64} class="absolute right-6 bottom-4 text-muted-foreground/10 pointer-events-none" />
+					</div>
+					<div class="bg-card border border-border p-6 relative overflow-hidden h-[140px] flex flex-col justify-center">
+						<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">
+							Graduado 2015
+						</span>
+						<h3 class="text-lg font-bold text-foreground tracking-tight">
+							Técnico en equipos e instalaciones electromecánicas
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Secundaria Técnica E.S.E.T.P (ex-Enet N°748 Teniente Coronel Luis Piedrabuena)
+						</p>
+						<!-- Icono de marca de agua -->
+						<Icon name="graduation-cap" size={64} class="absolute right-6 bottom-4 text-muted-foreground/10 pointer-events-none" />
+					</div>
+				</div>
+			</div>
+
+			<!-- Intereses -->
+			<div>
+				<h2 class="text-2xl md:text-3xl font-semibold mb-6">Intereses</h2>
+				<div class="flex flex-col gap-3">
+					<div class="bg-card border border-border p-4 flex items-center gap-4">
+						<Icon name="lightbulb" size={20} class="text-muted-foreground" />
+						<span class="text-sm font-medium text-foreground">Innovación Constante</span>
+					</div>
+					<div class="bg-card border border-border p-4 flex items-center gap-4">
+						<Icon name="brain" size={20} class="text-muted-foreground" />
+						<span class="text-sm font-medium text-foreground">Aprendizaje Continuo</span>
+					</div>
+					<div class="bg-card border border-border p-4 flex items-center gap-4">
+						<Icon name="star" size={20} class="text-muted-foreground" />
+						<span class="text-sm font-medium text-foreground">Resolución de Problemas</span>
+					</div>
+				</div>
+			</div>
 		</section>
 	</main>
 </Layout>
+
+<style>
+  .experiencia-content :global(ul) {
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .experiencia-content :global(li) {
+    font-size: 0.875rem;
+    color: var(--color-muted-foreground);
+    line-height: 1.625;
+  }
+  
+  .experiencia-content :global(p) {
+    font-size: 0.875rem;
+    color: var(--color-muted-foreground);
+    line-height: 1.625;
+    margin-bottom: 0.5rem;
+  }
+</style>

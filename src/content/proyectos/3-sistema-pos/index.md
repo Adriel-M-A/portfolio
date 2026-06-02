@@ -1,6 +1,6 @@
 ---
 title: "Sistema POS — Control de Ventas"
-description: "Aplicación de escritorio para punto de venta de una heladería: registro de ventas, historial, reportes y control de stock de helados."
+description: "Aplicación de escritorio para punto de venta de una heladeráa: registro de ventas, historial, reportes y control de stock de helados."
 tecnologias:
   frontend:
     - "TypeScript"
@@ -23,43 +23,73 @@ imagenes:
 
 ## Resumen
 
-Aplicación comercial de punto de venta (POS) diseñada a medida para agilizar el registro diario de transacciones y optimizar el control de stock en una heladería.
+Aplicación de punto de venta desarrollada a medida para una heladería local, hoy
+en uso activo en el comercio. Reemplazó por completo el registro manual en Excel
+con un sistema offline que centraliza ventas, stock e informes en una sola
+herramienta.
 
-## Problema
+## El problema
 
-El comercio operaba registrando sus ventas diarias en una planilla Excel sumamente básica y manual. No existían filtros de búsqueda, categorización ni herramientas estadísticas automatizadas. Calcular la facturación diaria, semanal o mensual dependía de sumas manuales lentas y propensas a errores, impidiendo un control en tiempo real de la rentabilidad y del inventario de baldes de helado en depósito.
+El comercio registraba sus ventas en una planilla Excel básica: sin categorías,
+sin filtros y sin ningún cálculo automático. Cerrar la caja al final del día
+implicaba sumar manualmente. Saber cuánto se facturó en la semana o el mes era
+todavía más laborioso, y el inventario de baldes de helado en depósito se
+manejaba de memoria.
 
-## Solución
+Además, el comercio opera con dos canales de venta distintos — mostrador y
+PedidosYa — con lógicas de precio y comisión diferentes, lo que complejizaba
+aún más el registro manual.
 
-Se desarrolló una aplicación de escritorio que centraliza todo el punto de venta. Registra y categoriza automáticamente cada venta en una base de datos local rápida, ofreciendo interfaces optimizadas para ventas locales y plataformas de delivery (PedidosYa), además de paneles gráficos para analizar las ventas de forma visual.
+## La solución
 
-## Características principales
+Desarrollé una aplicación de escritorio 100% offline que cubre todo el flujo
+del punto de venta: registro de transacciones, control de stock, cierre de caja
+y análisis de facturación. Tiene dos modos de operación diferenciados para
+ventas locales y pedidos de delivery, y funciona sin internet para que ninguna
+caída de conexión interrumpa la operación del local.
 
-* Registro de transacciones ágil con múltiples formas de pago (efectivo, tarjetas, transferencias).
-* Dos modos de venta adaptados: consumo local y PedidosYa con comisiones integradas.
-* Gestión e inventario de baldes de helado para evitar quiebres de stock.
-* Campo de redondeo de importes para descuentos promocionales rápidos al momento de cobrar.
-* Historial interactivo de ventas filtrable por rango de fechas.
-* Panel gráfico con indicadores diarios, semanales y mensuales de facturación.
-* Arquitectura 100% offline para garantizar el funcionamiento continuo del comercio ante caídas de internet.
+## Características
 
-## Arquitectura y tecnologías
+- Registro ágil de ventas con múltiples medios de pago: efectivo, tarjeta y
+  transferencia.
+- Dos modos de venta: consumo en mostrador y PedidosYa con comisiones calculadas
+  automáticamente.
+- Control de inventario de baldes de helado con descuento automático según el
+  tipo y peso de cada envase vendido (cucuruchos, ¼ kg, 1 kg).
+- Campo de redondeo rápido para aplicar descuentos al momento de cobrar.
+- Historial de ventas filtrable por rango de fechas.
+- Panel de métricas con indicadores diarios, semanales y mensuales de
+  facturación.
+- Arquitectura completamente offline: SQLite local, sin dependencia de servidores
+  ni conexión a internet.
 
-El proyecto fue desarrollado utilizando tecnologías web modernas empaquetadas para escritorio:
-* **Entorno**: Electron para encapsular la aplicación como software de escritorio autónomo.
-* **Frontend**: React con TypeScript, estilizado mediante Tailwind CSS y componentes de shadcn/ui.
-* **Métricas**: Recharts para el renderizado interactivo de gráficos de facturación.
-* **Base de Datos**: SQLite (mediante la librería nativa `better-sqlite3`) para almacenamiento persistente local de alta velocidad.
+## El desafío técnico central
 
-## Desafíos técnicos
+El problema más complejo fue integrar `better-sqlite3` — una dependencia con
+código nativo compilado — dentro de Electron. A diferencia de las librerías
+JavaScript puras, `better-sqlite3` requiere compilarse específicamente contra
+la versión de Node.js embebida en Electron, no la del sistema. Esto implicó
+configurar un pipeline de build con herramientas de compilación nativa y
+electron-rebuild para que el instalador final de Windows funcionara
+correctamente en cualquier equipo, sin requerir dependencias externas.
 
-* **Compilación Nativa en Electron**: El mayor desafío fue configurar y compilar la dependencia binaria nativa `better-sqlite3` para que fuera compatible con la arquitectura de Node.js embebida en Electron, requiriendo pipelines de build específicos para empaquetar correctamente el instalador de Windows.
-* **Consistencia del Inventario**: Diseñar las fórmulas de consumo dinámico de baldes de helado según la variedad y peso de los envases vendidos (cucuruchos, 1/4 kg, 1 kg) para mantener el stock físico siempre sincronizado.
+El otro desafío fue modelar el consumo de stock: los baldes de helado no se
+descuentan uno a uno sino en función del tipo de envase vendido y su peso
+correspondiente, lo que requirió definir las fórmulas de consumo con el
+cliente y validarlas contra el inventario físico real.
+
+## Arquitectura
+
+- **Entorno**: Electron, que permite distribuir la aplicación como un instalador
+  de Windows autónomo.
+- **Frontend**: React con TypeScript, Tailwind CSS y componentes de shadcn/ui.
+- **Gráficos**: Recharts para los paneles de facturación interactivos.
+- **Base de datos**: SQLite vía `better-sqlite3` para almacenamiento local
+  persistente de alta velocidad.
 
 ## Resultado
 
-El cliente implementó con éxito la aplicación en su local comercial, logrando reducir el tiempo de atención en caja y automatizar los cierres de caja diarios. Los reportes visuales permitieron conocer inmediatamente los productos de mayor rotación y las horas de mayor facturación.
-
-## Estado
-
-Proyecto terminado.
+El sistema lleva tiempo en uso activo en la heladería. Automatizó los cierres
+de caja diarios, eliminó el registro manual en Excel y le dio al dueño visibilidad
+inmediata sobre facturación por canal, productos de mayor rotación y estado del
+inventario en depósito.

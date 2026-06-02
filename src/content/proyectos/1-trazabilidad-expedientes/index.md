@@ -3,13 +3,12 @@ title: "Sistema de Trazabilidad de Expedientes"
 description: "Aplicación interna desarrollada para el ENRE Chubut que permite controlar la ubicación, circulación y custodia de expedientes físicos dentro de la institución."
 tecnologias:
   frontend:
-    - "C#",
+    - "C#"
     - "WinForms"
   backend:
     - "PostgreSQL"
   herramientas:
     - "Visual Studio"
-    - "Windows"
     - "cliente-servidor"
 github: "privado"
 demo: ""
@@ -24,41 +23,57 @@ imagenes:
 
 ## Resumen
 
-Proyecto desarrollado durante mi pasantía en el ENRE (Ente Regulador de Servicios Públicos de la Provincia del Chubut) para la gestión y seguimiento de documentación y expedientes internos.
+Sistema de escritorio cliente-servidor desarrollado durante mi pasantía en el ENRE
+(Ente Regulador de Servicios Públicos de la Provincia del Chubut) para centralizar
+el control de expedientes físicos que circulaban entre las distintas áreas del organismo.
+Utilizado por entre 10 y 30 empleados de diferentes sectores: administración,
+asesoría legal, contaduría e ingeniería.
 
-## Problema
+## El problema
 
-La institución trabajaba diariamente con expedientes y documentación física que circulaba constantemente entre distintas áreas (administración, asesores legales, contadores e ingenieros). Al no contar con una herramienta centralizada, existía una falta de trazabilidad crítica: no se sabía con precisión la ubicación de los expedientes, quién los tenía en custodia o los tiempos de permanencia, dependiendo de búsquedas manuales y consultas informales.
+El ENRE trabajaba a diario con documentación física que pasaba constantemente de
+mano en mano entre áreas. Sin ninguna herramienta centralizada, nadie sabía con
+certeza dónde estaba un expediente en un momento dado, quién lo tenía ni cuánto
+tiempo llevaba en ese lugar. La única forma de ubicarlo era preguntando de escritorio
+en escritorio.
 
-## Solución
+## La solución
 
-Se diseñó e implementó un sistema cliente-servidor que centraliza la circulación de expedientes. La plataforma registra cada solicitud, entrega, transferencia intermedia y devolución a administración, permitiendo conocer en tiempo real la ubicación exacta y el historial de trazabilidad completo de cada documento físico.
+Diseñé e implementé un sistema que registra cada movimiento de un expediente:
+desde que se solicita hasta que se devuelve a administración, pasando por cada
+transferencia intermedia. Cualquier empleado puede ver en tiempo real dónde está
+un documento y consultar su historial completo de circulación.
 
-## Características principales
+El sistema diferencia dos roles: los usuarios comunes pueden solicitar expedientes
+y registrar pases entre compañeros, mientras que administración tiene control total
+sobre entregas, devoluciones y acciones críticas.
 
-* Sistema de autenticación con permisos diferenciados según el rol (administrador / usuario común).
-* Gestión centralizada de expedientes físicos y su ubicación en tiempo real.
-* Solicitud de expedientes por parte del personal y validación/entrega desde administración.
-* Registro detallado de transferencias de custodia entre empleados.
-* Historial de trazabilidad para consultar todo el recorrido histórico del expediente.
-* Restricciones de seguridad para acciones críticas, exclusivas de administradores.
+## Características
 
-## Arquitectura y tecnologías
+- Registro completo del ciclo de vida de cada expediente: solicitud, entrega,
+  transferencias y devolución.
+- Trazabilidad en tiempo real: ubicación actual y historial de cada documento.
+- Sistema de autenticación con roles diferenciados (administrador / usuario).
+- Restricciones de seguridad para operaciones críticas, reservadas a administración.
+- Interfaz familiar para operadores no técnicos, construida sobre Windows Forms.
 
-La aplicación fue desarrollada bajo una arquitectura cliente-servidor clásica en .NET:
-* **Lenguaje y Entorno**: C# utilizando Windows Forms en Visual Studio para una interfaz de escritorio fluida y familiar para los operadores.
-* **Base de Datos**: PostgreSQL instalada en un servidor local dentro de la red privada de la institución, asegurando la privacidad de los datos.
+## Arquitectura
 
-## Desafíos técnicos
+Aplicación de escritorio con arquitectura cliente-servidor sobre red local privada:
 
-* **Consistencia en la trazabilidad**: Diseñar un modelo de datos robusto que represente las transiciones de custodia física en tiempo real, garantizando que el expediente no pudiera estar en dos lugares a la vez.
-* **Seguridad y Permisos**: Establecer una jerarquía estricta de acciones para que los empleados comunes solo realicen solicitudes y pases autorizados, delegando los registros críticos a la administración.
-* **Despliegue Local**: Configurar el acceso concurrente seguro en la red local interna sobre el servidor local PostgreSQL de la institución.
+- **Frontend**: C# con Windows Forms. La elección de WinForms fue deliberada:
+  los operadores ya conocían el paradigma de escritorio de Windows, lo que redujo
+  la curva de adopción al mínimo.
+- **Backend / Base de datos**: PostgreSQL en un servidor local dentro de la red
+  interna del organismo, sin exposición a internet.
+- **Despliegue**: La parte más desafiante del proyecto fue configurar el acceso
+  concurrente de múltiples clientes sobre la red institucional, garantizando que
+  las operaciones sobre los expedientes fueran consistentes sin importar cuántos
+  usuarios estuvieran conectados al mismo tiempo.
 
 ## Resultado
 
-El sistema fue terminado y desplegado con éxito en el ENRE Chubut, logrando eliminar por completo las pérdidas de documentación física, automatizando el control de custodia y acelerando los procesos de búsqueda interna.
-
-## Estado
-
-Proyecto terminado.
+El sistema fue desplegado con éxito y adoptado por el personal del ENRE. Eliminó
+por completo la dependencia de búsquedas manuales e informales para ubicar
+documentación, y le dio a administración visibilidad total sobre la circulación
+interna de expedientes por primera vez.

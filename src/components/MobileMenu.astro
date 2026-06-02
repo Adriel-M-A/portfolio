@@ -1,6 +1,7 @@
 ---
 // Menú móvil fullscreen (Vanilla Astro)
-import Icon from "./Icon.astro";
+import Icon from "./ui/Icon.astro";
+import Button from "./ui/Button.astro";
 
 const { currentPath } = Astro.props;
 
@@ -13,9 +14,11 @@ const links = [
 ---
 
 <!-- Botón hamburguesa (visible solo en mobile) -->
-<button
+<Button
   id="mobile-menu-btn"
-  class="md:hidden flex items-center justify-center size-9 rounded-md text-foreground hover:bg-surface transition-colors"
+  variant="ghost"
+  size="icon-sm"
+  class="md:hidden flex items-center justify-center text-foreground hover:bg-surface transition-colors"
   aria-label="Abrir menú"
   aria-expanded="false"
   aria-controls="mobile-menu-overlay"
@@ -23,7 +26,7 @@ const links = [
 >
   <!-- Icono hamburguesa -->
   <Icon name="menu" size={20} />
-</button>
+</Button>
 
 <script>
   function openMenu() {
