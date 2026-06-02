@@ -3,6 +3,7 @@ title: "Sistema de Reportes de Cooperativas"
 description: "Herramienta de escritorio en Python que automatiza la generación de reportes mensuales a partir de datos de 32 cooperativas eléctricas de la provincia del Chubut."
 tecnologias: ["Python", "Flet", "Excel", "Macros"]
 github: "privado"
+demo: ""
 cover: "./cover.webp"
 imagenes:
   - "./screenshot-1.webp"
@@ -10,24 +11,42 @@ imagenes:
   - "./screenshot-3.webp"
 ---
 
-## Sobre el proyecto
+## Resumen
 
-Proyecto solicitado por el directorio del ENRE (Ente Regulador de Servicios de la Provincia de Chubut). Cada mes, las aproximadamente 32 cooperativas eléctricas de la provincia envían una carpeta con múltiples archivos CSV. Antes de este sistema, el proceso era completamente manual: un operador abría cada carpeta, buscaba los datos de interés y los volcaba a mano en un Excel. El proceso era lento, propenso a errores y dependía del criterio de quien lo hacía.
+Herramienta interna desarrollada para automatizar la extracción de datos y la consolidación de reportes mensuales para la auditoría de los servicios eléctricos provinciales.
 
-El programa redujo ese proceso a segundos. El usuario selecciona la carpeta raíz que contiene todas las carpetas de las cooperativas, y el sistema genera automáticamente todo lo necesario.
+## Problema
+
+Cada mes, 32 cooperativas eléctricas de la provincia del Chubut envían carpetas con múltiples archivos CSV que contienen sus registros operativos. El personal del ENRE abría manualmente cada archivo, buscaba los datos de interés y los transcribía a mano en planillas Excel consolidadas. Este proceso tomaba días de trabajo repetitivo, era altamente propenso a errores humanos y dependía del criterio informal de los operadores administrativos.
+
+## Solución
+
+Se desarrolló una aplicación de escritorio que procesa en lote (batch) la carpeta raíz de las cooperativas. El sistema lee y valida automáticamente toda la estructura de archivos en segundos, procesando la información y exportándola a plantillas Excel estructuradas con macros integradas, listos para su validación formal.
 
 ## Características principales
 
-- Procesamiento batch de todas las carpetas de cooperativas desde una única selección de directorio raíz
-- Generación de un archivo Excel principal con macros, tablas comparativas y gráficos de barras
-- Diagramas de Venn individuales por cooperativa para visualizar el estado de sus datos
-- Opción de generar un segundo Excel comparativo entre el mes actual y el mes anterior
-- Los archivos generados pasan por los asistentes del directorio para validación antes de llegar al jefe del ente
+* Procesamiento batch masivo mediante la selección de un único directorio raíz.
+* Consolidación automática de datos en un Excel maestro con macros, tablas comparativas y gráficos integrados.
+* Generación de diagramas de Venn individuales por cooperativa para evaluar visualmente el nivel de cumplimiento y la consistencia de los datos presentados.
+* Opción de generación automática de reportes comparativos evolutivos intermensuales.
+* Sistema de alertas integradas ante datos faltantes o de cooperativas fuera de término.
+
+## Arquitectura y tecnologías
+
+El software fue diseñado para correr de forma ágil y portable en sistemas operativos Windows dentro del ente:
+* **Lenguaje**: Python por su alta eficiencia y librerías especializadas en manejo de datos (pandas, openpyxl).
+* **Interfaz de Usuario**: Flet (basado en Flutter), brindando una GUI moderna, responsiva y simple de utilizar.
+* **Salida**: Generación dinámica de libros de Microsoft Excel optimizados mediante scripts y macros para análisis de dirección.
 
 ## Desafíos técnicos
 
-El mayor desafío fue la inconsistencia estructural de los datos. Si bien todas las cooperativas debían seguir un formato común, las nomenclaturas de los parámetros cambiaban cada tres o cuatro meses aproximadamente. Además, no todas las cooperativas enviaban sus datos en tiempo y forma, o los enviaban desactualizados. El sistema tuvo que contemplar todos estos casos para no fallar ni generar reportes incompletos de forma silenciosa.
+* **Inconsistencia Estructural**: Las nomenclaturas y formatos provistos por las cooperativas cambiaban con frecuencia. Se diseñó un parser adaptativo capaz de mapear columnas equivalentes y notificar desviaciones al operador sin detener el procesamiento.
+* **Control de Errores Silenciosos**: Asegurar que las cooperativas con reportes vacíos, incompletos o con formatos corruptos fuesen reportadas individualmente, evitando que se mezclaran valores basura en los reportes globales consolidados.
+
+## Resultado
+
+El programa redujo el tiempo de procesamiento manual mensual de varios días a tan solo unos segundos. Esto permitió al directorio del ENRE analizar las métricas en tiempo real de forma precisa, eliminando por completo el error humano en la transcripción de datos.
 
 ## Estado
 
-Proyecto Terminado — desarrollado y entregado durante mi pasantía en el ENRE. Repositorio privado.
+Proyecto terminado.

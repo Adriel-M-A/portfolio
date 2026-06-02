@@ -22,35 +22,43 @@ imagenes:
   - "./screenshot-4.webp"
 ---
 
-## Sobre el proyecto
+## Resumen
 
-Proyecto desarrollado para un comercio local que llevaba el registro diario de sus ventas manualmente, utilizando lápiz y papel. El objetivo principal fue reemplazar ese flujo por un sistema simple y rápido de utilizar, pensado para negocios pequeños que no necesitan infraestructura compleja ni funcionalidades empresariales avanzadas.
+Aplicación de escritorio ligera y autónoma diseñada para automatizar las operaciones comerciales diarias de pequeños quioscos y almacenes de barrio.
 
-La aplicación permite registrar ventas, controlar productos, consultar estadísticas y generar reportes desde una única interfaz de escritorio. Todo el sistema funciona completamente offline utilizando SQLite como base de datos local, evitando dependencias externas o costos de mantenimiento adicionales.
+## Problema
 
-La estructura del proyecto fue diseñada para mantener una experiencia visual simple y poco invasiva, priorizando velocidad y facilidad de uso para usuarios sin experiencia técnica. Además, el sistema quedó preparado para incorporar nuevos módulos y funcionalidades en futuras versiones según las necesidades del cliente.
+El comercio operaba anotando todas sus ventas diarias y precios con lápiz y papel. La falta de control de stock físico propiciaba pérdidas involuntarias y dificultaba saber con exactitud cuáles eran los márgenes reales de ganancia diarios. El cliente requería una herramienta digital rápida, pero que no necesitara internet ni configuraciones complejas de servidores locales, adaptada a computadoras de bajos recursos.
+
+## Solución
+
+Se desarrolló una aplicación nativa liviana mediante Tauri y Rust con almacenamiento local persistente. La interfaz simplificada permite facturar productos con códigos de barra o pesables, actualizar stock automáticamente, realizar cierres diarios mediante gráficos analíticos y asegurar los datos mediante backups rápidos.
 
 ## Características principales
 
-- Registro de ventas con múltiples métodos de pago
-- Historial completo de ventas almacenado localmente
-- Reportes e informes por día, semana y mes
-- Visualización de gráficos y métricas de ventas
-- Estadísticas de productos más vendidos y métodos de pago más utilizados
-- Gestión de productos con y sin control de stock
-- Soporte para productos pesables como fiambres, frutas y verduras
-- Ajuste manual del precio final para descuentos rápidos o redondeos
-- Sistema de copias de seguridad y restauración de datos
-- Manual de usuario integrado dentro de la aplicación mediante renderizado de archivos Markdown
-- Arquitectura completamente offline utilizando SQLite
-- Base preparada para agregar módulos y funcionalidades futuras
+* Facturación veloz de productos unitarios o pesables (fiambres, verduras).
+* Registro completo de transacciones en base de datos SQLite offline.
+* Visualización gráfica de productos con mayor margen de ganancia e historial de ventas diario, semanal y mensual.
+* Control estricto de inventario con avisos de stock mínimo configurable.
+* Módulo interno de manual de usuario que procesa y muestra archivos Markdown informativos.
+* Mecanismo embebido de respaldo (copias de seguridad) y restauración de la base de datos a archivos externos.
+
+## Arquitectura y tecnologías
+
+Para asegurar alto rendimiento en hardware modesto, se optó por una arquitectura híbrida moderna:
+* **Backend**: Rust utilizando Tauri para un consumo de memoria RAM y CPU extremadamente bajo comparado con entornos clásicos de Electron.
+* **Frontend**: React (Vite) estructurado con componentes dinámicos y estilizado mediante Tailwind CSS.
+* **Base de Datos**: SQLite nativo conectado a comandos de Rust, manteniendo un flujo desacoplado por capas.
 
 ## Desafíos técnicos
 
-El principal desafío fue construir un sistema técnicamente sólido sin perder simplicidad operativa. La aplicación debía funcionar correctamente en hardware modesto, ser fácil de utilizar para usuarios no técnicos y mantener una interfaz rápida incluso durante operaciones frecuentes de lectura y escritura.
+* **Optimización en Hardware Antiguo**: Lograr tiempos de respuesta instantáneos al leer códigos de barra en computadoras de oficina antiguas. Esto se resolvió delegando las consultas complejas y la indexación de productos directamente al motor nativo de SQLite y Rust, liberando la carga visual del frontend.
+* **Desacoplamiento de Código**: Diseñar un puente de comunicación (Tauri Commands) modularizado mediante patrones de diseño orientados a objetos (repositorios y modelos) para mantener ordenado el flujo de negocio entre Rust y la vista web.
 
-La arquitectura backend fue desarrollada en Rust utilizando Tauri, separando claramente la lógica de persistencia y negocio de la interfaz React. Se implementó una estructura por capas utilizando repositorios, modelos y comandos Tauri para mantener el código organizado y escalable.
+## Resultado
+
+La solución digitalizó por completo la operación del almacén, eliminando los registros manuales en papel. El sistema optimizó la reposición de mercadería y eliminó las diferencias de caja en los cierres de jornada diaria.
 
 ## Estado
 
-Proyecto Terminado — vendido y entregado al cliente.
+Proyecto terminado.

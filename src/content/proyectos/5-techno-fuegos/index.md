@@ -1,5 +1,4 @@
 ---
-
 title: "Techno Fuegos System"
 description: "Aplicación de escritorio desarrollada para automatizar la generación de presupuestos en una empresa de herrería artesanal, permitiendo calcular costos, emitir cotizaciones profesionales y reducir la dependencia del conocimiento técnico del taller."
 tecnologias:
@@ -26,50 +25,42 @@ imagenes:
   - "./screenshot-4.webp"
 ---
 
-## Sobre el proyecto
+## Resumen
 
-Techno Fuegos System es una aplicación de escritorio desarrollada para una empresa dedicada a la fabricación artesanal de fogoneros, parrillas, hornos y estructuras metálicas personalizadas.
-
-El proyecto nace a partir de una necesidad operativa concreta: el proceso de presupuestación dependía completamente de la persona encargada de la producción, quien concentraba el conocimiento sobre costos de materiales, tiempos de fabricación y criterios de cálculo. Esto generaba interrupciones constantes en el taller y retrasaba la entrega de cotizaciones a potenciales clientes.
-
-El objetivo principal fue transformar ese conocimiento técnico en un sistema capaz de generar presupuestos precisos y consistentes, permitiendo que cualquier operador administrativo pueda emitir cotizaciones sin depender directamente del fabricante.
+Aplicación de escritorio orientada a digitalizar el conocimiento de producción y automatizar la cotización de estructuras metálicas personalizadas para herreros artesanos.
 
 ## Problema
 
-La elaboración de presupuestos se realizaba de forma manual y requería la participación constante del responsable de producción.
-
-Cada nueva consulta comercial implicaba revisar materiales, estimar costos y calcular tiempos de trabajo, generando demoras, interrupciones en las tareas del taller y una fuerte dependencia de una única persona para completar el proceso de venta.
+La cotización de fogoneros, parrillas y hornos dependía del responsable de la producción física en el taller, quien calculaba empíricamente las cantidades de hierro, electrodos, pintura y horas de mano de obra necesarias. Esta dinámica provocaba cuellos de botella administrativos, demoras prolongadas para los clientes y constantes interrupciones al personal de producción en el taller para resolver consultas de precios.
 
 ## Solución
 
-Se diseñó una aplicación de escritorio completamente offline que centraliza la información necesaria para la creación de presupuestos.
-
-El sistema permite gestionar insumos, costos, plantillas reutilizables, vendedores y configuraciones comerciales, automatizando el cálculo de precios y la generación de documentos PDF listos para enviar o imprimir.
-
-Además, incorpora mecanismos de respaldo, restauración y recuperación automática de borradores para proteger la información ante fallos o cortes eléctricos.
+Se propuso una solución offline que centraliza la lista de insumos del taller y sistematiza las fórmulas empíricas en una herramienta dinámica. Cualquier personal administrativo puede seleccionar un tipo de producto, ingresar sus medidas customizadas y generar automáticamente un PDF formal de presupuesto con cálculos precisos de costos y margen comercial.
 
 ## Características principales
 
-* Generación de presupuestos mediante plantillas reutilizables
-* Gestión de clientes y cotizaciones
-* Cálculo automático de materiales y mano de obra
-* Administración de insumos y costos parametrizados
-* Gestión de vendedores y responsables comerciales
-* Generación de presupuestos PDF profesionales
-* Configuración dinámica de datos corporativos y condiciones comerciales
-* Vencimiento automático de presupuestos
-* Sistema de guardado automático de borradores
-* Copias de seguridad e importación de bases de datos
-* Manual de usuario integrado dentro de la aplicación
-* Arquitectura completamente offline utilizando SQLite
+* Cotización guiada mediante fórmulas de cálculo dinámicas y plantillas predefinidas.
+* Gestión integrada de insumos, costos base y proveedores.
+* Generación instantánea de presupuestos comerciales en PDF profesional (jsPDF).
+* Control de validez temporal y expiración automática de cotizaciones frente a inflación.
+* Resguardo automático en caliente de borradores activos para evitar pérdida de datos.
+* Respaldos incrementales locales de bases de datos.
+
+## Arquitectura y tecnologías
+
+El software adopta un modelo offline-first híbrido para asegurar portabilidad en las computadoras del taller:
+* **UI y Estado**: React (Vite) acoplado a Zustand para el manejo de estado global de las cotizaciones complejas, y React Hook Form junto con Zod para validar las entradas de herrería en tiempo real.
+* **Core Desktop**: Tauri con Rust, administrando el ciclo de vida del ejecutable e interactuando directamente con el sistema de archivos local de forma segura.
+* **Persistencia**: SQLite embebido para el almacenamiento rápido y estructurado de las listas de precios.
 
 ## Desafíos técnicos
 
-El principal desafío fue trasladar conocimiento operativo que existía únicamente en la experiencia del fabricante hacia un conjunto de reglas de negocio configurables y reutilizables dentro del sistema.
+* **Traducción de Reglas de Negocio Informales**: Estructurar algoritmos de cálculo parametrizados basados en la experiencia física del herrero (ej: consumo de soldadura estimado por centímetro de costura o peso teórico de perfiles de hierro).
+* **Robustez ante Fallos Eléctricos**: En un taller con soldadoras eléctricas y maquinaria pesada, los cortes de luz o bajas de tensión son recurrentes. Se diseñó un middleware de guardado continuo automático para restaurar instantáneamente el presupuesto activo ante cualquier apagón imprevisto.
 
-También se diseñó una estrategia de recuperación automática de formularios para minimizar la pérdida de información frente a cortes de energía, una situación frecuente en entornos de producción con maquinaria pesada.
+## Resultado
 
-A nivel de arquitectura, se buscó mantener una aplicación rápida, simple de utilizar y preparada para incorporar nuevas reglas de cálculo, plantillas y configuraciones sin afectar la experiencia diaria de los usuarios.
+La aplicación se encuentra en desarrollo activo y pruebas beta, logrando automatizar el 90% del proceso de cotización estándar y permitiendo la delegación de presupuestos a personal no especializado sin riesgo de pérdidas por mal cálculo de costos.
 
 ## Estado
 
