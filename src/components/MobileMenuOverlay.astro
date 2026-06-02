@@ -1,23 +1,24 @@
 ---
 // Overlay fullscreen del menú móvil — renderizado fuera del <header>
 // para evitar problemas de stacking context
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from "./ThemeToggle.astro";
+import Icon from "./Icon.astro";
 
 const pathname = Astro.url.pathname;
-const currentPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
 
 const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/sobreMi', label: 'Sobre mí' },
-  { href: '/proyectos', label: 'Proyectos' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: "/", label: "Inicio" },
+  { href: "/sobreMi", label: "Sobre mí" },
+  { href: "/proyectos", label: "Proyectos" },
+  { href: "/contacto", label: "Contacto" },
 ];
 ---
 
 <!-- Contenedor del overlay fuera del header para z-index correcto -->
 <div
   id="mobile-menu-overlay"
-  class="fixed inset-0 z-[100] pointer-events-none md:hidden"
+  class="fixed inset-0 z-overlay pointer-events-none md:hidden"
   aria-hidden="true"
   role="dialog"
   aria-modal="true"
@@ -27,7 +28,8 @@ const links = [
   <div
     data-menu-backdrop
     class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300"
-  ></div>
+  >
+  </div>
 
   <!-- Panel del menú (desliza desde la derecha, cubre toda la pantalla) -->
   <div
@@ -35,9 +37,20 @@ const links = [
     class="absolute inset-0 bg-background flex flex-col translate-x-full transition-transform duration-300 ease-in-out"
   >
     <!-- Cabecera del overlay: logo a la izquierda, X a la derecha -->
-    <div class="max-w-6xl w-full mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold tracking-tight text-foreground">
-        AM
+    <div
+      class="max-w-6xl w-full mx-auto px-6 h-16 flex items-center justify-between"
+    >
+      <a href="/" class="flex items-center gap-2">
+        <img
+          src="/logo-dark.svg"
+          alt="Adriel Montes"
+          class="h-4 w-auto block dark:hidden"
+        />
+        <img
+          src="/logo-white.svg"
+          alt="Adriel Montes"
+          class="h-4 w-auto hidden dark:block"
+        />
       </a>
       <button
         id="mobile-menu-close"
@@ -46,31 +59,33 @@ const links = [
         type="button"
       >
         <!-- Icono X -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18" /><path d="M6 6 18 18" />
-        </svg>
+        <Icon name="x" size={20} />
       </button>
     </div>
 
     <!-- Links de navegación apilados verticalmente -->
     <nav class="flex flex-col gap-2 px-6 mt-8">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class:list={[
-            'text-lg py-3 px-4 rounded-lg transition-colors duration-150',
-            currentPath === link.href
-              ? 'text-foreground font-medium bg-surface'
-              : 'text-muted-foreground hover:text-foreground hover:bg-surface/50',
-          ]}
-        >
-          {link.label}
-        </a>
-      ))}
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "text-lg py-3 px-4 rounded-lg transition-colors duration-150",
+              currentPath === link.href
+                ? "text-foreground font-medium bg-surface"
+                : "text-muted-foreground hover:text-foreground hover:bg-surface/50",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
 
     <!-- Theme Toggle Centered at Bottom -->
-    <div class="mt-auto mb-8 flex justify-center border-t border-border mx-6 pt-8">
+    <div
+      class="mt-auto mb-8 flex justify-center border-t border-border mx-6 pt-8"
+    >
       <ThemeToggle />
     </div>
   </div>
