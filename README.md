@@ -43,20 +43,20 @@ Si querés clonar este proyecto para verlo localmente, seguí estos pasos:
 2. **Instalar dependencias:**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Ejecutar el servidor de desarrollo:**
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
    _El servidor se iniciará en `http://localhost:4321/`_
 
 4. **Compilar para producción:**
    ```bash
-   npm run build
+   pnpm build
    ```
    _Los archivos estáticos optimizados se generarán en la carpeta `./dist/`._
 
