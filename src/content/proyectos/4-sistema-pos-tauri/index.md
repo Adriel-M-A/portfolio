@@ -16,11 +16,17 @@ tecnologias:
 github: "https://github.com/Adriel-M-A/pos-tauri"
 demo: ""
 cover: "./cover.webp"
+coverAlt: "Interfaz de punto de venta (POS) ligera construida con Tauri y Rust"
 imagenes:
   - "./screenshot-1.webp"
   - "./screenshot-2.webp"
   - "./screenshot-3.webp"
   - "./screenshot-4.webp"
+imagenesAlt:
+  - "Pantalla de cobro rápido con catálogo visual de productos"
+  - "Módulo de inventario mostrando stock mínimo y herramientas de edición"
+  - "Sección de reportes diarios con gráficos de barra interactivos de ganancias"
+  - "Módulo interno de ayuda y visualización de manuales en formato Markdown"
 ---
 
 ## Resumen

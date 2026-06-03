@@ -12,7 +12,7 @@ interface Props {
 
 const { proyecto } = Astro.props;
 const { data, id } = proyecto;
-const { title, description, tecnologias, github, demo, cover } = data;
+const { title, description, tecnologias, github, demo, cover, coverAlt } = data;
 
 const resolvedCover = cover ? await resolveProjectImage(id, cover) : null;
 
@@ -29,7 +29,7 @@ const cardTechs = tecnologias ? [
   <div class="aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
     {cover ? (
       resolvedCover ? (
-        <Image src={resolvedCover} alt={`Portada de ${title}`} width={800} height={450} class="w-full h-full object-cover object-top" />
+        <Image src={resolvedCover} alt={coverAlt || `Portada del proyecto ${title}`} width={800} height={450} class="w-full h-full object-cover object-top" />
       ) : (
         <span class="text-muted-foreground font-medium p-6">{cover.replace('./', '')} (Placeholder)</span>
       )
@@ -51,7 +51,7 @@ const cardTechs = tecnologias ? [
     <!-- Título y Descripción -->
     <div>
       <a href={`/proyectos/${id}`} class="inline-block hover:underline decoration-border underline-offset-4 mb-2">
-        <h3 class="font-semibold text-foreground text-base">{title}</h3>
+        <h3>{title}</h3>
       </a>
       <p class="text-sm text-muted-foreground leading-relaxed line-clamp-3">
         {description}
@@ -84,7 +84,7 @@ const cardTechs = tecnologias ? [
       </div>
       
       <!-- Botón de Ver detalles en el fondo a la derecha -->
-      <Button href={`/proyectos/${id}`} size="sm">
+      <Button href={`/proyectos/${id}`} size="sm" aria-label={`Ver detalles del proyecto ${title}`}>
         Ver detalles
       </Button>
     </div>

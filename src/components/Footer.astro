@@ -1,28 +1,32 @@
 ---
 import Icon from "./ui/Icon.astro";
+import { PERSONAL_INFO } from "../constants";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="w-full border-t border-border bg-background py-6">
-  <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+<footer class="w-full border-t border-border bg-background py-6 mt-6">
+  <div
+    class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+  >
     <p class="text-sm text-muted-foreground">
-      &copy; {currentYear} Adriel Montes. Todos los derechos reservados.
+      &copy; {currentYear}
+      {PERSONAL_INFO.fullName}. Todos los derechos reservados.
     </p>
-    
+
     <div class="flex items-center gap-4">
-      <a 
-        href="https://github.com/Adriel-M-A" 
-        target="_blank" 
+      <a
+        href={PERSONAL_INFO.github}
+        target="_blank"
         rel="noopener noreferrer"
         class="text-muted-foreground hover:text-foreground transition-colors duration-150"
         aria-label="GitHub"
       >
         <Icon name="github" size={20} />
       </a>
-      <a 
-        href="https://www.linkedin.com/in/adriel-agustin-montes-66460b202/" 
-        target="_blank" 
+      <a
+        href={PERSONAL_INFO.linkedin}
+        target="_blank"
         rel="noopener noreferrer"
         class="text-muted-foreground hover:text-foreground transition-colors duration-150"
         aria-label="LinkedIn"

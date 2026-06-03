@@ -1,0 +1,25 @@
+---
+import { PERSONAL_INFO } from "../constants";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": PERSONAL_INFO.fullName,
+  "url": Astro.site?.toString() ?? PERSONAL_INFO.domain,
+  "image": new URL("/logo-white.svg", Astro.site ?? PERSONAL_INFO.domain).href,
+  "email": `mailto:${PERSONAL_INFO.email}`,
+  "jobTitle": PERSONAL_INFO.jobTitle,
+  "description": "Desarrollador de software especializado en aplicaciones de escritorio y web.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": PERSONAL_INFO.location.city,
+    "addressRegion": PERSONAL_INFO.location.state,
+    "addressCountry": PERSONAL_INFO.location.countryCode
+  },
+  "sameAs": [
+    PERSONAL_INFO.github,
+    PERSONAL_INFO.linkedin
+  ]
+};
+---
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

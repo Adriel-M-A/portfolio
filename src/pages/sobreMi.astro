@@ -4,6 +4,7 @@ import Badge from '../components/ui/Badge.astro';
 import Icon from '../components/ui/Icon.astro';
 import { getCollection, render } from 'astro:content';
 import { getSortedTechnologiesByCategory } from '../utils/projects';
+import { PERSONAL_INFO } from '../constants';
 
 const experienciaEntries = await getCollection('experiencia');
 experienciaEntries.sort((a, b) => a.id.localeCompare(b.id));
@@ -17,15 +18,15 @@ const {
 } = getSortedTechnologiesByCategory(proyectosEntries);
 ---
 
-<Layout title="Sobre mí | Adriel Montes">
+<Layout title={`Sobre mí | ${PERSONAL_INFO.fullName}`}>
 	<main class="max-w-5xl mx-auto px-6 py-24">
 		<!-- Sobre mí (Texto y Botones) -->
-		<section class="mb-16">
-			<h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-foreground">Sobre mí</h1>
+		<section class="portfolio-section">
+			<h1 class="mb-8">Sobre mí</h1>
 			<div class="max-w-3xl flex flex-col gap-5 text-muted-foreground leading-relaxed">
 				<p>
 					Soy desarrollador de software y técnico en informática, recibido como
-					Analista Programador Universitario. Vivo y trabajo en Trelew, Chubut, y
+					{PERSONAL_INFO.jobTitle}. Vivo y trabajo en {PERSONAL_INFO.location.detailed}, y
 					me dedico a construir aplicaciones que resuelven problemas concretos: 
 					sistemas de gestión interna, herramientas de automatización y 
 					aplicaciones de escritorio para pequeños y medianos comercios u organismos.
@@ -53,8 +54,8 @@ const {
 		</section>
 
 		<!-- Experiencia Laboral -->
-		<section class="mb-20 border-t border-border pt-16">
-			<h2 class="text-2xl md:text-3xl font-semibold mb-10">Experiencia laboral</h2>
+		<section class="portfolio-section">
+			<h2 class="mb-10">Experiencia laboral</h2>
 			<div class="relative pl-6 md:pl-8 flex flex-col gap-12 ml-2 md:ml-4">
 				{
 					experienciaEntries.map(async (entry) => {
@@ -72,7 +73,7 @@ const {
 									<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
 										{desde} — {hasta}
 									</span>
-									<h3 class="text-xl font-bold text-foreground tracking-tight">
+									<h3>
 										{rol}
 									</h3>
 									<div class="flex flex-wrap items-center gap-2">
@@ -93,15 +94,15 @@ const {
 		</section>
 
 		<!-- Stack Tecnológico -->
-		<section class="my-20 border-t border-border pt-16">
-			<h2 class="text-2xl md:text-3xl font-semibold text-center mb-10">Stack Tecnológico</h2>
+		<section class="portfolio-section">
+			<h2 class="text-center mb-10">Stack Tecnológico</h2>
 			
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<!-- Frontend -->
 				<div class="bg-card border border-border p-6 flex flex-col gap-4">
 					<div class="flex items-center gap-3">
 						<Icon name="terminal" size={24} class="text-muted-foreground" />
-						<h3 class="text-xl font-bold text-foreground tracking-tight">Frontend</h3>
+						<h3>Frontend</h3>
 					</div>
 					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
 						{sortedFrontend.map((tech) => (
@@ -116,7 +117,7 @@ const {
 				<div class="bg-card border border-border p-6 flex flex-col gap-4">
 					<div class="flex items-center gap-3">
 						<Icon name="database" size={24} class="text-muted-foreground" />
-						<h3 class="text-xl font-bold text-foreground tracking-tight">Backend</h3>
+						<h3>Backend</h3>
 					</div>
 					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
 						{sortedBackend.map((tech) => (
@@ -131,7 +132,7 @@ const {
 				<div class="bg-card border border-border p-6 flex flex-col gap-4">
 					<div class="flex items-center gap-3">
 						<Icon name="wrench" size={24} class="text-muted-foreground" />
-						<h3 class="text-xl font-bold text-foreground tracking-tight">Herramientas</h3>
+						<h3>Herramientas</h3>
 					</div>
 					<div class="flex flex-wrap gap-2 max-h-24 overflow-hidden">
 						{sortedHerramientas.map((tech) => (
@@ -145,17 +146,17 @@ const {
 		</section>
 
 		<!-- Datos Extra: Educación e Intereses -->
-		<section class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border pt-16">
+		<section class="portfolio-section grid grid-cols-1 md:grid-cols-2 gap-8">
 			<!-- Educación -->
 			<div>
-				<h2 class="text-2xl md:text-3xl font-semibold mb-6">Educación</h2>
+				<h2 class="mb-6">Educación</h2>
 				<div class="flex flex-col gap-3">
 					<div class="bg-card border border-border p-6 relative overflow-hidden h-[140px] flex flex-col justify-center">
 						<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">
 							Graduado 2026
 						</span>
-						<h3 class="text-lg font-bold text-foreground tracking-tight">
-							Analista Programador Universitario
+						<h3>
+							{PERSONAL_INFO.jobTitle}
 						</h3>
 						<p class="text-sm text-muted-foreground">
 							Universidad Nacional de la Patagonia San Juan Bosco
@@ -167,7 +168,7 @@ const {
 						<span class="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-1">
 							Graduado 2015
 						</span>
-						<h3 class="text-lg font-bold text-foreground tracking-tight">
+						<h3>
 							Técnico en equipos e instalaciones electromecánicas
 						</h3>
 						<p class="text-sm text-muted-foreground">
@@ -181,7 +182,7 @@ const {
 
 			<!-- Intereses -->
 			<div>
-				<h2 class="text-2xl md:text-3xl font-semibold mb-6">Intereses</h2>
+				<h2 class="mb-6">Intereses</h2>
 				<div class="flex flex-col gap-3">
 					<div class="bg-card border border-border p-4 flex items-center gap-4">
 						<Icon name="lightbulb" size={20} class="text-muted-foreground" />

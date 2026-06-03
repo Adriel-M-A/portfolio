@@ -4,6 +4,7 @@
 import ThemeToggle from "./ThemeToggle.astro";
 import Icon from "./ui/Icon.astro";
 import Button from "./ui/Button.astro";
+import { PERSONAL_INFO } from "../constants";
 
 const pathname = Astro.url.pathname;
 const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
@@ -44,12 +45,16 @@ const links = [
       <a href="/" class="flex items-center gap-2">
         <img
           src="/logo-dark.svg"
-          alt="Adriel Montes"
+          alt={PERSONAL_INFO.fullName}
+          width="38"
+          height="16"
           class="h-4 w-auto block dark:hidden"
         />
         <img
           src="/logo-white.svg"
-          alt="Adriel Montes"
+          alt={PERSONAL_INFO.fullName}
+          width="38"
+          height="16"
           class="h-4 w-auto hidden dark:block"
         />
       </a>

@@ -3,21 +3,31 @@ import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import MobileMenuOverlay from "../components/MobileMenuOverlay.astro";
+import { PERSONAL_INFO } from "../constants";
 
-// Valores por defecto del PRD.md
+interface Props {
+	title?: string;
+	description?: string;
+	ogImage?: string;
+}
+
 const defaultDescription =
-	"Portfolio de Adriel Montes — Analista Programador Universitario en Trelew, Argentina. Experiencia en desarrollo de software y soporte técnico.";
-const siteName = "Adriel Montes";
+	`Portfolio de ${PERSONAL_INFO.fullName} — ${PERSONAL_INFO.jobTitle} en ${PERSONAL_INFO.location.detailed}. Experiencia en desarrollo de software y soporte técnico.`;
+const siteName = PERSONAL_INFO.fullName;
 
 const {
-	title = "Portfolio",
+	title = `${PERSONAL_INFO.fullName} | ${PERSONAL_INFO.jobTitle}`,
 	description = defaultDescription,
-	ogImage,
+	ogImage = "/og-image.png",
 } = Astro.props;
 
-// URL canónica de la página actual
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
-	.href;
+if (!Astro.site) {
+	throw new Error("Crítico: Define la propiedad 'site' en astro.config.mjs para que el SEO funcione.");
+}
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site).href;
+const ogType = Astro.url.pathname === "/" ? "profile" : "website";
 ---
 
 <!doctype html>
@@ -51,14 +61,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
+		<meta name="robots" content="index, follow" />
 
 		<!-- Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:site_name" content={siteName} />
-		{ogImage && <meta property="og:image" content={ogImage} />}
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content="es_ES" />
 	</head>
 	<body
 		class="antialiased min-h-screen flex flex-col bg-background text-primary"

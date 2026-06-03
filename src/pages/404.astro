@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/ui/Button.astro";
+import Icon from "../components/ui/Icon.astro";
+import { PERSONAL_INFO } from "../constants";
+---
+
+<Layout title={`Página no encontrada | ${PERSONAL_INFO.fullName}`} description="La página que buscas no existe. Vuelve al inicio del portafolio.">
+  <main class="relative min-h-[75vh] flex flex-col items-center justify-center px-6 py-16 text-center overflow-hidden">
+    <!-- Grid Pattern Background -->
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,oklch(28%_0_0)_1px,transparent_1px),linear-gradient(to_bottom,oklch(28%_0_0)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-35"></div>
+
+    <!-- Decorative glitchy/3D 404 -->
+    <div class="relative font-extrabold text-[9rem] md:text-[14rem] leading-none tracking-tighter select-none mb-6">
+      <span class="absolute top-2.5 left-2.5 text-muted-foreground/20" aria-hidden="true">404</span>
+      <span class="absolute top-1.5 left-1.5 text-border" aria-hidden="true">404</span>
+      <span class="relative text-foreground">404</span>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="text-xl md:text-2xl font-bold tracking-wider uppercase text-foreground mb-4 max-w-2xl">
+      Parece que te has perdido en el código
+    </h2>
+
+    <!-- Description -->
+    <p class="text-base text-muted-foreground max-w-lg mb-10 leading-relaxed">
+      La página que buscas no existe o ha sido movida a una dimensión paralela.
+      Verifica la URL o utiliza los enlaces de navegación para volver a terreno conocido.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      <Button href="/" variant="primary" size="lg" class="gap-2 w-full sm:w-auto font-mono uppercase tracking-wider">
+        <Icon name="home" size={18} />
+        Volver al Inicio
+      </Button>
+      <Button href="/proyectos" variant="outline" size="lg" class="gap-2 w-full sm:w-auto font-mono uppercase tracking-wider">
+        <Icon name="terminal" size={18} />
+        Ver Proyectos
+      </Button>
+    </div>
+  </main>
+</Layout>

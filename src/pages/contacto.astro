@@ -2,30 +2,31 @@
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/ui/Icon.astro';
 import Button from '../components/ui/Button.astro';
+import { PERSONAL_INFO } from '../constants';
 
-const email = "adriel.agustin.montes@gmail.com";
-const location = "Chubut, Argentina";
-const githubUrl = "https://github.com/Adriel-M-A";
-const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202/";
+const email = PERSONAL_INFO.email;
+const location = PERSONAL_INFO.location.full;
+const githubUrl = PERSONAL_INFO.github;
+const linkedinUrl = PERSONAL_INFO.linkedin;
 ---
 
-<Layout title="Contacto | Adriel Montes">
+<Layout title={`Contacto | ${PERSONAL_INFO.fullName}`}>
 	<main class="max-w-3xl mx-auto px-6 py-24">
 		<div class="mb-12">
-			<h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Contacto</h1>
+			<h1 class="mb-4">Contacto</h1>
 			<p class="text-lg text-muted-foreground">Contactame para oportunidades laborales, colaboraciones o simplemente para saludar.</p>
 		</div>
 
 		<div class="flex flex-col gap-6">
 			<!-- Card de Información de Contacto -->
 			<div class="bg-card border border-border p-6">
-				<h2 class="text-lg font-bold text-foreground mb-6">Información de Contacto</h2>
+				<h2 class="text-xl mb-6">Información de Contacto</h2>
 				
 				<div class="flex flex-col gap-6">
 					<div class="flex items-start gap-4">
 						<Icon name="mail" class="w-5 h-5 mt-0.5 text-muted-foreground" />
 						<div>
-							<h3 class="font-medium text-foreground text-sm">Email</h3>
+							<h4>Email</h4>
 							<a href={`mailto:${email}`} class="text-sm text-muted-foreground hover:text-foreground transition-colors">
 								{email}
 							</a>
@@ -35,7 +36,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 					<div class="flex items-start gap-4">
 						<Icon name="map-pin" class="w-5 h-5 mt-0.5 text-muted-foreground" />
 						<div>
-							<h3 class="font-medium text-foreground text-sm">Ubicación</h3>
+							<h4>Ubicación</h4>
 							<p class="text-sm text-muted-foreground">
 								{location}
 							</p>
@@ -46,7 +47,7 @@ const linkedinUrl = "https://www.linkedin.com/in/adriel-agustin-montes-66460b202
 
 			<!-- Card de Redes Sociales -->
 			<div class="bg-card border border-border p-6">
-				<h2 class="text-lg font-bold text-foreground mb-6">Conectá conmigo</h2>
+				<h2 class="text-xl mb-6">Conectá conmigo</h2>
 				
 				<div class="flex flex-wrap gap-4">
 					<Button 

@@ -15,10 +15,15 @@ tecnologias:
 github: "https://github.com/Adriel-M-A/pos-elixir"
 demo: ""
 cover: "./cover.webp"
+coverAlt: "Pantalla principal de facturación del Sistema POS de la heladería"
 imagenes:
   - "./screenshot-1.webp"
   - "./screenshot-2.webp"
   - "./screenshot-3.webp"
+imagenesAlt:
+  - "Formulario de registro de ventas con redondeo automático e indicador de total de caja"
+  - "Panel de control de stock y depósito con alertas de stock crítico por balde de helado"
+  - "Dashboard interactivo con reportes gráficos semanales de facturación por canal de venta"
 ---
 
 ## Resumen

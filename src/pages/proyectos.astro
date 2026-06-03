@@ -2,16 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import ProyectoCard from '../components/ProyectoCard.astro';
 import { getCollection } from 'astro:content';
+import { PERSONAL_INFO } from '../constants';
 
 const proyectosEntries = await getCollection('proyectos');
 
 proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 ---
 
-<Layout title="Proyectos | Adriel Montes">
+<Layout title={`Proyectos | ${PERSONAL_INFO.fullName}`}>
 	<main class="max-w-5xl mx-auto px-6 py-24">
 		<div class="mb-12">
-			<h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Proyectos</h1>
+			<h1 class="mb-4">Proyectos</h1>
 			<p class="text-lg text-muted-foreground">Una selección de mis trabajos y proyectos personales.</p>
 		</div>
 

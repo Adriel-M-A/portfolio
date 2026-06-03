@@ -1,0 +1,39 @@
+---
+import { PERSONAL_INFO } from "../constants";
+
+interface Props {
+  name: string;
+  description: string;
+  authorName?: string;
+  authorUrl?: string;
+  repoUrl?: string;
+  demoUrl?: string;
+}
+
+const {
+  name,
+  description,
+  authorName = PERSONAL_INFO.fullName,
+  authorUrl = Astro.site?.toString() ?? PERSONAL_INFO.domain,
+  repoUrl,
+  demoUrl
+} = Astro.props;
+
+const isValidRepo = repoUrl && repoUrl.startsWith('http') && !repoUrl.includes('privado');
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": name,
+  "description": description,
+  ...(demoUrl ? { "url": demoUrl } : {}),
+  ...(isValidRepo ? { "codeRepository": repoUrl } : {}),
+  "author": {
+    "@type": "Person",
+    "@id": `${authorUrl}/#person`,
+    "name": authorName,
+    "url": authorUrl,
+  }
+};
+---
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

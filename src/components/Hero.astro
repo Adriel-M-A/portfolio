@@ -1,38 +1,43 @@
 ---
 import Icon from "./ui/Icon.astro";
 import Button from "./ui/Button.astro";
+import { PERSONAL_INFO } from "../constants";
 ---
 
-<section class="pt-20 pb-10 grid grid-cols-1 md:grid-cols-hero gap-12 items-start">
+<section
+  class="pt-24 pb-32 grid grid-cols-1 md:grid-cols-hero gap-12 items-start"
+>
   <div class="flex flex-col gap-6 order-last md:order-first">
     <div class="space-y-2">
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Adriel Montes</h1>
-      <p class="text-xl md:text-2xl text-muted-foreground font-medium">Analista Programador Universitario</p>
-      <p class="text-base text-muted-foreground">Chubut, Argentina</p>
+      <h1>
+        {PERSONAL_INFO.fullName}
+      </h1>
+      <p class="text-xl md:text-2xl text-muted-foreground font-medium">
+        {PERSONAL_INFO.jobTitle}
+      </p>
+      <p class="text-base text-muted-foreground">
+        {PERSONAL_INFO.location.full}
+      </p>
     </div>
-    
+
     <div class="flex flex-wrap gap-4 pt-2">
-      <Button href="/sobreMi" variant="primary" size="lg">
-        Sobre mí
-      </Button>
-      <Button href="/contacto" variant="outline" size="lg">
-        Contacto
-      </Button>
+      <Button href="/sobreMi" variant="primary" size="lg"> Sobre mí </Button>
+      <Button href="/contacto" variant="outline" size="lg"> Contacto </Button>
     </div>
 
     <div class="flex items-center gap-4 pt-4">
-      <a 
-        href="https://github.com/Adriel-M-A" 
-        target="_blank" 
+      <a
+        href={PERSONAL_INFO.github}
+        target="_blank"
         rel="noopener noreferrer"
         class="text-muted-foreground hover:text-foreground transition-colors duration-150"
         aria-label="GitHub"
       >
         <Icon name="github" size={22} />
       </a>
-      <a 
-        href="https://www.linkedin.com/in/adriel-agustin-montes-66460b202/" 
-        target="_blank" 
+      <a
+        href={PERSONAL_INFO.linkedin}
+        target="_blank"
         rel="noopener noreferrer"
         class="text-muted-foreground hover:text-foreground transition-colors duration-150"
         aria-label="LinkedIn"
@@ -43,7 +48,9 @@ import Button from "./ui/Button.astro";
   </div>
 
   <div class="flex justify-center md:justify-end order-first md:order-last">
-    <div class="size-avatar-mobile md:size-avatar-desktop overflow-hidden border border-border bg-surface flex items-center justify-center">
+    <div
+      class="size-avatar-mobile md:size-avatar-desktop overflow-hidden border border-border bg-surface flex items-center justify-center"
+    >
       <span class="text-muted-foreground text-sm font-medium">Avatar</span>
     </div>
   </div>

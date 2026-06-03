@@ -12,10 +12,15 @@ tecnologias:
 github: "privado"
 demo: ""
 cover: "./cover.webp"
+coverAlt: "Interfaz de la aplicación de reportes mensuales de cooperativas eléctricas"
 imagenes:
   - "./screenshot-1.webp"
   - "./screenshot-2.webp"
   - "./screenshot-3.webp"
+imagenesAlt:
+  - "Pantalla de carga y selección de archivos y carpetas de cooperativas"
+  - "Visualización de progreso del procesamiento por lote y logs de validación"
+  - "Ejemplo de reporte consolidado final generado en formato Excel con gráficos automáticos"
 ---
 
 ## Resumen

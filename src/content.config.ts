@@ -33,8 +33,12 @@ export const collections = {
       demo: z.string().url().or(z.string().length(0)).optional(),
       /** Ruta relativa a la imagen de portada (ej: "./cover.webp") */
       cover: z.string().optional(),
+      /** Texto alternativo descriptivo para la imagen de portada */
+      coverAlt: z.string().optional(),
       /** Arreglo opcional con rutas a capturas secundarias de pantalla para la galería */
       imagenes: z.array(z.string()).optional(),
+      /** Arreglo opcional con textos alternativos correspondientes a cada captura de la galería */
+      imagenesAlt: z.array(z.string()).optional(),
     }),
   }),
 

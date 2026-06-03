@@ -4,11 +4,15 @@
 
 @theme {
   /* Light Mode Colors (OKLCH scale matching light design) */
-  --color-background: oklch(100% 0 0);          /* #ffffff */
-  --color-foreground: oklch(18% 0 0);            /* #0a0a0a */
-  
-  --color-surface: oklch(97% 0 0);               /* #f5f5f5 */
-  --color-border: oklch(92% 0 0);                /* #e5e5e5 */
+  --color-background: oklch(100% 0 0);
+  /* #ffffff */
+  --color-foreground: oklch(18% 0 0);
+  /* #0a0a0a */
+
+  --color-surface: oklch(97% 0 0);
+  /* #f5f5f5 */
+  --color-border: oklch(92% 0 0);
+  /* #e5e5e5 */
 
   --color-card: var(--color-surface);
   --color-card-foreground: var(--color-foreground);
@@ -16,19 +20,23 @@
   --color-popover: var(--color-surface);
   --color-popover-foreground: var(--color-foreground);
 
-  --color-primary: oklch(21% 0 0);               /* #171717 */
-  --color-primary-foreground: oklch(98% 0 0);    /* #f5f5f5 */
+  --color-primary: oklch(21% 0 0);
+  /* #171717 */
+  --color-primary-foreground: oklch(98% 0 0);
+  /* #f5f5f5 */
 
   --color-secondary: var(--color-surface);
   --color-secondary-foreground: var(--color-foreground);
 
   --color-muted: var(--color-surface);
-  --color-muted-foreground: oklch(55% 0.01 240); /* #71717a */
+  --color-muted-foreground: oklch(50% 0.01 240);
+  /* #65656c */
 
   --color-accent: var(--color-surface);
   --color-accent-foreground: var(--color-foreground);
 
-  --color-destructive: oklch(63% 0.25 27);        /* #ef4444 */
+  --color-destructive: oklch(63% 0.25 27);
+  /* #ef4444 */
   --color-destructive-foreground: oklch(98% 0 0);
 
   --color-input: var(--color-border);
@@ -57,11 +65,15 @@
 
 /* Dark Mode Tokens using class override */
 .dark {
-  --color-background: oklch(18% 0 0);          /* #0a0a0a */
-  --color-foreground: oklch(100% 0 0);         /* #ffffff */
-  
-  --color-surface: oklch(22% 0 0);             /* #111111 */
-  --color-border: oklch(28% 0 0);              /* #1f1f1f */
+  --color-background: oklch(18% 0 0);
+  /* #0a0a0a */
+  --color-foreground: oklch(100% 0 0);
+  /* #ffffff */
+
+  --color-surface: oklch(22% 0 0);
+  /* #111111 */
+  --color-border: oklch(28% 0 0);
+  /* #1f1f1f */
 
   --color-card: var(--color-surface);
   --color-card-foreground: var(--color-foreground);
@@ -69,46 +81,65 @@
   --color-popover: var(--color-surface);
   --color-popover-foreground: var(--color-foreground);
 
-  --color-primary: oklch(100% 0 0);            /* #ffffff */
-  --color-primary-foreground: oklch(0% 0 0);   /* #000000 */
+  --color-primary: oklch(100% 0 0);
+  /* #ffffff */
+  --color-primary-foreground: oklch(0% 0 0);
+  /* #000000 */
 
   --color-secondary: var(--color-surface);
   --color-secondary-foreground: var(--color-foreground);
 
   --color-muted: var(--color-surface);
-  --color-muted-foreground: oklch(55% 0.01 240);
+  --color-muted-foreground: oklch(70% 0.01 240);
+  /* #93989e */
 
   --color-accent: var(--color-surface);
   --color-accent-foreground: var(--color-foreground);
 
-  --color-destructive: oklch(35% 0.15 27);     /* #7f1d1d */
+  --color-destructive: oklch(35% 0.15 27);
+  /* #7f1d1d */
   --color-destructive-foreground: oklch(98% 0 0);
 
   --color-input: var(--color-border);
   --color-ring: var(--color-border);
 }
 
+@utility portfolio-section {
+  @apply py-24 border-t border-border;
+
+  &:first-of-type {
+    @apply pt-0 border-t-0;
+  }
+}
+
 @utility prose-content {
   & h2 {
     @apply text-2xl font-semibold text-foreground mt-12 mb-6;
   }
+
   & h3 {
     @apply text-xl font-medium text-foreground mt-8 mb-4;
   }
+
   & p {
     @apply mb-6;
   }
+
   & ul {
     @apply list-disc list-inside mb-6 space-y-2;
   }
-  & ul > li {
+
+  & ul>li {
     @apply ml-4;
   }
+
   & strong {
     @apply font-semibold text-foreground;
   }
+
   & a {
     @apply text-foreground underline decoration-border underline-offset-4 transition-colors;
+
     &:hover {
       @apply decoration-foreground;
     }
@@ -120,8 +151,34 @@
     border-color: var(--color-border);
     outline-color: var(--color-ring);
   }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-foreground font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h3 {
+    @apply text-lg md:text-xl font-semibold;
+  }
+
+  h4 {
+    @apply text-sm font-semibold;
   }
 }

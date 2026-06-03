@@ -1,141 +1,236 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
-import Icon from '../../components/ui/Icon.astro';
-import Badge from '../../components/ui/Badge.astro';
-import Button from '../../components/ui/Button.astro';
-import { resolveProjectImage } from '../../utils/images';
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Icon from "../../components/ui/Icon.astro";
+import Badge from "../../components/ui/Badge.astro";
+import Button from "../../components/ui/Button.astro";
+import SchemaProjectLD from "../../components/SchemaProjectLD.astro";
+import { resolveProjectImage } from "../../utils/images";
+import { PERSONAL_INFO } from "../../constants";
 
 export async function getStaticPaths() {
-  const proyectos = await getCollection('proyectos');
-  return proyectos.map((proyecto) => ({
-    params: { slug: proyecto.id },
-    props: { proyecto },
-  }));
+	const proyectos = await getCollection("proyectos");
+	return proyectos.map((proyecto) => ({
+		params: { slug: proyecto.id },
+		props: { proyecto },
+	}));
 }
 
 const { proyecto } = Astro.props;
 const { Content } = await render(proyecto);
-const { title, description, tecnologias: tecnologiasObj, github, demo, cover, imagenes } = proyecto.data;
-const tecnologias = tecnologiasObj ? [
-	...tecnologiasObj.frontend,
-	...tecnologiasObj.backend,
-	...tecnologiasObj.herramientas
-] : [];
+const {
+	title,
+	description,
+	tecnologias: tecnologiasObj,
+	github,
+	demo,
+	cover,
+	coverAlt,
+	imagenes,
+	imagenesAlt,
+} = proyecto.data;
+const tecnologias = tecnologiasObj
+	? [
+			...tecnologiasObj.frontend,
+			...tecnologiasObj.backend,
+			...tecnologiasObj.herramientas,
+		]
+	: [];
 
-const resolvedCover = cover ? await resolveProjectImage(proyecto.id, cover) : null;
+const resolvedCover = cover
+	? await resolveProjectImage(proyecto.id, cover)
+	: null;
 ---
 
-<Layout title={`${title} | Adriel Montes`}>
+<Layout
+	title={`${title} | ${PERSONAL_INFO.fullName}`}
+	description={description}
+>
+	<SchemaProjectLD
+		name={title}
+		description={description}
+		authorName={PERSONAL_INFO.fullName}
+		authorUrl={Astro.site?.toString() ?? PERSONAL_INFO.domain}
+		repoUrl={github}
+		demoUrl={demo}
+	/>
 	<main class="max-w-3xl mx-auto px-6 py-24">
 		<!-- Botón Volver -->
-		<a href="/proyectos" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-12">
+		<a
+			href="/proyectos"
+			class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-12"
+		>
 			<span aria-hidden="true">&larr;</span> Volver a proyectos
 		</a>
 
 		<!-- Cabecera -->
 		<header class="mb-12">
-			<h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-foreground">{title}</h1>
-			<p class="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">{description}</p>
-			
+			<h1 class="mb-4">
+				{title}
+			</h1>
+			<p
+				class="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6"
+			>
+				{description}
+			</p>
+
 			<div class="flex flex-wrap items-center gap-4 mb-8">
-				{tecnologias?.map((tech: string) => (
-					<Badge size="md">
-						{tech}
-					</Badge>
-				))}
+				{
+					tecnologias?.map((tech: string) => (
+						<Badge size="md">{tech}</Badge>
+					))
+				}
 			</div>
 
 			<div class="flex items-center gap-4">
-				{github && github.length > 0 && (
-					github.toLowerCase() === 'privado' ? (
-						<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 text-sm font-medium text-muted-foreground cursor-not-allowed">
-							<Icon name="lock" class="w-4 h-4" />
-							Repositorio privado
-						</span>
-					) : (
-						<Button href={github} target="_blank" rel="noopener noreferrer" variant="secondary" size="md" class="gap-2">
-							<Icon name="github" size={16} />
-							Código
+				{
+					github &&
+						github.length > 0 &&
+						(github.toLowerCase() === "privado" ? (
+							<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 text-sm font-medium text-muted-foreground cursor-not-allowed">
+								<Icon name="lock" class="w-4 h-4" />
+								Repositorio privado
+							</span>
+						) : (
+							<Button
+								href={github}
+								target="_blank"
+								rel="noopener noreferrer"
+								variant="secondary"
+								size="md"
+								class="gap-2"
+							>
+								<Icon name="github" size={16} />
+								Código
+							</Button>
+						))
+				}
+				{
+					demo && demo.length > 0 && (
+						<Button
+							href={demo}
+							target="_blank"
+							rel="noopener noreferrer"
+							variant="primary"
+							size="md"
+							class="gap-2"
+						>
+							<Icon name="external-link" class="w-4 h-4" />
+							Ver Demo
 						</Button>
 					)
-				)}
-				{demo && demo.length > 0 && (
-					<Button href={demo} target="_blank" rel="noopener noreferrer" variant="primary" size="md" class="gap-2">
-						<Icon name="external-link" class="w-4 h-4" />
-						Ver Demo
-					</Button>
-				)}
+				}
 			</div>
 		</header>
 
 		<!-- Imagen Principal -->
 		<div class="mb-16">
-			{cover ? (
-				resolvedCover ? (
-					<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
-						<Image src={resolvedCover} alt={`Portada del proyecto ${title}`} width={1200} height={675} class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90" />
-					</div>
+			{
+				cover ? (
+					resolvedCover ? (
+						<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
+							<Image
+								src={resolvedCover}
+								alt={
+									coverAlt || `Portada del proyecto ${title}`
+								}
+								width={1200}
+								height={675}
+								fetchpriority="high"
+								loading="eager"
+								class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90"
+							/>
+						</div>
+					) : (
+						<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
+							<span class="text-xl text-muted-foreground font-medium">
+								{cover.replace("./", "")} (Placeholder)
+							</span>
+						</div>
+					)
 				) : (
 					<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
-						<span class="text-xl text-muted-foreground font-medium">{cover.replace('./', '')} (Placeholder)</span>
+						<span class="text-xl text-muted-foreground font-medium">
+							{title}
+						</span>
 					</div>
 				)
-			) : (
-				<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
-					<span class="text-xl text-muted-foreground font-medium">{title}</span>
-				</div>
-			)}
+			}
 		</div>
 
 		<!-- Contenido Markdown -->
-		<div class="text-muted-foreground leading-relaxed text-base prose-content mb-16">
+		<div
+			class="text-muted-foreground leading-relaxed text-base prose-content mb-16"
+		>
 			<Content />
 		</div>
 
 		<!-- Galería de imágenes (si existen) -->
-		{imagenes && imagenes.length > 0 && (
-			<section class="border-t border-border pt-12">
-				<h2 class="text-2xl font-semibold mb-8 text-foreground">Galería</h2>
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-					{imagenes.map(async (img: string, index: number) => {
-						const resolvedImg = await resolveProjectImage(proyecto.id, img);
-						
-						return resolvedImg ? (
-							<div class="aspect-video bg-surface border border-border overflow-hidden group">
-								<Image 
-									src={resolvedImg} 
-									alt={`Captura ${index + 1} de ${title}`} 
-									width={800} 
-									height={450} 
-									class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 cursor-zoom-in zoomable-image" 
-								/>
-							</div>
-						) : (
-							<div class="aspect-video bg-surface border border-border overflow-hidden flex items-center justify-center">
-								<span class="text-sm text-muted-foreground">{img.replace('./', '')} (Placeholder)</span>
-							</div>
-						);
-					})}
-				</div>
-			</section>
-		)}
+		{
+			imagenes && imagenes.length > 0 && (
+				<section class="portfolio-section">
+					<h2 class="mb-8">Galería</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+						{imagenes.map(async (img: string, index: number) => {
+							const resolvedImg = await resolveProjectImage(
+								proyecto.id,
+								img,
+							);
+							const altText =
+								imagenesAlt?.[index] ||
+								`Captura ${index + 1} de ${title}`;
+
+							return resolvedImg ? (
+								<div class="aspect-video bg-surface border border-border overflow-hidden group">
+									<Image
+										src={resolvedImg}
+										alt={altText}
+										width={800}
+										height={450}
+										class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 cursor-zoom-in zoomable-image"
+									/>
+								</div>
+							) : (
+								<div class="aspect-video bg-surface border border-border overflow-hidden flex items-center justify-center">
+									<span class="text-sm text-muted-foreground">
+										{img.replace("./", "")} (Placeholder)
+									</span>
+								</div>
+							);
+						})}
+					</div>
+				</section>
+			)
+		}
 
 		<!-- Lightbox Modal -->
-		<dialog id="lightbox" class="m-auto bg-transparent border-none p-0 focus:outline-none backdrop:bg-black/40 backdrop:backdrop-blur-sm z-50 overflow-visible max-w-90vw max-h-90vh">
+		<dialog
+			id="lightbox"
+			class="m-auto bg-transparent border-none p-0 focus:outline-none backdrop:bg-black/40 backdrop:backdrop-blur-sm z-50 overflow-visible max-w-90vw max-h-90vh"
+		>
 			<div class="relative inline-flex items-center justify-center">
-				<Button id="close-lightbox" variant="secondary" size="icon" class="absolute -top-4 -right-4 shadow-xl z-50">
+				<Button
+					id="close-lightbox"
+					variant="secondary"
+					size="icon"
+					class="absolute -top-4 -right-4 shadow-xl z-50"
+				>
 					<Icon name="x" size={20} />
 				</Button>
-				<img id="lightbox-img" src="" alt="" class="block max-w-90vw max-h-90vh w-auto h-auto object-contain shadow-2xl ring-1 ring-border/50" />
+				<img
+					id="lightbox-img"
+					src=""
+					alt=""
+					class="block max-w-90vw max-h-90vh w-auto h-auto object-contain shadow-2xl ring-1 ring-border/50"
+				/>
 			</div>
 		</dialog>
 
 		<script>
-			import { initLightbox } from '../../scripts/lightbox';
+			import { initLightbox } from "../../scripts/lightbox";
 			initLightbox();
-			document.addEventListener('astro:page-load', initLightbox);
+			document.addEventListener("astro:page-load", initLightbox);
 		</script>
 	</main>
 </Layout>

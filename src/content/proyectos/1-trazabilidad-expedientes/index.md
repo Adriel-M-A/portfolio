@@ -13,12 +13,19 @@ tecnologias:
 github: "privado"
 demo: ""
 cover: "./cover.webp"
+coverAlt: "Interfaz principal de control del Sistema de Trazabilidad de Expedientes"
 imagenes:
   - "./screenshot-1.webp"
   - "./screenshot-2.webp"
   - "./screenshot-3.webp"
   - "./screenshot-4.webp"
   - "./screenshot-5.webp"
+imagenesAlt:
+  - "Pantalla de inicio de sesión con validación de credenciales"
+  - "Bandeja de entrada con lista de expedientes físicos pendientes de recepción"
+  - "Historial de pases cronológicos detallando áreas, operarios y tiempos de permanencia"
+  - "Formulario para registrar una nueva transferencia interna de expediente"
+  - "Panel de administración general con herramientas de reportes e incidencias"
 ---
 
 ## Resumen
