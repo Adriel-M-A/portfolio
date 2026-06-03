@@ -2,46 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Badge from '../components/ui/Badge.astro';
 import Icon from '../components/ui/Icon.astro';
-import Button from '../components/ui/Button.astro';
 import { getCollection, render } from 'astro:content';
+import { getSortedTechnologiesByCategory } from '../utils/projects';
 
 const experienciaEntries = await getCollection('experiencia');
 experienciaEntries.sort((a, b) => a.id.localeCompare(b.id));
 
 const proyectosEntries = await getCollection('proyectos');
 
-// Contar frecuencias por categoría de tecnología
-const frontendFreqs: Record<string, number> = {};
-const backendFreqs: Record<string, number> = {};
-const herramientasFreqs: Record<string, number> = {};
-
-proyectosEntries.forEach((p) => {
-  const techs = p.data.tecnologias;
-  if (techs) {
-    (techs.frontend || []).forEach((t) => {
-      frontendFreqs[t] = (frontendFreqs[t] || 0) + 1;
-    });
-    (techs.backend || []).forEach((t) => {
-      backendFreqs[t] = (backendFreqs[t] || 0) + 1;
-    });
-    (techs.herramientas || []).forEach((t) => {
-      herramientasFreqs[t] = (herramientasFreqs[t] || 0) + 1;
-    });
-  }
-});
-
-// Ordenar por frecuencia
-const sortedFrontend = Object.entries(frontendFreqs)
-  .sort((a, b) => b[1] - a[1])
-  .map(([tech]) => tech);
-
-const sortedBackend = Object.entries(backendFreqs)
-  .sort((a, b) => b[1] - a[1])
-  .map(([tech]) => tech);
-
-const sortedHerramientas = Object.entries(herramientasFreqs)
-  .sort((a, b) => b[1] - a[1])
-  .map(([tech]) => tech);
+const {
+  frontend: sortedFrontend,
+  backend: sortedBackend,
+  herramientas: sortedHerramientas
+} = getSortedTechnologiesByCategory(proyectosEntries);
 ---
 
 <Layout title="Sobre mí | Adriel Montes">

@@ -4,28 +4,14 @@ import ProyectoCard from "../components/ProyectoCard.astro";
 import Hero from "../components/Hero.astro";
 import Badge from "../components/ui/Badge.astro";
 import { getCollection } from "astro:content";
+import { getSortedTechnologies } from "../utils/projects";
 
 const proyectosEntries = await getCollection("proyectos");
 proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 const proyectosDestacados = proyectosEntries.slice(0, 3);
 
-// Extraer, contar y ordenar tecnologías
-const todasTecnologias = proyectosEntries.flatMap((p) => {
-	const t = p.data.tecnologias;
-	return t ? [...t.frontend, ...t.backend, ...t.herramientas] : [];
-});
-const techFrequencies = todasTecnologias.reduce<Record<string, number>>(
-	(acc, tech) => {
-		acc[tech] = (acc[tech] || 0) + 1;
-		return acc;
-	},
-	{},
-);
-
-const sortedTechs = Object.entries(techFrequencies)
-	.sort((a, b) => b[1] - a[1])
-	.map(([tech]) => tech);
-
+// Extraer, contar y ordenar tecnologías usando el utilitario
+const sortedTechs = getSortedTechnologies(proyectosEntries);
 const maxTechs = sortedTechs.slice(0, 20);
 ---
 

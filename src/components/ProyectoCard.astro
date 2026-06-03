@@ -1,29 +1,27 @@
 ---
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 import Icon from './ui/Icon.astro';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
+import { resolveProjectImage } from '../utils/images';
 
-const images = import.meta.glob('../content/proyectos/**/*.{jpeg,jpg,png,gif,webp}');
+interface Props {
+  proyecto: CollectionEntry<'proyectos'>;
+}
 
 const { proyecto } = Astro.props;
 const { data, id } = proyecto;
 const { title, description, tecnologias, github, demo, cover } = data;
 
-let resolvedCover: any = null;
-if (cover) {
-	const coverPath = `../content/proyectos/${id}/${cover.replace('./', '')}`;
-	if (images[coverPath]) {
-		resolvedCover = (await images[coverPath]()).default;
-	}
-}
+const resolvedCover = cover ? await resolveProjectImage(id, cover) : null;
 
 // Obtener solo la primera tecnología de cada tipo (si existe) manteniendo el orden
 const cardTechs = tecnologias ? [
   tecnologias.frontend?.[0],
   tecnologias.backend?.[0],
   tecnologias.herramientas?.[0]
-].filter(Boolean) : [];
+].filter((tech): tech is string => Boolean(tech)) : [];
 ---
 
 <article class="bg-card border border-border flex flex-col transition-colors hover:border-muted-foreground/30">

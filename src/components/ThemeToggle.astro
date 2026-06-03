@@ -34,12 +34,15 @@ import Button from "./ui/Button.astro";
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }
 
-  if (!document.__themeToggleListenerAdded) {
+  let themeToggleListenerAdded = false;
+
+  if (!themeToggleListenerAdded) {
     document.addEventListener('click', (e) => {
-      if (e.target.closest('.theme-toggle')) {
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.theme-toggle')) {
         handleToggleClick();
       }
     });
-    document.__themeToggleListenerAdded = true;
+    themeToggleListenerAdded = true;
   }
 </script>

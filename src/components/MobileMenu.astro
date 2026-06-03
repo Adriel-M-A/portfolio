@@ -2,15 +2,6 @@
 // Menú móvil fullscreen (Vanilla Astro)
 import Icon from "./ui/Icon.astro";
 import Button from "./ui/Button.astro";
-
-const { currentPath } = Astro.props;
-
-const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/sobreMi', label: 'Sobre mí' },
-  { href: '/proyectos', label: 'Proyectos' },
-  { href: '/contacto', label: 'Contacto' },
-];
 ---
 
 <!-- Botón hamburguesa (visible solo en mobile) -->
@@ -29,81 +20,6 @@ const links = [
 </Button>
 
 <script>
-  function openMenu() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    if (!btn || !overlay) return;
-
-    overlay.classList.remove('pointer-events-none');
-    overlay.classList.add('pointer-events-auto');
-    overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-full');
-    overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-0');
-    overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-0');
-    overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-100');
-    overlay.setAttribute('aria-hidden', 'false');
-    btn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    if (!btn || !overlay) return;
-
-    overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-0');
-    overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-full');
-    overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-100');
-    overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-0');
-    overlay.setAttribute('aria-hidden', 'true');
-    btn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-
-    // Deshabilitar pointer-events después de la animación
-    setTimeout(() => {
-      const overlay2 = document.getElementById('mobile-menu-overlay');
-      if (overlay2) {
-        overlay2.classList.remove('pointer-events-auto');
-        overlay2.classList.add('pointer-events-none');
-      }
-    }, 300);
-  }
-
-  if (!document.__mobileMenuListenerAdded) {
-    document.addEventListener('click', (e) => {
-      // Abrir menú
-      if (e.target.closest('#mobile-menu-btn')) {
-        openMenu();
-        return;
-      }
-
-      // Cerrar menú con el botón de cerrar
-      if (e.target.closest('#mobile-menu-close')) {
-        closeMenu();
-        return;
-      }
-
-      // Cerrar menú haciendo click en el backdrop oscuro
-      if (e.target.closest('[data-menu-backdrop]')) {
-        closeMenu();
-        return;
-      }
-
-      // Cerrar menú al hacer click en un enlace de navegación
-      if (e.target.closest('#mobile-menu-overlay nav a')) {
-        closeMenu();
-      }
-    });
-
-    // Cerrar menú al presionar la tecla Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const btn = document.getElementById('mobile-menu-btn');
-        if (btn && btn.getAttribute('aria-expanded') === 'true') {
-          closeMenu();
-        }
-      }
-    });
-
-    document.__mobileMenuListenerAdded = true;
-  }
+  import { initMobileMenu } from '../scripts/mobileMenu';
+  initMobileMenu();
 </script>

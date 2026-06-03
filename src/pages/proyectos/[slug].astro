@@ -5,8 +5,7 @@ import { Image } from 'astro:assets';
 import Icon from '../../components/ui/Icon.astro';
 import Badge from '../../components/ui/Badge.astro';
 import Button from '../../components/ui/Button.astro';
-
-const images = import.meta.glob('../../content/proyectos/**/*.{jpeg,jpg,png,gif,webp}');
+import { resolveProjectImage } from '../../utils/images';
 
 export async function getStaticPaths() {
   const proyectos = await getCollection('proyectos');
@@ -25,13 +24,7 @@ const tecnologias = tecnologiasObj ? [
 	...tecnologiasObj.herramientas
 ] : [];
 
-let resolvedCover: any = null;
-if (cover) {
-	const coverPath = `../../content/proyectos/${proyecto.id}/${cover.replace('./', '')}`;
-	if (images[coverPath]) {
-		resolvedCover = (await images[coverPath]()).default;
-	}
-}
+const resolvedCover = cover ? await resolveProjectImage(proyecto.id, cover) : null;
 ---
 
 <Layout title={`${title} | Adriel Montes`}>
@@ -107,8 +100,7 @@ if (cover) {
 				<h2 class="text-2xl font-semibold mb-8 text-foreground">Galería</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 					{imagenes.map(async (img: string, index: number) => {
-						const imgPath = `../../content/proyectos/${proyecto.id}/${img.replace('./', '')}`;
-						const resolvedImg = images[imgPath] ? (await images[imgPath]()).default : null;
+						const resolvedImg = await resolveProjectImage(proyecto.id, img);
 						
 						return resolvedImg ? (
 							<div class="aspect-video bg-surface border border-border overflow-hidden group">
@@ -141,47 +133,9 @@ if (cover) {
 		</dialog>
 
 		<script>
-			const setupLightbox = () => {
-				const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
-				const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
-				const closeBtn = document.getElementById('close-lightbox');
-				const zoomableImages = document.querySelectorAll('.zoomable-image');
-
-				if (!lightbox || !lightboxImg) return;
-
-				zoomableImages.forEach((img) => {
-					img.addEventListener('click', (e) => {
-						const target = e.target as HTMLImageElement;
-						// Aprovechar la propiedad src que Astro genera
-						lightboxImg.src = target.currentSrc || target.src;
-						lightboxImg.alt = target.alt || '';
-						lightbox.showModal();
-						document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
-					});
-				});
-
-				const closeLightbox = () => {
-					lightbox.close();
-					document.body.style.overflow = ''; // Restaurar scroll
-				};
-
-				closeBtn?.addEventListener('click', closeLightbox);
-
-				// Cerrar al hacer click en el fondo (backdrop)
-				lightbox?.addEventListener('click', (e) => {
-					if (e.target === lightbox) closeLightbox();
-				});
-
-				// Cerrar con Escape (por defecto el dialog lo hace, pero necesitamos restaurar el scroll)
-				lightbox?.addEventListener('close', () => {
-					document.body.style.overflow = '';
-				});
-			};
-
-			setupLightbox();
-			
-			// Por si utilizas Astro View Transitions en el futuro
-			document.addEventListener('astro:page-load', setupLightbox);
+			import { initLightbox } from '../../scripts/lightbox';
+			initLightbox();
+			document.addEventListener('astro:page-load', initLightbox);
 		</script>
 	</main>
 </Layout>
