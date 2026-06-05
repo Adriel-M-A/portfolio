@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import MobileMenuOverlay from "../components/MobileMenuOverlay.astro";
 import { PERSONAL_INFO } from "../constants";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
 	title?: string;
@@ -35,7 +36,7 @@ const ogType = Astro.url.pathname === "/" ? "profile" : "website";
 	<head>
 		<meta charset="UTF-8" />
 		<script is:inline>
-			const theme = (() => {
+			const getTheme = () => {
 				if (
 					typeof localStorage !== "undefined" &&
 					localStorage.getItem("theme")
@@ -46,16 +47,24 @@ const ogType = Astro.url.pathname === "/" ? "profile" : "website";
 					return "dark";
 				}
 				return "light";
-			})();
-			if (theme === "dark") {
-				document.documentElement.classList.add("dark");
-			} else {
-				document.documentElement.classList.remove("dark");
-			}
+			};
+
+			const applyTheme = () => {
+				const theme = getTheme();
+				if (theme === "dark") {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+			};
+
+			applyTheme();
+			document.addEventListener("astro:after-swap", applyTheme);
 		</script>
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/logo-white.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<ClientRouter />
 
 		<!-- SEO -->
 		<title>{title}</title>

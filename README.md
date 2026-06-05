@@ -6,7 +6,7 @@ Bienvenido al repositorio de mi portafolio personal. Este proyecto fue desarroll
 
 Este proyecto está construido con herramientas modernas enfocadas en el rendimiento, el diseño y la experiencia de desarrollo:
 
-- **[Astro 5](https://astro.build/)**: Framework web para generar sitios estáticos ultrarrápidos (SSG).
+- **[Astro 6](https://astro.build/)**: Framework web para generar sitios estáticos ultrarrápidos (SSG).
 - **[Tailwind CSS v4](https://tailwindcss.com/)**: Framework de CSS utilitario para un diseño ágil y responsivo.
 - **Iconos SVG Inline**: Íconos incrustados directamente en el código para mantener el rendimiento y soportar temas sin dependencias externas.
 
