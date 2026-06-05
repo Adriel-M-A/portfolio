@@ -3,7 +3,7 @@ title: "Sistema POS — Control de Ventas"
 description: "Aplicación de escritorio para punto de venta de una heladeráa: registro de ventas, historial, reportes y control de stock de helados."
 tecnologias:
   frontend:
-    - "TypeScript"
+    - "JavaScript"
     - "React"
     - "Tailwind CSS"
     - "shadcn/ui"

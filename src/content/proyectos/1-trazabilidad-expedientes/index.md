@@ -21,11 +21,11 @@ imagenes:
   - "./screenshot-4.webp"
   - "./screenshot-5.webp"
 imagenesAlt:
-  - "Pantalla de inicio de sesión con validación de credenciales"
-  - "Bandeja de entrada con lista de expedientes físicos pendientes de recepción"
-  - "Historial de pases cronológicos detallando áreas, operarios y tiempos de permanencia"
+  - "Listado de todos los expedientes con filtros (estado y custido)"
+  - "Listado de expedientes en poder del usuario actual"
+  - "Pantalla con detalles de un expediente"
   - "Formulario para registrar una nueva transferencia interna de expediente"
-  - "Panel de administración general con herramientas de reportes e incidencias"
+  - "Panel de administración para la gestión de personal y roles"
 ---
 
 ## Resumen

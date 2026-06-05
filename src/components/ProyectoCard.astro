@@ -12,7 +12,7 @@ interface Props {
 
 const { proyecto } = Astro.props;
 const { data, id } = proyecto;
-const { title, description, tecnologias, github, demo, cover, coverAlt } = data;
+const { title, description, tecnologias, github, demo, cover, coverAlt, tipo } = data;
 
 const resolvedCover = cover ? await resolveProjectImage(id, cover) : null;
 
@@ -26,7 +26,7 @@ const cardTechs = tecnologias ? [
 
 <article class="bg-card border border-border flex flex-col transition-colors hover:border-muted-foreground/30">
   <!-- Imagen -->
-  <div class="aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
+  <div class="relative aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
     {cover ? (
       resolvedCover ? (
         <Image src={resolvedCover} alt={coverAlt || `Portada del proyecto ${title}`} width={800} height={450} class="w-full h-full object-cover object-top" />
@@ -35,6 +35,14 @@ const cardTechs = tecnologias ? [
       )
     ) : (
       <span class="text-muted-foreground font-medium p-6">{title}</span>
+    )}
+    
+    {tipo && (
+      <div class="absolute top-3 right-3 z-10">
+        <Badge size="sm" variant="active" class="bg-background/90 text-foreground border-border/80 shadow-sm backdrop-blur-sm select-none">
+          {tipo}
+        </Badge>
+      </div>
     )}
   </div>
 

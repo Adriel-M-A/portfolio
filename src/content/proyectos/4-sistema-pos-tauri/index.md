@@ -23,10 +23,10 @@ imagenes:
   - "./screenshot-3.webp"
   - "./screenshot-4.webp"
 imagenesAlt:
-  - "Pantalla de cobro rápido con catálogo visual de productos"
   - "Módulo de inventario mostrando stock mínimo y herramientas de edición"
+  - "Seccion de historial de ventas filtrada por fecha"
   - "Sección de reportes diarios con gráficos de barra interactivos de ganancias"
-  - "Módulo interno de ayuda y visualización de manuales en formato Markdown"
+  - "Modulo de auditorias de cierres de caja"
 ---
 
 ## Resumen

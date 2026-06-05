@@ -39,6 +39,8 @@ export const collections = {
       imagenes: z.array(z.string()).optional(),
       /** Arreglo opcional con textos alternativos correspondientes a cada captura de la galería */
       imagenesAlt: z.array(z.string()).optional(),
+      /** Tipo de proyecto opcional (ej: 'Personal', 'Práctica') */
+      tipo: z.string().optional(),
     }),
   }),
 
