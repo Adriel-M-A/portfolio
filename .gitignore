@@ -28,3 +28,6 @@ docs/
 .agents/
 CLAUDE.md
 skills-lock.json
+
+# Auditorías locales
+.a11y-audit/

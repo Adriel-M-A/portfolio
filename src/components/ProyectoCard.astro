@@ -7,9 +7,11 @@ import Button from './ui/Button.astro';
 
 interface Props {
   proyecto: CollectionEntry<'proyectos'>;
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { proyecto } = Astro.props;
+const { proyecto, headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
 const { data, id } = proyecto;
 const { title, description, tecnologias, github, demo, cover, coverAlt, tipo } = data;
 
@@ -52,7 +54,7 @@ const cardTechs = tecnologias ? [
     <!-- Título y Descripción -->
     <div>
       <a href={`/proyectos/${id}`} class="inline-block hover:underline decoration-border underline-offset-4 mb-2">
-        <h3>{title}</h3>
+        <Heading class="text-lg md:text-xl font-semibold text-foreground">{title}</Heading>
       </a>
       <p class="text-sm text-muted-foreground leading-relaxed line-clamp-3">
         {description}

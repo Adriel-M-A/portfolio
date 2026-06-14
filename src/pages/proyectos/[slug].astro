@@ -7,6 +7,7 @@ import Badge from "../../components/ui/Badge.astro";
 import Button from "../../components/ui/Button.astro";
 import SchemaProjectLD from "../../components/SchemaProjectLD.astro";
 import { PERSONAL_INFO } from "../../constants";
+import 'photoswipe/dist/photoswipe.css';
 
 export async function getStaticPaths() {
 	const proyectos = await getCollection("proyectos");
@@ -50,7 +51,7 @@ const tecnologias = tecnologiasObj
 		repoUrl={github}
 		demoUrl={demo}
 	/>
-	<main class="max-w-3xl mx-auto px-6 py-24">
+	<main id="project-gallery-group" class="max-w-3xl mx-auto px-6 py-24">
 		<!-- Botón Volver -->
 		<a
 			href="/proyectos"
@@ -124,17 +125,25 @@ const tecnologias = tecnologiasObj
 			{
 				cover ? (
 					<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
-						<Image
-							src={cover}
-							alt={
-								coverAlt || `Portada del proyecto ${title}`
-							}
-							width={1200}
-							height={675}
-							fetchpriority="high"
-							loading="eager"
-							class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90"
-						/>
+						<a
+							href={cover.src}
+							data-pswp-width={cover.width}
+							data-pswp-height={cover.height}
+							target="_blank"
+							class="block w-full h-full"
+						>
+							<Image
+								src={cover}
+								alt={
+									coverAlt || `Portada del proyecto ${title}`
+								}
+								width={1200}
+								height={675}
+								fetchpriority="high"
+								loading="eager"
+								class="w-full h-full object-cover object-top cursor-zoom-in transition-opacity hover:opacity-90"
+							/>
+						</a>
 					</div>
 				) : (
 					<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
@@ -166,13 +175,21 @@ const tecnologias = tecnologiasObj
 
 							return (
 								<div class="aspect-video bg-surface border border-border overflow-hidden group">
-									<Image
-										src={img}
-										alt={altText}
-										width={800}
-										height={450}
-										class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 cursor-zoom-in zoomable-image"
-									/>
+									<a
+										href={img.src}
+										data-pswp-width={img.width}
+										data-pswp-height={img.height}
+										target="_blank"
+										class="block w-full h-full"
+									>
+										<Image
+											src={img}
+											alt={altText}
+											width={800}
+											height={450}
+											class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 cursor-zoom-in"
+										/>
+									</a>
 								</div>
 							);
 						})}
@@ -181,28 +198,7 @@ const tecnologias = tecnologiasObj
 			)
 		}
 
-		<!-- Lightbox Modal -->
-		<dialog
-			id="lightbox"
-			class="m-auto bg-transparent border-none p-0 focus:outline-none backdrop:bg-black/40 backdrop:backdrop-blur-sm z-50 overflow-visible max-w-90vw max-h-90vh"
-		>
-			<div class="relative inline-flex items-center justify-center">
-				<Button
-					id="close-lightbox"
-					variant="secondary"
-					size="icon"
-					class="absolute -top-4 -right-4 shadow-xl z-50"
-				>
-					<Icon name="x" size={20} />
-				</Button>
-				<img
-					id="lightbox-img"
-					src=""
-					alt=""
-					class="block max-w-90vw max-h-90vh w-auto h-auto object-contain shadow-2xl ring-1 ring-border/50"
-				/>
-			</div>
-		</dialog>
+
 
 		<script>
 			import { initLightbox } from "../../scripts/lightbox";
