@@ -14,6 +14,22 @@ tecnologias:
     - "Electron"
 github: "https://github.com/Adriel-M-A/pos-elixir"
 demo: ""
+cover: "./cover.webp"
+coverAlt: "Interfaz principal del punto de venta (POS) para el inicio de una venta o registro de pedidos"
+imagenes:
+  - "./screenshot-1.webp"
+  - "./screenshot-2.webp"
+  - "./screenshot-3.webp"
+  - "./screenshot-4.webp"
+  - "./screenshot-5.webp"
+  - "./screenshot-6.webp"
+imagenesAlt:
+  - "Pantalla principal del Punto de Venta (POS) con el listado de productos, el carrito de compras, selección de promociones y métodos de pago"
+  - "Historial de ventas con listado de tickets, detalles de transacciones, métodos de pago, filtros por fecha y buscador"
+  - "Administración del catálogo de productos con control de precios por canal de venta, stock disponible, estado y filtros por categoría"
+  - "Vista detallada de un ticket de venta en un panel lateral, mostrando desglose de productos, descuentos aplicados y total facturado"
+  - "Panel de Reportes y Estadísticas con gráficos interactivos de ingresos por hora, métodos de pago y canales de venta"
+  - "Sección inferior de reportes mostrando alertas de bajo stock y el ranking (Top 10) de los productos más vendidos por unidades o por peso"
 ---
 
 ## Resumen
