@@ -13,7 +13,7 @@ export const collections = {
    */
   proyectos: defineCollection({
     loader: glob({ pattern: "**/*.md", base: "./src/content/proyectos" }),
-    schema: () => z.object({
+    schema: ({ image }) => z.object({
       /** Título descriptivo del proyecto */
       title: z.string(),
       /** Resumen corto de los objetivos y alcances */
@@ -32,11 +32,11 @@ export const collections = {
       /** Enlace opcional a la demo interactiva web */
       demo: z.string().url().or(z.string().length(0)).optional(),
       /** Ruta relativa a la imagen de portada (ej: "./cover.webp") */
-      cover: z.string().optional(),
+      cover: image().optional(),
       /** Texto alternativo descriptivo para la imagen de portada */
       coverAlt: z.string().optional(),
       /** Arreglo opcional con rutas a capturas secundarias de pantalla para la galería */
-      imagenes: z.array(z.string()).optional(),
+      imagenes: z.array(image()).optional(),
       /** Arreglo opcional con textos alternativos correspondientes a cada captura de la galería */
       imagenesAlt: z.array(z.string()).optional(),
       /** Tipo de proyecto opcional (ej: 'Personal', 'Práctica') */

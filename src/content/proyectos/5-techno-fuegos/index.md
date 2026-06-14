@@ -18,18 +18,6 @@ tecnologias:
     - "Vite"
 github: "https://github.com/Adriel-M-A/techno-fuegos-system"
 demo: ""
-cover: "./cover.webp"
-coverAlt: "Interfaz del software de cotizaciones personalizadas Techno Fuegos System"
-imagenes:
-  - "./screenshot-1.webp"
-  - "./screenshot-2.webp"
-  - "./screenshot-3.webp"
-  - "./screenshot-4.webp"
-imagenesAlt:
-  - "Formulario interactivo para ingresar medidas de fogoneros con cálculo automático en cascada"
-  - "Vista previa de la hoja de presupuesto desglosada con materiales e insumos"
-  - "Configuración de precios de insumos básicos y metales actualizables"
-  - "Presupuesto final generado en PDF listo para descargar y enviar al cliente"
 ---
 
 ## Resumen

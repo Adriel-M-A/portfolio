@@ -5,16 +5,14 @@ import Hero from "../components/Hero.astro";
 import Badge from "../components/ui/Badge.astro";
 import SchemaPersonLD from "../components/SchemaPersonLD.astro";
 import { getCollection } from "astro:content";
-import { getSortedTechnologies } from "../utils/projects";
+import { TOP_TECHNOLOGIES } from "../constants/technologies";
 import { PERSONAL_INFO } from "../constants";
 
 const proyectosEntries = await getCollection("proyectos");
 proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 const proyectosDestacados = proyectosEntries.slice(0, 3);
 
-// Extraer, contar y ordenar tecnologías usando el utilitario
-const sortedTechs = getSortedTechnologies(proyectosEntries);
-const maxTechs = sortedTechs.slice(0, 20);
+const maxTechs = TOP_TECHNOLOGIES.slice(0, 20);
 ---
 
 <Layout title={`${PERSONAL_INFO.fullName} | ${PERSONAL_INFO.jobTitle}`}>

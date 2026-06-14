@@ -6,7 +6,6 @@ import Icon from "../../components/ui/Icon.astro";
 import Badge from "../../components/ui/Badge.astro";
 import Button from "../../components/ui/Button.astro";
 import SchemaProjectLD from "../../components/SchemaProjectLD.astro";
-import { resolveProjectImage } from "../../utils/images";
 import { PERSONAL_INFO } from "../../constants";
 
 export async function getStaticPaths() {
@@ -37,10 +36,6 @@ const tecnologias = tecnologiasObj
 			...tecnologiasObj.herramientas,
 		]
 	: [];
-
-const resolvedCover = cover
-	? await resolveProjectImage(proyecto.id, cover)
-	: null;
 ---
 
 <Layout
@@ -128,27 +123,19 @@ const resolvedCover = cover
 		<div class="mb-16">
 			{
 				cover ? (
-					resolvedCover ? (
-						<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
-							<Image
-								src={resolvedCover}
-								alt={
-									coverAlt || `Portada del proyecto ${title}`
-								}
-								width={1200}
-								height={675}
-								fetchpriority="high"
-								loading="eager"
-								class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90"
-							/>
-						</div>
-					) : (
-						<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
-							<span class="text-xl text-muted-foreground font-medium">
-								{cover.replace("./", "")} (Placeholder)
-							</span>
-						</div>
-					)
+					<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
+						<Image
+							src={cover}
+							alt={
+								coverAlt || `Portada del proyecto ${title}`
+							}
+							width={1200}
+							height={675}
+							fetchpriority="high"
+							loading="eager"
+							class="w-full h-full object-cover object-top cursor-zoom-in zoomable-image transition-opacity hover:opacity-90"
+						/>
+					</div>
 				) : (
 					<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
 						<span class="text-xl text-muted-foreground font-medium">
@@ -172,30 +159,20 @@ const resolvedCover = cover
 				<section class="portfolio-section">
 					<h2 class="mb-8">Galería</h2>
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-						{imagenes.map(async (img: string, index: number) => {
-							const resolvedImg = await resolveProjectImage(
-								proyecto.id,
-								img,
-							);
+						{imagenes.map((img, index: number) => {
 							const altText =
 								imagenesAlt?.[index] ||
 								`Captura ${index + 1} de ${title}`;
 
-							return resolvedImg ? (
+							return (
 								<div class="aspect-video bg-surface border border-border overflow-hidden group">
 									<Image
-										src={resolvedImg}
+										src={img}
 										alt={altText}
 										width={800}
 										height={450}
 										class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 cursor-zoom-in zoomable-image"
 									/>
-								</div>
-							) : (
-								<div class="aspect-video bg-surface border border-border overflow-hidden flex items-center justify-center">
-									<span class="text-sm text-muted-foreground">
-										{img.replace("./", "")} (Placeholder)
-									</span>
 								</div>
 							);
 						})}
