@@ -84,7 +84,25 @@ export function initMobileMenu(): void {
 
     // Cerrar menú al hacer click en un enlace de navegación
     if (target.closest('#mobile-menu-overlay nav a')) {
-      closeMenu();
+      const link = target.closest('#mobile-menu-overlay nav a') as HTMLAnchorElement | null;
+      const href = link?.getAttribute('href');
+
+      if (href) {
+        e.preventDefault();
+        closeMenu();
+
+        setTimeout(() => {
+          import('astro:transitions/client')
+            .then(({ navigate }) => {
+              navigate(href);
+            })
+            .catch(() => {
+              window.location.href = href;
+            });
+        }, 300);
+      } else {
+        closeMenu();
+      }
     }
   });
 
