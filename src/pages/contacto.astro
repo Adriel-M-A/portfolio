@@ -18,7 +18,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 
 		<div class="max-w-2xl mx-auto">
 			<!-- Tarjeta Unificada de Contacto -->
-			<div class="bg-card border border-border p-6 rounded-none hover:border-foreground/20 transition-all duration-300">
+			<div class="bg-card border border-border p-6 rounded-none hover:border-foreground/20 hover:shadow-sm transition-all duration-300">
 				<h2 class="text-xl mb-6">Conectá conmigo</h2>
 				
 				<div class="divide-y divide-border/60">
@@ -28,7 +28,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 							<Icon name="github" class="w-5 h-5 text-muted-foreground shrink-0" />
 							<div class="min-w-0">
 								<span class="text-sm font-semibold text-foreground block">GitHub</span>
-								<a href={githubUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-muted-foreground hover:text-foreground transition-colors font-mono truncate block">
+								<a href={githubUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block">
 									{githubUrl.replace('https://', '')}
 								</a>
 							</div>
@@ -37,7 +37,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 							href={githubUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="font-mono text-xs px-3 py-1.5 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
+							class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
 						>
 							Visitar <Icon name="external-link" size={12} />
 						</a>
@@ -49,7 +49,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 							<Icon name="linkedin" class="w-5 h-5 text-muted-foreground shrink-0" />
 							<div class="min-w-0">
 								<span class="text-sm font-semibold text-foreground block">LinkedIn</span>
-								<a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-muted-foreground hover:text-foreground transition-colors font-mono truncate block">
+								<a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block">
 									linkedin.com/in/adriel-agustin-montes...
 								</a>
 							</div>
@@ -58,7 +58,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 							href={linkedinUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="font-mono text-xs px-3 py-1.5 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
+							class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
 						>
 							Visitar <Icon name="external-link" size={12} />
 						</a>
@@ -70,7 +70,7 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 							<Icon name="mail" class="w-5 h-5 text-muted-foreground shrink-0" />
 							<div class="min-w-0">
 								<span class="text-sm font-semibold text-foreground block">Email</span>
-								<a href={`mailto:${email}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors font-mono truncate block">
+								<a href={`mailto:${email}`} class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block">
 									{email}
 								</a>
 							</div>
@@ -78,13 +78,13 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 						<div class="flex items-center gap-2 w-full sm:w-auto shrink-0">
 							<a
 								href={`mailto:${email}`}
-								class="font-mono text-xs px-3 py-1.5 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0 text-center"
+								class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0 text-center"
 							>
 								Escribir
 							</a>
 							<button
 								id="copy-email-btn"
-								class="font-mono text-xs px-3 py-1.5 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0"
+								class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0"
 								aria-label="Copiar email al portapapeles"
 								title="Copiar email"
 							>

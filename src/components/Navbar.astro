@@ -41,7 +41,7 @@ const links = [
         links.map((link) => (
           <a
             href={link.href}
-            class={`text-sm transition-colors hover:text-foreground ${
+            class={`text-sm transition-colors duration-300 hover:text-foreground ${
               currentPath === link.href
                 ? "text-foreground font-medium"
                 : "text-muted-foreground"

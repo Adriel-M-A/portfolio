@@ -30,7 +30,7 @@ const cardTechs = tecnologias ? [
   <!-- Imagen -->
   <div class="relative aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
     {cover ? (
-      <Image src={cover} alt={coverAlt || `Portada del proyecto ${title}`} width={800} height={450} class="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500 ease-out" />
+      <Image src={cover} alt={coverAlt || `Portada del proyecto ${title}`} width={800} height={450} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out" />
     ) : (
       <span class="text-muted-foreground font-medium p-6">{title}</span>
     )}
