@@ -12,6 +12,7 @@ demo: ""
 cover: "./cover.webp"
 coverAlt: "Botón de información inyectado en las tarjetas de recomendación del modal de detalles de Netflix"
 tipo: "Personal"
+categoria: "Web / Extensiones"
 ---
 
 ## Resumen

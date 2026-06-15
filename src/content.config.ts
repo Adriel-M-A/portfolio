@@ -41,6 +41,8 @@ export const collections = {
       imagenesAlt: z.array(z.string()).optional(),
       /** Tipo de proyecto opcional (ej: 'Personal', 'Práctica') */
       tipo: z.string().optional(),
+      /** Categoría del proyecto para filtrado en la interfaz */
+      categoria: z.enum(['Escritorio', 'Web / Extensiones']).default('Escritorio'),
     }),
   }),
 

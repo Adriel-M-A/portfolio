@@ -18,6 +18,7 @@ tecnologias:
     - "Vite"
 github: "https://github.com/Adriel-M-A/techno-fuegos-system"
 demo: ""
+categoria: "Escritorio"
 ---
 
 ## Resumen

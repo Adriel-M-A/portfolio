@@ -21,6 +21,7 @@ imagenesAlt:
   - "Pantalla de carga y selección de archivos y carpetas de cooperativas"
   - "Visualización de progreso del procesamiento por lote y logs de validación"
   - "Ejemplo de reporte consolidado final generado en formato Excel con gráficos automáticos"
+categoria: "Escritorio"
 ---
 
 ## Resumen

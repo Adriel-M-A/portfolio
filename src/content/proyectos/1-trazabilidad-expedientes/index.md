@@ -26,6 +26,7 @@ imagenesAlt:
   - "Pantalla con detalles de un expediente"
   - "Formulario para registrar una nueva transferencia interna de expediente"
   - "Panel de administración para la gestión de personal y roles"
+categoria: "Escritorio"
 ---
 
 ## Resumen

@@ -27,6 +27,7 @@ imagenesAlt:
   - "Seccion de historial de ventas filtrada por fecha"
   - "Sección de reportes diarios con gráficos de barra interactivos de ganancias"
   - "Modulo de auditorias de cierres de caja"
+categoria: "Escritorio"
 ---
 
 ## Resumen

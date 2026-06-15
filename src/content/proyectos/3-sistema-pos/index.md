@@ -30,6 +30,7 @@ imagenesAlt:
   - "Vista detallada de un ticket de venta en un panel lateral, mostrando desglose de productos, descuentos aplicados y total facturado"
   - "Panel de Reportes y Estadísticas con gráficos interactivos de ingresos por hora, métodos de pago y canales de venta"
   - "Sección inferior de reportes mostrando alertas de bajo stock y el ranking (Top 10) de los productos más vendidos por unidades o por peso"
+categoria: "Escritorio"
 ---
 
 ## Resumen
