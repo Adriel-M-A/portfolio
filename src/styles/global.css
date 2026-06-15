@@ -61,6 +61,11 @@
   /* Lightbox Sizing */
   --width-90vw: 90vw;
   --height-90vh: 90vh;
+
+  /* Custom Typography */
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Space Grotesk", sans-serif;
 }
 
 /* Dark Mode Tokens using class override */
@@ -155,6 +160,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
 
   h1,
@@ -164,6 +170,7 @@
   h5,
   h6 {
     @apply text-foreground font-bold tracking-tight;
+    font-family: var(--font-display);
   }
 
   h1 {
