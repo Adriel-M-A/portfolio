@@ -5,7 +5,7 @@ rol: "Soporte Técnico y Desarrollo Web"
 tipo: "Pasantía"
 desde: "2022"
 hasta: "2023"
-ubicacion: "Trelew, Chubut"
+ubicacion: "Rawson, Chubut"
 ---
 
 - Mantenimiento de equipos (PCs, impresoras, dispositivos de red).

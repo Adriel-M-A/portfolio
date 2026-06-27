@@ -1,5 +1,5 @@
 ---
-title: "Sistema POS — Control de Ventas"
+title: "Sistema POS: Control de Ventas"
 description: "Aplicación de escritorio para punto de venta de una heladería: registro de ventas, historial, reportes y control de stock de helados."
 tecnologias:
   frontend:

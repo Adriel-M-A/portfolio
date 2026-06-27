@@ -12,7 +12,7 @@ const schema = {
   "description": "Desarrollador de software especializado en aplicaciones de escritorio y web.",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": PERSONAL_INFO.location.city,
+    ...(PERSONAL_INFO.location.city ? { "addressLocality": PERSONAL_INFO.location.city } : {}),
     "addressRegion": PERSONAL_INFO.location.state,
     "addressCountry": PERSONAL_INFO.location.countryCode
   },

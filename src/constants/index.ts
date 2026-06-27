@@ -17,14 +17,14 @@ export const PERSONAL_INFO = {
   email: "adriel.agustin.montes@gmail.com",
   /** Información geográfica */
   location: {
-    city: "Trelew",
+    city: "",
     state: "Chubut",
     country: "Argentina",
     countryCode: "AR",
     /** Ubicación abreviada estándar */
     full: "Chubut, Argentina",
     /** Ubicación completa y detallada */
-    detailed: "Trelew, Chubut, Argentina"
+    detailed: "Chubut, Argentina"
   },
   /** Perfil oficial de GitHub */
   github: "https://github.com/Adriel-M-A",

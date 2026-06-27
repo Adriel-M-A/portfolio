@@ -37,7 +37,7 @@ directo por parte del director del organismo.
 Cada mes, las 32 cooperativas envían carpetas con archivos CSV y Excel que
 contienen sus registros operativos. El personal del ENRE abría cada archivo
 manualmente, buscaba los datos relevantes y los transcribía a mano en planillas
-consolidadas — un proceso que llevaba días, era propenso a errores de
+consolidadas, un proceso que llevaba días, era propenso a errores de
 transcripción y dependía del criterio informal de quien lo hacía.
 
 El problema se agravaba por la inconsistencia de los datos recibidos: cada
@@ -50,7 +50,7 @@ de que lo que llegaba este mes tuviera la misma forma que el mes anterior.
 Desarrollé una aplicación de escritorio que toma la carpeta raíz con todos los
 archivos de las cooperativas y los procesa en lote de forma automática. El sistema
 extrae, valida y consolida los datos, y genera un libro Excel maestro con tablas
-comparativas, gráficos y diagramas de Venn individuales por cooperativa — listo
+comparativas, gráficos y diagramas de Venn individuales por cooperativa, todo listo
 para que el director analice el estado del servicio eléctrico provincial sin
 intervención manual.
 

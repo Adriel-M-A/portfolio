@@ -34,7 +34,7 @@ categoria: "Escritorio"
 
 Segunda generación de mi sistema POS para comercios locales, desarrollada con
 Tauri y Rust para reemplazar la versión anterior basada en Electron. El objetivo
-fue el mismo — digitalizar la operación diaria de un almacén o quiosco — pero
+fue el mismo (digitalizar la operación diaria de un almacén o quiosco), pero
 con una arquitectura más liviana, pensada específicamente para hardware modesto
 y sin dependencia de un runtime pesado.
 
@@ -85,8 +85,8 @@ validación de datos viven en Rust, mientras que el frontend solo se encarga de
 la presentación y dispara comandos con los parámetros necesarios.
 
 Para mantener el código ordenado a medida que el sistema crecía, organicé el
-backend en Rust siguiendo un patrón de repositorios y modelos — una capa de
-acceso a datos separada de la lógica de negocio — que hace que cada comando
+backend en Rust siguiendo un patrón de repositorios y modelos (una capa de
+acceso a datos separada de la lógica de negocio) que hace que cada comando
 expuesto al frontend sea simple, predecible y fácil de mantener.
 
 ## Arquitectura
