@@ -21,8 +21,8 @@ El proyecto utiliza **Astro Content Collections** para gestionar de forma segura
 │   ├── components/        # Componentes reutilizables (Navbar, Footer, Cards)
 │   ├── content/
 │   │   ├── experiencia/   # Entradas en Markdown (.md) para la sección Sobre mí
-│   │   ├── proyectos/     # Entradas en Markdown (.md) y portadas para los Proyectos
-│   │   └── config.js      # Definición de schemas (Zod) para las colecciones
+│   │   └── proyectos/     # Entradas en Markdown (.md) y portadas para los Proyectos
+│   ├── content.config.ts  # Configuración y validación de esquemas (Zod) de las colecciones
 │   ├── layouts/           # Estructura base HTML y meta etiquetas
 │   ├── pages/             # Páginas y enrutamiento dinámico (/proyectos/[slug].astro)
 │   └── styles/            # Estilos globales (global.css) con variables CSS
