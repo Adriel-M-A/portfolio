@@ -69,12 +69,12 @@ sobre entregas, devoluciones y acciones críticas.
 
 Aplicación de escritorio con arquitectura cliente-servidor sobre red local privada:
 
-- **Frontend**: C# con Windows Forms. La elección de WinForms fue deliberada:
+- Frontend: C# con Windows Forms. La elección de WinForms fue deliberada:
   los operadores ya conocían el paradigma de escritorio de Windows, lo que redujo
   la curva de adopción al mínimo.
-- **Backend / Base de datos**: PostgreSQL en un servidor local dentro de la red
+- Backend / Base de datos: PostgreSQL en un servidor local dentro de la red
   interna del organismo, sin exposición a internet.
-- **Despliegue**: La parte más desafiante del proyecto fue configurar el acceso
+- Despliegue: La parte más desafiante del proyecto fue configurar el acceso
   concurrente de múltiples clientes sobre la red institucional, garantizando que
   las operaciones sobre los expedientes fueran consistentes sin importar cuántos
   usuarios estuvieran conectados al mismo tiempo.

@@ -51,24 +51,24 @@ El sistema diferencia automáticamente el canal de venta (salón o PedidosYa) pa
 
 ## Características
 
-- **Facturación fluida:** Registro rápido de tickets con múltiples medios de pago combinables.
-- **Canales de venta integrados:** Gestión separada para salón y delivery (PedidosYa) con cálculo automatizado de comisiones de plataforma.
-- **Inventario híbrido:** Descuento automático de stock para envases físicos por venta, y módulo de decremento manual para el control de baldes de helado.
-- **Redondeo rápido:** Botón de ajuste rápido de vuelto para agilizar el cobro en efectivo.
-- **Historial e informes:** Visualización de arqueos de caja históricos y panel de estadísticas de facturación diaria.
+- Facturación fluida: Registro rápido de tickets con múltiples medios de pago combinables.
+- Canales de venta integrados: Gestión separada para salón y delivery (PedidosYa) con cálculo automatizado de comisiones de plataforma.
+- Inventario híbrido: Descuento automático de stock para envases físicos por venta, y módulo de decremento manual para el control de baldes de helado.
+- Redondeo rápido: Botón de ajuste rápido de vuelto para agilizar el cobro en efectivo.
+- Historial e informes: Visualización de arqueos de caja históricos y panel de estadísticas de facturación diaria.
 
 ## El desafío técnico central
 
 El núcleo de este proyecto consistió en resolver dos desafíos principales de empaquetado y lógica de negocio:
 
-- **Estructuración de un inventario híbrido:** El helado a granel no se vende por unidad cerrada y su peso real por porción varía en cada despacho (cucurucho, pote de 1/4 kg, 1/2 kg), lo que imposibilita un descuento automático preciso en tiempo de caja. Diseñé un modelo híbrido para **Elixir Helados**: el sistema automatiza el stock de los envases físicos vendidos (que sí son contables por transacción) y proporciona una interfaz rápida en el catálogo para que, cuando un balde en exhibición se acabe físicamente, el usuario decremente de forma manual y en un solo clic la cantidad de baldes de ese gusto en el inventario de depósito.
-- **Compilación de SQLite en Electron:** Para asegurar el rendimiento offline del local, utilicé SQLite mediante `better-sqlite3`. Al ser una base de datos con dependencias en C++, integrarla dentro de Electron requirió configurar herramientas de compilación nativa en Windows y utilizar `electron-rebuild` para compilar el módulo específicamente para el Node.js integrado en Electron, logrando que el instalador final funcionara de forma autónoma.
+- Estructuración de un inventario híbrido: El helado a granel no se vende por unidad cerrada y su peso real por porción varía en cada despacho (cucurucho, pote de 1/4 kg, 1/2 kg), lo que imposibilita un descuento automático preciso en tiempo de caja. Diseñé un modelo híbrido para **Elixir Helados**: el sistema automatiza el stock de los envases físicos vendidos (que sí son contables por transacción) y proporciona una interfaz rápida en el catálogo para que, cuando un balde en exhibición se acabe físicamente, el usuario decremente de forma manual y en un solo clic la cantidad de baldes de ese gusto en el inventario de depósito.
+- Compilación de SQLite en Electron: Para asegurar el rendimiento offline del local, utilicé SQLite mediante `better-sqlite3`. Al ser una base de datos con dependencias en C++, integrarla dentro de Electron requirió configurar herramientas de compilación nativa en Windows y utilizar `electron-rebuild` para compilar el módulo específicamente para el Node.js integrado en Electron, logrando que el instalador final funcionara de forma autónoma.
 
 ## Arquitectura
 
-- **Entorno de ejecución:** Electron, distribuyendo la aplicación como un ejecutable nativo de Windows instalable en cualquier equipo de mostrador.
-- **Frontend y visualizaciones:** React con TypeScript, Tailwind CSS e iconos con componentes de shadcn/ui. Utiliza Recharts para representar los gráficos de ingresos y ranking de ventas.
-- **Persistencia local:** SQLite a través del driver `better-sqlite3`, permitiendo la lectura y escritura rápida de datos sin dependencia de servidores externos.
+- Entorno de ejecución: Electron, distribuyendo la aplicación como un ejecutable nativo de Windows instalable en cualquier equipo de mostrador.
+- Frontend y visualizaciones: React con TypeScript, Tailwind CSS e iconos con componentes de shadcn/ui. Utiliza Recharts para representar los gráficos de ingresos y ranking de ventas.
+- Persistencia local: SQLite a través del driver `better-sqlite3`, permitiendo la lectura y escritura rápida de datos sin dependencia de servidores externos.
 
 ## Resultado
 

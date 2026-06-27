@@ -49,25 +49,25 @@ El operador administrativo selecciona el modelo base, ajusta de manera manual la
 
 ## Características
 
-- **Presupuestación interactiva:** Tabla de carga dinámica para inyectar materiales y mano de obra del catálogo, calculando importes en tiempo real según las cantidades ingresadas.
-- **Catálogo de insumos editable:** Panel para actualizar el precio unitario del hierro, la chapa o los consumibles en caliente, impactando automáticamente en las futuras cotizaciones.
-- **Exportación de PDF monocromático:** Diseño limpio en escala de grises optimizado para imprimir en el taller sin desperdiciar tinta.
-- **Control de inflación:** Fechas de vencimiento automáticas en los presupuestos y cláusulas legales personalizables para proteger los precios del taller.
-- **Resiliencia ante apagones:** Mecanismo de auto-guardado automático continuo de borradores activos.
+- Presupuestación interactiva: Tabla de carga dinámica para inyectar materiales y mano de obra del catálogo, calculando importes en tiempo real según las cantidades ingresadas.
+- Catálogo de insumos editable: Panel para actualizar el precio unitario del hierro, la chapa o los consumibles en caliente, impactando automáticamente en las futuras cotizaciones.
+- Exportación de PDF monocromático: Diseño limpio en escala de grises optimizado para imprimir en el taller sin desperdiciar tinta.
+- Control de inflación: Fechas de vencimiento automáticas en los presupuestos y cláusulas legales personalizables para proteger los precios del taller.
+- Resiliencia ante apagones: Mecanismo de auto-guardado automático continuo de borradores activos.
 
 ## El desafío técnico central
 
 El núcleo de este proyecto consistió en resolver tres desafíos de naturaleza física y lógica del taller:
 
-- **Estructuración del inventario:** Traducir las materias primas a unidades físicas de compra de un herrero artesanal (varillas de 3m, unidades de perfiles) en lugar de una lógica de API web tradicional. El diseño del esquema SQLite permitió estructurar y adaptar estas particularidades comerciales de forma limpia.
-- **Resiliencia anti-apagones:** El encendido de maquinaria de soldadura pesada en el taller de metalurgia provocaba caídas repentinas de tensión en la red eléctrica de las oficinas. Implementé una capa de persistencia en tiempo real en la vista del frontend para que, ante cortes de luz inesperados, la administración pudiera reiniciar la PC y retomar la carga del formulario sin perder los datos numéricos acumulados.
-- **Esquema Safe Money:** Para evitar inconsistencias de redondeo con las fluctuaciones constantes de precios en pesos argentinos, programé el backend en Rust para operar todos los costos monetarios en la base de datos SQLite como enteros (centavos de peso), convirtiéndolos a unidades decimales únicamente al renderizar el cliente o el presupuesto en PDF.
+- Estructuración del inventario: Traducir las materias primas a unidades físicas de compra de un herrero artesanal (varillas de 3m, unidades de perfiles) en lugar de una lógica de API web tradicional. El diseño del esquema SQLite permitió estructurar y adaptar estas particularidades comerciales de forma limpia.
+- Resiliencia anti-apagones: El encendido de maquinaria de soldadura pesada en el taller de metalurgia provocaba caídas repentinas de tensión en la red eléctrica de las oficinas. Implementé una capa de persistencia en tiempo real en la vista del frontend para que, ante cortes de luz inesperados, la administración pudiera reiniciar la PC y retomar la carga del formulario sin perder los datos numéricos acumulados.
+- Esquema Safe Money: Para evitar inconsistencias de redondeo con las fluctuaciones constantes de precios en pesos argentinos, programé el backend en Rust para operar todos los costos monetarios en la base de datos SQLite como enteros (centavos de peso), convirtiéndolos a unidades decimales únicamente al renderizar el cliente o el presupuesto en PDF.
 
 ## Arquitectura
 
-- **Entorno de ejecución**: Tauri con Rust, que permitió proveer un instalador final sumamente ligero (menos de 10MB en disco y mínimo consumo de memoria RAM en comparación con Electron), óptimo para los equipos del local.
-- **Persistencia**: SQLite local gestionada desde el backend de Tauri en Rust, asegurando acceso instantáneo offline a los costos y cotizaciones históricas.
-- **Frontend y UX**: React con Tailwind CSS v4, Zustand para navegación no destructiva y persistente en caliente, y React Hook Form con validación de formularios estricta vía Zod.
+- Entorno de ejecución: Tauri con Rust, que permitió proveer un instalador final sumamente ligero (menos de 10MB en disco y mínimo consumo de memoria RAM en comparación con Electron), óptimo para los equipos del local.
+- Persistencia: SQLite local gestionada desde el backend de Tauri en Rust, asegurando acceso instantáneo offline a los costos y cotizaciones históricas.
+- Frontend y UX: React con Tailwind CSS v4, Zustand para navegación no destructiva y persistente en caliente, y React Hook Form con validación de formularios estricta vía Zod.
 
 ## Resultado
 

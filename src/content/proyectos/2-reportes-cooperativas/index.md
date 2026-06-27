@@ -82,11 +82,11 @@ el operador pueda revisarla por separado.
 
 ## Arquitectura
 
-- **Lenguaje**: Python, utilizando librerías especializadas para el procesamiento
+- Lenguaje: Python, utilizando librerías especializadas para el procesamiento
   y generación de archivos Excel.
-- **Interfaz**: Flet (basado en Flutter), que permitió construir una GUI moderna
+- Interfaz: Flet (basado en Flutter), que permitió construir una GUI moderna
   y portable sin depender de frameworks pesados.
-- **Distribución**: Empaquetado como ejecutable para Windows, sin requerir que
+- Distribución: Empaquetado como ejecutable para Windows, sin requerir que
   el usuario tenga Python instalado.
 
 ## Resultado

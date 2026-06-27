@@ -83,13 +83,13 @@ el botón inyectado, sin necesidad de procesamiento en JavaScript.
 
 ## Arquitectura
 
-- **Extensión**: Manifest V3 con un content script declarativo. Sin background
+- Extensión: Manifest V3 con un content script declarativo. Sin background
   service worker ni comunicación entre procesos.
-- **Lógica central**: JavaScript Vanilla. Un único script que configura el
+- Lógica central: JavaScript Vanilla. Un único script que configura el
   MutationObserver, gestiona la inyección de botones y maneja la navegación.
-- **Estilos**: CSS Vanilla con selectores avanzados (`:has()`) para lograr
+- Estilos: CSS Vanilla con selectores avanzados (`:has()`) para lograr
   aislamiento preciso sin clases propias que puedan colisionar con Netflix.
-- **Ciclo de vida**: Los botones inyectados no se rastrean globalmente. Su
+- Ciclo de vida: Los botones inyectados no se rastrean globalmente. Su
   existencia está acoplada 100% al ciclo de vida del DOM de Netflix, por lo que
   el Garbage Collector del navegador los elimina automáticamente junto con el modal,
   sin fugas de memoria.

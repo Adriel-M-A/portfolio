@@ -91,11 +91,11 @@ expuesto al frontend sea simple, predecible y fácil de mantener.
 
 ## Arquitectura
 
-- **Backend**: Rust con Tauri. Maneja toda la lógica de negocio, las consultas
+- Backend: Rust con Tauri. Maneja toda la lógica de negocio, las consultas
   a SQLite y la exposición de comandos al frontend.
-- **Frontend**: React con JavaScript, Tailwind CSS y Recharts para los gráficos.
-- **Base de datos**: SQLite nativo gestionado desde Rust, sin ORM.
-- **Por qué Tauri sobre Electron**: el binario final es significativamente más
+- Frontend: React con JavaScript, Tailwind CSS y Recharts para los gráficos.
+- Base de datos: SQLite nativo gestionado desde Rust, sin ORM.
+- Por qué Tauri sobre Electron: el binario final es significativamente más
   liviano y el consumo de RAM en reposo es una fracción del que tenía la versión
   anterior, lo que lo hace viable en equipos con recursos limitados.
 
