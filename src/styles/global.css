@@ -131,11 +131,11 @@
   }
 
   & ul {
-    @apply list-disc list-inside mb-6 space-y-2;
+    @apply list-disc list-outside pl-5 mb-6 space-y-2;
   }
 
   & ul>li {
-    @apply ml-4;
+    @apply ml-0;
   }
 
   & strong {

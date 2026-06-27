@@ -1,6 +1,6 @@
 ---
 title: "Sistema POS — Control de Ventas"
-description: "Aplicación de escritorio para punto de venta de una heladeráa: registro de ventas, historial, reportes y control de stock de helados."
+description: "Aplicación de escritorio para punto de venta de una heladería: registro de ventas, historial, reportes y control de stock de helados."
 tecnologias:
   frontend:
     - "JavaScript"
@@ -14,15 +14,15 @@ tecnologias:
     - "Electron"
 github: "https://github.com/Adriel-M-A/pos-elixir"
 demo: ""
-cover: "./cover.webp"
+cover: "./cover.png"
 coverAlt: "Interfaz principal del punto de venta (POS) para el inicio de una venta o registro de pedidos"
 imagenes:
-  - "./screenshot-1.webp"
-  - "./screenshot-2.webp"
-  - "./screenshot-3.webp"
-  - "./screenshot-4.webp"
-  - "./screenshot-5.webp"
-  - "./screenshot-6.webp"
+  - "./screenshot-1.png"
+  - "./screenshot-2.png"
+  - "./screenshot-3.png"
+  - "./screenshot-4.png"
+  - "./screenshot-5.png"
+  - "./screenshot-6.png"
 imagenesAlt:
   - "Pantalla principal del Punto de Venta (POS) con el listado de productos, el carrito de compras, selección de promociones y métodos de pago"
   - "Historial de ventas con listado de tickets, detalles de transacciones, métodos de pago, filtros por fecha y buscador"
@@ -35,73 +35,41 @@ categoria: "Escritorio"
 
 ## Resumen
 
-Aplicación de punto de venta desarrollada a medida para una heladería local, hoy
-en uso activo en el comercio. Reemplazó por completo el registro manual en Excel
-con un sistema offline que centraliza ventas, stock e informes en una sola
-herramienta.
+Esta aplicación de escritorio fue diseñada a medida para las necesidades operativas de **Elixir Helados**, una heladería local, donde actualmente se encuentra en uso activo. El sistema automatiza las ventas diarias y el control de inventario de insumos de forma 100% offline, reemplazando las planillas y planificaciones informales por un punto de venta rápido.
 
 ## El problema
 
-El comercio registraba sus ventas en una planilla Excel básica: sin categorías,
-sin filtros y sin ningún cálculo automático. Cerrar la caja al final del día
-implicaba sumar manualmente. Saber cuánto se facturó en la semana o el mes era
-todavía más laborioso, y el inventario de baldes de helado en depósito se
-manejaba de memoria.
+El comercio registraba su facturación en una planilla de Excel al finalizar el día de trabajo. El cierre de caja diario requería sumar los tickets en papel manualmente, discriminar los ingresos según el medio de pago (efectivo, tarjetas o transferencias) y deducir de manera manual las comisiones de PedidosYa, lo que solía derivar en diferencias de arqueo difíciles de rastrear.
 
-Además, el comercio opera con dos canales de venta distintos — mostrador y
-PedidosYa — con lógicas de precio y comisión diferentes, lo que complejizaba
-aún más el registro manual.
+Además, el control de stock de los baldes de helado y los envases físicos (potes de plástico, cucuruchos, vasos) en depósito se gestionaba de memoria. Al no contar con alertas ni registros numéricos, el local corría el riesgo constante de quedarse sin envases clave o de no prever cuándo reponer baldes de gustos populares antes de jornadas de alta demanda.
 
 ## La solución
 
-Desarrollé una aplicación de escritorio 100% offline que cubre todo el flujo
-del punto de venta: registro de transacciones, control de stock, cierre de caja
-y análisis de facturación. Tiene dos modos de operación diferenciados para
-ventas locales y pedidos de delivery, y funciona sin internet para que ninguna
-caída de conexión interrumpa la operación del local.
+Desarrollé un punto de venta (POS) de escritorio que opera de forma 100% offline para asegurar la continuidad del servicio ante caídas de red. La aplicación unifica la facturación ágil, el arqueo de caja y el control de stock en una sola interfaz optimizada para operadores.
+
+El sistema diferencia automáticamente el canal de venta (salón o PedidosYa) para aplicar las comisiones y listas de precios correspondientes, y deduce de forma automática el stock de envases según el formato despachado.
 
 ## Características
 
-- Registro ágil de ventas con múltiples medios de pago: efectivo, tarjeta y
-  transferencia.
-- Dos modos de venta: consumo en mostrador y PedidosYa con comisiones calculadas
-  automáticamente.
-- Control de inventario de baldes de helado con descuento automático según el
-  tipo y peso de cada envase vendido (cucuruchos, ¼ kg, 1 kg).
-- Campo de redondeo rápido para aplicar descuentos al momento de cobrar.
-- Historial de ventas filtrable por rango de fechas.
-- Panel de métricas con indicadores diarios, semanales y mensuales de
-  facturación.
-- Arquitectura completamente offline: SQLite local, sin dependencia de servidores
-  ni conexión a internet.
+- **Facturación fluida:** Registro rápido de tickets con múltiples medios de pago combinables.
+- **Canales de venta integrados:** Gestión separada para salón y delivery (PedidosYa) con cálculo automatizado de comisiones de plataforma.
+- **Inventario híbrido:** Descuento automático de stock para envases físicos por venta, y módulo de decremento manual para el control de baldes de helado.
+- **Redondeo rápido:** Botón de ajuste rápido de vuelto para agilizar el cobro en efectivo.
+- **Historial e informes:** Visualización de arqueos de caja históricos y panel de estadísticas de facturación diaria.
 
 ## El desafío técnico central
 
-El problema más complejo fue integrar `better-sqlite3` — una dependencia con
-código nativo compilado — dentro de Electron. A diferencia de las librerías
-JavaScript puras, `better-sqlite3` requiere compilarse específicamente contra
-la versión de Node.js embebida en Electron, no la del sistema. Esto implicó
-configurar un pipeline de build con herramientas de compilación nativa y
-electron-rebuild para que el instalador final de Windows funcionara
-correctamente en cualquier equipo, sin requerir dependencias externas.
+El núcleo de este proyecto consistió en resolver dos desafíos principales de empaquetado y lógica de negocio:
 
-El otro desafío fue modelar el consumo de stock: los baldes de helado no se
-descuentan uno a uno sino en función del tipo de envase vendido y su peso
-correspondiente, lo que requirió definir las fórmulas de consumo con el
-cliente y validarlas contra el inventario físico real.
+- **Estructuración de un inventario híbrido:** El helado a granel no se vende por unidad cerrada y su peso real por porción varía en cada despacho (cucurucho, pote de 1/4 kg, 1/2 kg), lo que imposibilita un descuento automático preciso en tiempo de caja. Diseñé un modelo híbrido para **Elixir Helados**: el sistema automatiza el stock de los envases físicos vendidos (que sí son contables por transacción) y proporciona una interfaz rápida en el catálogo para que, cuando un balde en exhibición se acabe físicamente, el usuario decremente de forma manual y en un solo clic la cantidad de baldes de ese gusto en el inventario de depósito.
+- **Compilación de SQLite en Electron:** Para asegurar el rendimiento offline del local, utilicé SQLite mediante `better-sqlite3`. Al ser una base de datos con dependencias en C++, integrarla dentro de Electron requirió configurar herramientas de compilación nativa en Windows y utilizar `electron-rebuild` para compilar el módulo específicamente para el Node.js integrado en Electron, logrando que el instalador final funcionara de forma autónoma.
 
 ## Arquitectura
 
-- **Entorno**: Electron, que permite distribuir la aplicación como un instalador
-  de Windows autónomo.
-- **Frontend**: React con TypeScript, Tailwind CSS y componentes de shadcn/ui.
-- **Gráficos**: Recharts para los paneles de facturación interactivos.
-- **Base de datos**: SQLite vía `better-sqlite3` para almacenamiento local
-  persistente de alta velocidad.
+- **Entorno de ejecución:** Electron, distribuyendo la aplicación como un ejecutable nativo de Windows instalable en cualquier equipo de mostrador.
+- **Frontend y visualizaciones:** React con TypeScript, Tailwind CSS e iconos con componentes de shadcn/ui. Utiliza Recharts para representar los gráficos de ingresos y ranking de ventas.
+- **Persistencia local:** SQLite a través del driver `better-sqlite3`, permitiendo la lectura y escritura rápida de datos sin dependencia de servidores externos.
 
 ## Resultado
 
-El sistema lleva tiempo en uso activo en la heladería. Automatizó los cierres
-de caja diarios, eliminó el registro manual en Excel y le dio al dueño visibilidad
-inmediata sobre facturación por canal, productos de mayor rotación y estado del
-inventario en depósito.
+El punto de venta automatizó los cierres de caja diarios de **Elixir Helados**, eliminando las planillas y sumas manuales. El propietario ahora puede planificar las compras con anticipación gracias a las alertas de bajo stock de envases y a las métricas del consumo y rotación histórica de baldes de helado.
