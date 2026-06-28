@@ -24,8 +24,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@astrojs/sitemap": "^3.7.3",
-    "axe-core": "^4.12.1",
-    "puppeteer": "^25.1.0",
     "typescript": "^6.0.3"
   }
 }
