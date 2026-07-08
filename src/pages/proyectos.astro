@@ -1,127 +1,134 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ProyectoCard from '../components/ProyectoCard.astro';
-import { getCollection } from 'astro:content';
-import { PERSONAL_INFO } from '../constants';
+import Layout from "../layouts/Layout.astro";
+import ProyectoCard from "../components/ProyectoCard.astro";
+import { getCollection } from "astro:content";
+import { PERSONAL_INFO } from "../constants";
 
-const proyectosEntries = await getCollection('proyectos');
+const proyectosEntries = await getCollection("proyectos");
 
 proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 ---
 
 <Layout title={`Proyectos | ${PERSONAL_INFO.fullName}`}>
-	<main class="max-w-5xl mx-auto px-6 py-24">
-		<div class="mb-12">
-			<h1 class="mb-4">Proyectos</h1>
-			<p class="text-lg text-muted-foreground">Una selección de mis trabajos y proyectos personales.</p>
-		</div>
+  <main class="max-w-5xl mx-auto px-6 py-16">
+    <div class="mb-12">
+      <h1 class="mb-4">Proyectos</h1>
+      <p class="text-lg text-muted-foreground">
+        Una selección de mis trabajos y proyectos personales.
+      </p>
+    </div>
 
-		<!-- Filtros de categorías -->
-		<div class="flex flex-wrap gap-3 mb-10 border-b border-border pb-4" id="filter-tabs" role="tablist" aria-label="Filtrar proyectos">
-			<button
-				type="button"
-				role="tab"
-				aria-selected="true"
-				data-filter="Todos"
-				class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border bg-primary text-primary-foreground border-transparent hover:bg-primary/90 focus-visible:outline-none"
-			>
-				Todos
-			</button>
-			<button
-				type="button"
-				role="tab"
-				aria-selected="false"
-				data-filter="Escritorio"
-				class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none"
-			>
-				Escritorio
-			</button>
-			<button
-				type="button"
-				role="tab"
-				aria-selected="false"
-				data-filter="Web / Extensiones"
-				class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none"
-			>
-				Web / Extensiones
-			</button>
-		</div>
+    <!-- Filtros de categorías -->
+    <div
+      class="flex flex-wrap gap-3 mb-10 border-b border-border pb-4"
+      id="filter-tabs"
+      role="tablist"
+      aria-label="Filtrar proyectos"
+    >
+      <button
+        type="button"
+        role="tab"
+        aria-selected="true"
+        data-filter="Todos"
+        class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border bg-primary text-primary-foreground border-transparent hover:bg-primary/90 focus-visible:outline-none"
+      >
+        Todos
+      </button>
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        data-filter="Escritorio"
+        class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none"
+      >
+        Escritorio
+      </button>
+      <button
+        type="button"
+        role="tab"
+        aria-selected="false"
+        data-filter="Web / Extensiones"
+        class="font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none"
+      >
+        Web / Extensiones
+      </button>
+    </div>
 
-		<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			{
-				proyectosEntries.map((entry) => (
-					<ProyectoCard proyecto={entry} />
-				))
-			}
-		</section>
-	</main>
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {proyectosEntries.map((entry) => <ProyectoCard proyecto={entry} />)}
+    </section>
+  </main>
 </Layout>
 
 <script>
-	function initFilters() {
-		const filterTabsContainer = document.getElementById('filter-tabs');
-		if (!filterTabsContainer) return;
+  function initFilters() {
+    const filterTabsContainer = document.getElementById("filter-tabs");
+    if (!filterTabsContainer) return;
 
-		const buttons = filterTabsContainer.querySelectorAll('button');
-		const cards = document.querySelectorAll('.project-card') as NodeListOf<HTMLElement>;
+    const buttons = filterTabsContainer.querySelectorAll("button");
+    const cards = document.querySelectorAll(
+      ".project-card",
+    ) as NodeListOf<HTMLElement>;
 
-		buttons.forEach(button => {
-			button.addEventListener('click', () => {
-				const filter = button.getAttribute('data-filter');
-				if (!filter) return;
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
+        if (!filter) return;
 
-				// Actualizar estado de los botones
-				buttons.forEach(btn => {
-					if (btn === button) {
-						btn.setAttribute('aria-selected', 'true');
-						btn.className = "font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border bg-primary text-primary-foreground border-transparent hover:bg-primary/90 focus-visible:outline-none";
-					} else {
-						btn.setAttribute('aria-selected', 'false');
-						btn.className = "font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none";
-					}
-				});
+        // Actualizar estado de los botones
+        buttons.forEach((btn) => {
+          if (btn === button) {
+            btn.setAttribute("aria-selected", "true");
+            btn.className =
+              "font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border bg-primary text-primary-foreground border-transparent hover:bg-primary/90 focus-visible:outline-none";
+          } else {
+            btn.setAttribute("aria-selected", "false");
+            btn.className =
+              "font-mono text-sm px-4 py-2 font-medium transition-colors cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none";
+          }
+        });
 
-				// Filtrar las tarjetas con animación
-				cards.forEach(card => {
-					const category = card.getAttribute('data-category');
-					
-					// Cancelar cualquier timeout anterior
-					const anyCard = card as any;
-					if (anyCard._filterTimeout) {
-						clearTimeout(anyCard._filterTimeout);
-						anyCard._filterTimeout = null;
-					}
+        // Filtrar las tarjetas con animación
+        cards.forEach((card) => {
+          const category = card.getAttribute("data-category");
 
-					if (filter === 'Todos' || category === filter) {
-						// Si estaba oculta con hidden, la removemos y la dejamos invisible para la animación de entrada
-						if (card.classList.contains('hidden')) {
-							card.classList.remove('hidden');
-							card.style.opacity = '0';
-							card.style.transform = 'scale(0.95)';
-						}
-						// Forzar reflow y animar
-						requestAnimationFrame(() => {
-							void card.offsetHeight;
-							card.style.opacity = '1';
-							card.style.transform = 'scale(1)';
-						});
-					} else {
-						// Animar salida
-						card.style.opacity = '0';
-						card.style.transform = 'scale(0.95)';
-						
-						// Ocultar físicamente al finalizar la animación
-						anyCard._filterTimeout = setTimeout(() => {
-							card.classList.add('hidden');
-							anyCard._filterTimeout = null;
-						}, 300);
-					}
-				});
-			});
-		});
-	}
+          // Cancelar cualquier timeout anterior
+          const anyCard = card as any;
+          if (anyCard._filterTimeout) {
+            clearTimeout(anyCard._filterTimeout);
+            anyCard._filterTimeout = null;
+          }
 
-	// Ejecutar al cargar la página e inicializar con Astro View Transitions
-	initFilters();
-	document.addEventListener('astro:page-load', initFilters);
+          if (filter === "Todos" || category === filter) {
+            // Si estaba oculta con hidden, la removemos y la dejamos invisible para la animación de entrada
+            if (card.classList.contains("hidden")) {
+              card.classList.remove("hidden");
+              card.style.opacity = "0";
+              card.style.transform = "scale(0.95)";
+            }
+            // Forzar reflow y animar
+            requestAnimationFrame(() => {
+              void card.offsetHeight;
+              card.style.opacity = "1";
+              card.style.transform = "scale(1)";
+            });
+          } else {
+            // Animar salida
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+
+            // Ocultar físicamente al finalizar la animación
+            anyCard._filterTimeout = setTimeout(() => {
+              card.classList.add("hidden");
+              anyCard._filterTimeout = null;
+            }, 300);
+          }
+        });
+      });
+    });
+  }
+
+  // Ejecutar al cargar la página e inicializar con Astro View Transitions
+  initFilters();
+  document.addEventListener("astro:page-load", initFilters);
 </script>
