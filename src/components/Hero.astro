@@ -5,22 +5,22 @@ import { PERSONAL_INFO } from "../constants";
 ---
 
 <section
-  class="pt-24 pb-32 grid grid-cols-1 md:grid-cols-hero gap-12 items-start"
+  class="min-h-[70vh] w-full flex flex-col justify-center py-16"
 >
-  <div class="flex flex-col gap-6 order-last md:order-first">
-    <div class="space-y-2">
-      <h1>
-        {PERSONAL_INFO.fullName}
-      </h1>
-      <p class="text-xl md:text-2xl text-muted-foreground font-medium">
+  <div class="max-w-3xl w-full flex flex-col items-start gap-4">
+    <div class="space-y-3">
+      <h1>{PERSONAL_INFO.fullName}</h1>
+      <p
+        class="text-xl md:text-2xl text-muted-foreground font-medium"
+      >
         {PERSONAL_INFO.jobTitle}
       </p>
-      <p class="text-base text-muted-foreground">
-        {PERSONAL_INFO.location.full}
+      <p class="text-base text-muted-foreground/85 max-w-2xl pt-2 leading-relaxed">
+        Me especializo en el desarrollo de aplicaciones de escritorio y web, con foco en resolver problemas reales para todo tipo de organizaciones, desde automatizar procesos manuales hasta construir sistemas que antes simplemente no existían.
       </p>
     </div>
 
-    <div class="flex flex-wrap gap-4 pt-2">
+    <div class="flex flex-wrap gap-4 pt-4">
       <Button href="/sobreMi" variant="primary" size="lg"> Sobre mí </Button>
       <Button href="/contacto" variant="outline" size="lg"> Contacto </Button>
     </div>
@@ -46,12 +46,5 @@ import { PERSONAL_INFO } from "../constants";
       </a>
     </div>
   </div>
-
-  <div class="flex justify-center md:justify-end order-first md:order-last">
-    <div
-      class="size-avatar-mobile md:size-avatar-desktop overflow-hidden border border-border bg-surface flex items-center justify-center"
-    >
-      <span class="text-muted-foreground text-sm font-medium">Avatar</span>
-    </div>
-  </div>
 </section>
+

@@ -48,12 +48,7 @@
   --radius-xl: 0.75rem;
 
   /* Custom Spacing and Sizing */
-  --spacing-avatar-mobile: 220px;
-  --spacing-avatar-desktop: 260px;
   --spacing-icon-sm: 18px;
-
-  /* Custom Grid Layouts */
-  --grid-template-columns-hero: 3fr 2fr;
 
   /* Custom Z-Index */
   --z-index-overlay: 100;

@@ -8,7 +8,7 @@ export const PERSONAL_INFO = {
   /** Apellido */
   lastName: "Montes",
   /** Nombre completo habitual */
-  fullName: "Adriel Montes",
+  fullName: "Adriel Agustín Montes",
   /** Nombre completo formal / legal */
   legalName: "Adriel Agustín Montes",
   /** Cargo o título profesional principal */
