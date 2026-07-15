@@ -8,7 +8,7 @@ export const PERSONAL_INFO = {
   /** Apellido */
   lastName: "Montes",
   /** Nombre completo habitual */
-  fullName: "Adriel Agustín Montes",
+  fullName: "Adriel Montes",
   /** Nombre completo formal / legal */
   legalName: "Adriel Agustín Montes",
   /** Cargo o título profesional principal */
@@ -31,5 +31,5 @@ export const PERSONAL_INFO = {
   /** Perfil oficial de LinkedIn */
   linkedin: "https://www.linkedin.com/in/adriel-agustin-montes-66460b202/",
   /** Dominio de producción del portafolio */
-  domain: "https://adrielmontes.dev",
+  domain: "https://montesadriel.vercel.app/",
 } as const;
