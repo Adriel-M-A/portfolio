@@ -22,16 +22,4 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-
-# IA, Agentes y Automatizaciones
-.agents/
-.a11y-audit/
-docs/accessibility/
-agents.md
-gemini.md
-claude.md
-CLAUDE.md
-skills-lock.json
-.gemini/
-.cursorrules
-.copilotinstructions
+
