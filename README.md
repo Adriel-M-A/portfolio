@@ -29,48 +29,9 @@ El proyecto utiliza **Astro Content Collections** para gestionar de forma segura
 └── README.md
 ```
 
-## 🛠️ Instalación y Uso
-
-Si querés clonar este proyecto para verlo localmente, seguí estos pasos:
-
-1. **Clonar el repositorio:**
-
-   ```bash
-   git clone https://github.com/Adriel-M-A/portfolio.git
-   cd portfolio
-   ```
-
-2. **Instalar dependencias:**
-
-   ```bash
-   pnpm install
-   ```
-
-3. **Ejecutar el servidor de desarrollo:**
-
-   ```bash
-   pnpm dev
-   ```
-
-   _El servidor se iniciará en `http://localhost:4321/`_
-
-4. **Compilar para producción:**
-   ```bash
-   pnpm build
-   ```
-   _Los archivos estáticos optimizados se generarán en la carpeta `./dist/`._
-
-## 🎨 Características del Diseño
-
-- **Minimalismo y Dark Mode:** Estilo enfocado en el contenido usando una paleta monocromática con un fondo oscuro y un alto contraste para la legibilidad.
-- **Responsive Design:** Interfaces que se adaptan a cualquier tamaño de pantalla, con menús de navegación especiales para dispositivos móviles.
-- **Rendimiento:** Al ser un sitio estático generado por Astro, el envío de JavaScript al cliente es casi nulo, logrando métricas perfectas de Lighthouse.
-
 ## 📬 Contacto
 
-- **Ubicación:** Trelew, Chubut, Argentina
-- **LinkedIn:** [Adriel Agustín Montes](https://www.linkedin.com/in/adriel-agustin-montes-66460b202/)
-- **Email:** adriel.agustin.montes@gmail.com
+- **LinkedIn:** [Adriel Agustín Montes](https://www.linkedin.com/in/adriel-agustin-montes/)
 
 ---
 
