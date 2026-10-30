@@ -29,6 +29,8 @@ const {
 	coverAlt,
 	imagenes,
 	imagenesAlt,
+	categoria,
+	tipo,
 } = proyecto.data;
 const tecnologias = tecnologiasObj
 	? [
@@ -37,6 +39,10 @@ const tecnologias = tecnologiasObj
 			...tecnologiasObj.herramientas,
 		]
 	: [];
+
+const indexMatch = proyecto.id.match(/^(\d+)/);
+const moduleIndex = indexMatch ? indexMatch[1].padStart(2, '0') : '00';
+const slugLabel = proyecto.id.replace(/^\d+-/, '');
 ---
 
 <Layout
@@ -51,14 +57,19 @@ const tecnologias = tecnologiasObj
 		repoUrl={github}
 		demoUrl={demo}
 	/>
-	<main id="project-gallery-group" class="max-w-3xl mx-auto px-6 py-24">
-		<!-- Botón Volver -->
-		<a
-			href="/proyectos"
-			class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 mb-12"
-		>
-			<span aria-hidden="true">&larr;</span> Volver a proyectos
-		</a>
+	<main id="project-gallery-group" class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+		<!-- Barra de navegación superior -->
+		<div class="flex flex-wrap items-center justify-between gap-4 mb-10 pb-4 border-b border-border">
+			<a
+				href="/proyectos"
+				class="inline-flex items-center gap-2 font-mono text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+			>
+				<span aria-hidden="true">&larr;</span> cd ../proyectos
+			</a>
+			<span class="font-mono text-xs text-muted-foreground">
+				{moduleIndex} // {slugLabel} [{tipo || categoria}]
+			</span>
+		</div>
 
 		<!-- Cabecera -->
 		<header class="mb-12">
@@ -66,12 +77,12 @@ const tecnologias = tecnologiasObj
 				{title}
 			</h1>
 			<p
-				class="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6"
+				class="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 max-w-3xl"
 			>
 				{description}
 			</p>
 
-			<div class="flex flex-wrap items-center gap-4 mb-8">
+			<div class="flex flex-wrap items-center gap-2 mb-8">
 				{
 					tecnologias?.map((tech: string) => (
 						<Badge size="md">{tech}</Badge>
@@ -79,14 +90,14 @@ const tecnologias = tecnologiasObj
 				}
 			</div>
 
-			<div class="flex items-center gap-4">
+			<div class="flex flex-wrap items-center gap-4">
 				{
 					github &&
 						github.length > 0 &&
 						(github.toLowerCase() === "privado" ? (
-							<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 text-sm font-medium text-muted-foreground cursor-not-allowed">
+							<span class="inline-flex items-center gap-2 bg-surface border border-border px-4 py-2 font-mono text-xs md:text-sm font-medium text-muted-foreground cursor-not-allowed">
 								<Icon name="lock" class="w-4 h-4" />
-								Repositorio privado
+								Repositorio privado (Uso interno)
 							</span>
 						) : (
 							<Button
@@ -98,7 +109,7 @@ const tecnologias = tecnologiasObj
 								class="gap-2"
 							>
 								<Icon name="github" size={16} />
-								Código
+								Ver repositorio
 							</Button>
 						))
 				}
@@ -120,34 +131,57 @@ const tecnologias = tecnologiasObj
 			</div>
 		</header>
 
-		<!-- Imagen Principal -->
+		<!-- Imagen Principal en Marco de Ventana de Aplicación -->
 		<div class="mb-16">
 			{
 				cover ? (
-					<div class="w-full aspect-video bg-surface border border-border overflow-hidden">
-						<a
-							href={cover.src}
-							data-pswp-width={cover.width}
-							data-pswp-height={cover.height}
-							target="_blank"
-							class="block w-full h-full"
-						>
-							<Image
-								src={cover}
-								alt={
-									coverAlt || `Portada del proyecto ${title}`
-								}
-								width={1200}
-								height={675}
-								fetchpriority="high"
-								loading="eager"
-								class="w-full h-full object-cover object-top cursor-zoom-in transition-opacity duration-300 hover:opacity-90"
-							/>
-						</a>
-					</div>
+					<figure class="bg-card border border-border overflow-hidden group">
+						<!-- Cabecera de ventana de la captura principal -->
+						<div class="px-3.5 py-2 border-b border-border bg-surface flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground select-none">
+							<div class="flex items-center gap-2 min-w-0">
+								<div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+									<span class="size-2 border border-foreground/40 bg-background"></span>
+									<span class="size-2 border border-border bg-transparent"></span>
+								</div>
+								<span class="truncate">cover // {slugLabel}.webp</span>
+							</div>
+							<span class="text-xs uppercase tracking-wider shrink-0">
+								clic para ampliar
+							</span>
+						</div>
+
+						<div class="w-full aspect-video bg-surface overflow-hidden">
+							<a
+								href={cover.src}
+								data-pswp-width={cover.width}
+								data-pswp-height={cover.height}
+								target="_blank"
+								class="block w-full h-full focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+							>
+								<Image
+									src={cover}
+									alt={
+										coverAlt || `Portada del proyecto ${title}`
+									}
+									width={1200}
+									height={675}
+									fetchpriority="high"
+									loading="eager"
+									class="w-full h-full object-cover object-top cursor-zoom-in transition-transform duration-500 ease-out group-hover:scale-[1.01]"
+								/>
+							</a>
+						</div>
+
+						{coverAlt && (
+							<figcaption class="px-4 py-2.5 border-t border-border bg-surface/50 font-mono text-xs text-muted-foreground flex items-start gap-2">
+								<span class="text-foreground select-none shrink-0">&gt;</span>
+								<span>{coverAlt}</span>
+							</figcaption>
+						)}
+					</figure>
 				) : (
 					<div class="w-full aspect-video bg-surface border border-border flex items-center justify-center">
-						<span class="text-xl text-muted-foreground font-medium">
+						<span class="font-mono text-lg text-muted-foreground font-medium">
 							{title}
 						</span>
 					</div>
@@ -155,50 +189,77 @@ const tecnologias = tecnologiasObj
 			}
 		</div>
 
-		<!-- Contenido Markdown -->
+		<!-- Contenido Markdown (README / Especificación) -->
 		<div
 			class="text-muted-foreground leading-relaxed text-base prose-content mb-16"
 		>
 			<Content />
 		</div>
 
-		<!-- Galería de imágenes (si existen) -->
+		<!-- Galería de imágenes con Marco de Ventana y Epígrafes Visibles -->
 		{
 			imagenes && imagenes.length > 0 && (
 				<section class="portfolio-section">
-					<h2 class="mb-8">Galería</h2>
+					<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8">
+						<h2 class="flex items-baseline gap-3">
+							<span class="font-mono text-sm font-normal text-muted-foreground select-none">01 //</span>
+							<span>Galería de capturas</span>
+						</h2>
+						<span class="font-mono text-xs text-muted-foreground">
+							{imagenes.length} {imagenes.length === 1 ? "captura disponible" : "capturas disponibles"} (zoom interactivo)
+						</span>
+					</div>
+
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 						{imagenes.map((img, index: number) => {
 							const altText =
 								imagenesAlt?.[index] ||
 								`Captura ${index + 1} de ${title}`;
+							const captureIndex = String(index + 1).padStart(2, '0');
 
 							return (
-								<div class="aspect-video bg-surface border border-border overflow-hidden group">
-									<a
-										href={img.src}
-										data-pswp-width={img.width}
-										data-pswp-height={img.height}
-										target="_blank"
-										class="block w-full h-full"
-									>
-										<Image
-											src={img}
-											alt={altText}
-											width={800}
-											height={450}
-											class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 cursor-zoom-in"
-										/>
-									</a>
-								</div>
+								<figure class="bg-card border border-border flex flex-col overflow-hidden group transition-colors duration-200 hover:border-foreground/50">
+									<!-- Cabecera de ventana de la captura -->
+									<div class="px-3.5 py-2 border-b border-border bg-surface flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground select-none">
+										<div class="flex items-center gap-2">
+											<span class="size-2 border border-foreground/40 bg-background group-hover:bg-foreground transition-colors" aria-hidden="true"></span>
+											<span>captura_{captureIndex}.img</span>
+										</div>
+										<span class="text-xs uppercase tracking-wider">
+											[{img.width}&times;{img.height}]
+										</span>
+									</div>
+
+									<div class="aspect-video bg-surface overflow-hidden">
+										<a
+											href={img.src}
+											data-pswp-width={img.width}
+											data-pswp-height={img.height}
+											target="_blank"
+											class="block w-full h-full focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+										>
+											<Image
+												src={img}
+												alt={altText}
+												width={800}
+												height={450}
+												class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03] cursor-zoom-in"
+											/>
+										</a>
+									</div>
+
+									<!-- Epígrafe técnico visible -->
+									<figcaption class="p-3.5 border-t border-border bg-card font-mono text-xs text-muted-foreground leading-relaxed grow flex items-start gap-2">
+										<span class="text-foreground font-semibold select-none shrink-0">{captureIndex}:</span>
+										<span>{altText}</span>
+									</figcaption>
+								</figure>
 							);
 						})}
 					</div>
 				</section>
 			)
 		}
-
-
 
 		<script>
 			import { initLightbox } from "../../scripts/lightbox";

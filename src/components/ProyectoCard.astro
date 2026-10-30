@@ -15,38 +15,63 @@ const Heading = headingLevel;
 const { data, id } = proyecto;
 const { title, description, tecnologias, github, demo, cover, coverAlt, tipo, categoria } = data;
 
-// Obtener solo la primera tecnología de cada tipo (si existe) manteniendo el orden
-const cardTechs = tecnologias ? [
-  tecnologias.frontend?.[0],
-  tecnologias.backend?.[0],
-  tecnologias.herramientas?.[0]
-].filter((tech): tech is string => Boolean(tech)) : [];
+// Obtener las tecnologías representativas manteniendo orden limpio
+const allTechs = tecnologias ? [
+  ...(tecnologias.frontend ?? []),
+  ...(tecnologias.backend ?? []),
+  ...(tecnologias.herramientas ?? []),
+] : [];
+const cardTechs = allTechs.slice(0, 4);
+
+// Identificador corto tipo módulo/proceso a partir del id (ej. "01 // escritorio")
+const indexMatch = id.match(/^(\d+)/);
+const moduleIndex = indexMatch ? indexMatch[1].padStart(2, '0') : '00';
+const slugLabel = id.replace(/^\d+-/, '');
 ---
 
 <article 
-  class="group bg-card border border-border flex flex-col transition-all duration-300 ease-out hover:border-foreground/20 hover:-translate-y-1 hover:shadow-lg project-card"
+  class="group bg-card border border-border flex flex-col transition-all duration-300 ease-out hover:border-foreground/50 project-card"
   data-category={categoria}
 >
-  <!-- Imagen -->
-  <div class="relative aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden">
-    {cover ? (
-      <Image src={cover} alt={coverAlt || `Portada del proyecto ${title}`} width={800} height={450} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out" />
-    ) : (
-      <span class="text-muted-foreground font-medium p-6">{title}</span>
-    )}
-    
-    {tipo && (
-      <div class="absolute top-3 right-3 z-10">
-        <Badge size="sm" variant="active" class="bg-background/90 text-foreground border-border/80 shadow-sm backdrop-blur-sm select-none">
-          {tipo}
-        </Badge>
+  <!-- Cabecera estilo ventana / módulo de terminal -->
+  <div class="px-3.5 py-2 border-b border-border bg-surface/70 flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground select-none">
+    <div class="flex items-center gap-2 min-w-0">
+      <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+        <span class="size-2 border border-foreground/40 bg-background group-hover:bg-foreground transition-colors"></span>
+        <span class="size-2 border border-border bg-transparent"></span>
       </div>
-    )}
+      <span class="truncate text-muted-foreground group-hover:text-foreground transition-colors">
+        {moduleIndex} // {slugLabel}
+      </span>
+    </div>
+    <span class="shrink-0 text-xs uppercase tracking-wider px-1.5 py-0.5 border border-border bg-background text-muted-foreground">
+      {tipo || categoria}
+    </span>
   </div>
 
-  <div class="p-4 flex flex-col grow gap-4">
-    <!-- Tecnologías justo después de la imagen -->
-    <div class="flex flex-wrap gap-2">
+  <!-- Imagen -->
+  <a
+    href={`/proyectos/${id}`}
+    tabindex="-1"
+    aria-hidden="true"
+    class="relative aspect-video w-full bg-surface border-b border-border flex items-center justify-center text-center overflow-hidden block"
+  >
+    {cover ? (
+      <Image
+        src={cover}
+        alt={coverAlt || `Portada del proyecto ${title}`}
+        width={800}
+        height={450}
+        class="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+      />
+    ) : (
+      <span class="font-mono text-sm text-muted-foreground p-6">{title}</span>
+    )}
+  </a>
+
+  <div class="p-5 flex flex-col grow gap-4">
+    <!-- Tecnologías -->
+    <div class="flex flex-wrap gap-1.5">
       {cardTechs.map((tech) => (
         <Badge size="sm">
           {tech}
@@ -56,7 +81,10 @@ const cardTechs = tecnologias ? [
 
     <!-- Título y Descripción -->
     <div>
-      <a href={`/proyectos/${id}`} class="inline-block hover:underline decoration-border underline-offset-4 mb-2">
+      <a
+        href={`/proyectos/${id}`}
+        class="inline-block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring group-hover:underline decoration-foreground/50 underline-offset-4 mb-2"
+      >
         <Heading class="text-lg md:text-xl font-semibold text-foreground">{title}</Heading>
       </a>
       <p class="text-sm text-muted-foreground leading-relaxed line-clamp-3">
@@ -64,34 +92,42 @@ const cardTechs = tecnologias ? [
       </p>
     </div>
     
-    <!-- Botones -->
-    <div class="flex items-center justify-between gap-4 mt-auto pt-2">
-      <!-- Botones en el fondo a la izquierda -->
-      <div class="flex items-center gap-4">
+    <!-- Footer de la tarjeta con acciones -->
+    <div class="flex items-center justify-between gap-4 mt-auto pt-3 border-t border-border/60">
+      <div class="flex items-center gap-4 font-mono">
         {github && github.length > 0 && (
           github.toLowerCase() === 'privado' ? (
-            <span class="text-sm text-muted-foreground inline-flex items-center gap-1.5 cursor-not-allowed" title="Repositorio Privado">
-              <Icon name="lock" class="w-4 h-4" />
-              Privado
+            <span class="text-xs text-muted-foreground inline-flex items-center gap-1.5 cursor-not-allowed" title="Repositorio Privado (Uso Interno)">
+              <Icon name="lock" class="w-3.5 h-3.5" />
+              privado
             </span>
           ) : (
-            <a href={github} target="_blank" rel="noopener noreferrer" class="text-sm text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
-              <Icon name="github" size={16} />
-              Código
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              <Icon name="github" size={15} />
+              repo
             </a>
           )
         )}
         {demo && demo.length > 0 && (
-          <a href={demo} target="_blank" rel="noopener noreferrer" class="text-sm text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5">
-            <Icon name="external-link" class="w-4 h-4" />
-            Web
+          <a
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            <Icon name="external-link" class="w-3.5 h-3.5" />
+            demo
           </a>
         )}
       </div>
       
-      <!-- Botón de Ver detalles en el fondo a la derecha -->
-      <Button href={`/proyectos/${id}`} size="sm" aria-label={`Ver detalles del proyecto ${title}`}>
-        Ver detalles
+      <Button href={`/proyectos/${id}`} size="sm" variant="outline" aria-label={`Ver detalles del proyecto ${title}`}>
+        Ver ficha &rarr;
       </Button>
     </div>
   </div>

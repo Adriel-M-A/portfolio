@@ -13,7 +13,7 @@ interface Props {
 }
 
 const defaultDescription =
-	`Portfolio de ${PERSONAL_INFO.fullName} | ${PERSONAL_INFO.jobTitle} en ${PERSONAL_INFO.location.detailed}. Experiencia en desarrollo de software y soporte técnico.`;
+	`Portfolio de ${PERSONAL_INFO.fullName} | ${PERSONAL_INFO.jobTitle} en ${PERSONAL_INFO.location.detailed}. Desarrollo de aplicaciones de escritorio y web.`;
 const siteName = PERSONAL_INFO.fullName;
 
 const {
@@ -97,8 +97,15 @@ const ogType = Astro.url.pathname === "/" ? "profile" : "website";
 		<meta name="twitter:image" content={ogImageUrl} />
 	</head>
 	<body
-		class="antialiased min-h-screen flex flex-col bg-background text-primary"
+		class="relative antialiased min-h-screen flex flex-col bg-background text-primary selection:bg-foreground selection:text-background"
 	>
+		<!-- Grilla arquitectónica monocromática de fondo (fija y sutil en ambos temas) -->
+		<!-- [Convención Tailwind v4] Se usan valores arbitrarios para linear-gradient, bg-size y mask-image para el tramado técnico -->
+		<div
+			class="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_65%_at_50%_20%,#000_40%,transparent_100%)] opacity-35 dark:opacity-25"
+			aria-hidden="true"
+		></div>
+
 		<Navbar />
 		<!-- Overlay del menú móvil (fuera del header para z-index correcto) -->
 		<MobileMenuOverlay />

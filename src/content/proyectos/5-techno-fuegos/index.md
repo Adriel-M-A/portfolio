@@ -1,10 +1,10 @@
 ---
 title: "Techno Fuegos System"
-description: "Aplicación de escritorio desarrollada para automatizar la generación de presupuestos en una empresa de herrería artesanal, permitiendo calcular costos, emitir cotizaciones profesionales y reducir la dependencia del conocimiento técnico del taller."
+description: "Aplicación de escritorio a medida en Rust y Tauri para automatizar el cálculo de costos y la emisión de presupuestos en una empresa metalúrgica y de herrería artesanal."
 tecnologias:
   frontend:
-    - "JavaScript"
     - "React"
+    - "JavaScript"
     - "Tailwind CSS"
     - "Zustand"
     - "React Hook Form"
@@ -25,50 +25,50 @@ imagenes:
   - "./screenshot-2.png"
   - "./screenshot-3.png"
 imagenesAlt:
-  - "Interfaz principal de la creacion de pesupuesto con plantilla seleccionada"
-  - "Interfaz principal de la creacion de pesupuesto con visualización del calculo final"
-  - "Interfaz de configuracion de la aplicacion con sus apartados: Insumos, Empleados, Plantillas y Backups"
+  - "Interfaz principal de creación de presupuesto con plantilla de producto seleccionada y desglose de materiales"
+  - "Visualización del cálculo comercial final con costos de insumos, mano de obra y margen aplicado"
+  - "Panel de configuración del sistema: catálogo de insumos en hierro, empleados, plantillas base y copias de seguridad"
 categoria: "Escritorio"
 ---
 
 ## Resumen
 
-Esta aplicación de escritorio a medida fue diseñada para **Techno Fuegos**, una empresa familiar en Pilar, Buenos Aires, dedicada a la fabricación artesanal de fogoneros, parrillas y hornos de hierro. El sistema agiliza el cálculo comercial y la elaboración de cotizaciones del taller, permitiendo al equipo administrativo presupuestar proyectos personalizados a partir de la selección manual de insumos y materiales del catálogo con sus precios actualizados.
+Aplicación de escritorio a medida desarrollada para **Techno Fuegos**, una empresa dedicada a la fabricación artesanal de fogoneros, parrillas y estructuras de hierro. El sistema independiza el cálculo comercial del trabajo en el taller, permitiendo al área administrativa cotizar proyectos personalizados a partir de recetas base e insumos actualizados, emitir presupuestos en PDF y operar con protección continua ante cortes de suministro eléctrico.
 
 ## El problema
 
-Cotizar un fogonero o una parrilla a medida era un proceso lento y centralizado. El encargado de producción (el herrero) era el único que conocía de memoria los costos de las materias primas y las horas de mano de obra necesarias para cada estructura. Para emitir una cotización, la administración debía interrumpir las labores en el taller de soldadura para que el fabricante calculara a mano el costo estimado del pedido.
+Cotizar un fogonero o una parrilla a medida era un cuello de botella operativo. El encargado de producción era el único que conocía en detalle el rendimiento de los materiales y las horas de soldadura necesarias para cada estructura. Para responder a un cliente, administración debía interrumpir el trabajo en el taller metalúrgico para calcular a mano el costo de cada pedido.
 
-Esto causaba cuellos de botella comerciales, demoras de días para entregar los presupuestos a los clientes, y la imposibilidad de delegar el proceso de ventas si el herrero no estaba disponible.
+Esto generaba demoras de varios días en la entrega de presupuestos, riesgo de desactualización de precios de materias primas y la imposibilidad de delegar la presupuestación comercial.
 
 ## La solución
 
-Desarrollé una aplicación de escritorio offline que unifica la administración de costos y la confección de cotizaciones. El sistema centraliza la base de datos de insumos (como varillas de hierro de 3 metros, chapas por unidad o electrodos) y horas de taller, permitiendo cargar recetas base o plantillas de productos predefinidos.
+Desarrollé e instalé una aplicación de escritorio 100% offline en los equipos de la empresa, capacitando al personal para unificar la gestión de costos y la emisión de cotizaciones. El sistema centraliza el catálogo de insumos físicos (varillas de hierro por barra, chapas por espesor, consumibles de soldadura) y el valor hora de taller, permitiendo definir plantillas base reutilizables.
 
-El operador administrativo selecciona el modelo base, ajusta de manera manual las cantidades exactas de materiales requeridas para el trabajo a medida (por ejemplo, especificando "3 varillas de hierro de 3 metros"), e ingresa las horas estimadas de soldadura y mano de obra. El sistema realiza la consolidación matemática de costos, añade el margen de ganancia comercial de forma automática y genera un presupuesto en PDF listo para compartir.
+El operador selecciona una plantilla, ajusta las cantidades de materiales u horas para el trabajo a medida, y el motor calcula en tiempo real los costos directos, aplica los márgenes comerciales y exporta un presupuesto en PDF optimizado para impresión en taller o envío directo al cliente.
 
 ## Características
 
-- Presupuestación interactiva: Tabla de carga dinámica para inyectar materiales y mano de obra del catálogo, calculando importes en tiempo real según las cantidades ingresadas.
-- Catálogo de insumos editable: Panel para actualizar el precio unitario del hierro, la chapa o los consumibles en caliente, impactando automáticamente en las futuras cotizaciones.
-- Exportación de PDF monocromático: Diseño limpio en escala de grises optimizado para imprimir en el taller sin desperdiciar tinta.
-- Control de inflación: Fechas de vencimiento automáticas en los presupuestos y cláusulas legales personalizables para proteger los precios del taller.
-- Resiliencia ante apagones: Mecanismo de auto-guardado automático continuo de borradores activos.
+- **Patrón Safe Money:** Manejo íntegro de montos monetarios en centavos de peso (enteros) en el backend de Rust y SQLite para eliminar errores de punto flotante ante escenarios de alta inflación.
+- **Resiliencia Anti-Apagones:** Persistencia automática continua del estado de los formularios para proteger el trabajo administrativo frente a caídas de tensión provocadas por maquinaria de soldadura.
+- **Presupuestación por Plantillas:** Carga instantánea de estructuras base con ajuste dinámico de materiales, mano de obra y márgenes de ganancia.
+- **Catálogo de Insumos en Caliente:** Actualización centralizada del precio del hierro y consumibles con impacto inmediato en nuevas cotizaciones.
+- **Exportación PDF Monocromática:** Generación de presupuestos con fechas de validez automáticas y diseño de alto contraste en escala de grises, pensado para impresoras de taller sin desperdicio de tóner.
 
 ## El desafío técnico central
 
-El núcleo de este proyecto consistió en resolver tres desafíos de naturaleza física y lógica del taller:
+El desarrollo exigió resolver tres desafíos concretos derivados del entorno físico e industrial del cliente:
 
-- Estructuración del inventario: Traducir las materias primas a unidades físicas de compra de un herrero artesanal (varillas de 3m, unidades de perfiles) en lugar de una lógica de API web tradicional. El diseño del esquema SQLite permitió estructurar y adaptar estas particularidades comerciales de forma limpia.
-- Resiliencia anti-apagones: El encendido de maquinaria de soldadura pesada en el taller de metalurgia provocaba caídas repentinas de tensión en la red eléctrica de las oficinas. Implementé una capa de persistencia en tiempo real en la vista del frontend para que, ante cortes de luz inesperados, la administración pudiera reiniciar la PC y retomar la carga del formulario sin perder los datos numéricos acumulados.
-- Esquema Safe Money: Para evitar inconsistencias de redondeo con las fluctuaciones constantes de precios en pesos argentinos, programé el backend en Rust para operar todos los costos monetarios en la base de datos SQLite como enteros (centavos de peso), convirtiéndolos a unidades decimales únicamente al renderizar el cliente o el presupuesto en PDF.
+- **Esquema Safe Money (Precisión Monetaria en Rust):** En un contexto de precios con cifras elevadas y actualizaciones frecuentes, operar con decimales de punto flotante (`f64`) introduce discrepancias de redondeo acumulativas. Diseñé el backend en Rust y el esquema de SQLite para almacenar y calcular cada insumo, subtotal y porcentaje exclusivamente como enteros de 64 bits (centavos de peso), formateando a decimales únicamente en la capa de vista y en la salida de `jsPDF`.
+- **Resiliencia frente a Cortes Eléctricos en Taller:** El arranque de soldadoras industriales y herramientas de corte en el taller provocaba bajas de tensión y reinicios ocasionales en las computadoras de oficina. Implementé una capa de persistencia reactiva con Zustand sincronizada en tiempo real que guarda cada modificación del borrador activo, permitiendo reiniciar el equipo y retomar la cotización exactamente en el último campo editado sin pérdida de datos.
+- **Modelado de Unidades Físicas de Herrería:** Traduje la lógica de acopio del taller (barras de hierro de longitudes fijas, fracciones de chapa y horas-hombre por categoría de operario) a un esquema relacional en SQLite con validación estricta en el cliente mediante React Hook Form y Zod.
 
 ## Arquitectura
 
-- Entorno de ejecución: Tauri con Rust, que permitió proveer un instalador final sumamente ligero (menos de 10MB en disco y mínimo consumo de memoria RAM en comparación con Electron), óptimo para los equipos del local.
-- Persistencia: SQLite local gestionada desde el backend de Tauri en Rust, asegurando acceso instantáneo offline a los costos y cotizaciones históricas.
-- Frontend y UX: React con Tailwind CSS v4, Zustand para navegación no destructiva y persistente en caliente, y React Hook Form con validación de formularios estricta vía Zod.
+- **Entorno y Backend:** Tauri con **Rust**, logrando un ejecutable nativo de menos de 10 MB en disco y un consumo mínimo de memoria RAM, muy superior en rendimiento a alternativas basadas en Chromium empaquetado.
+- **Base de Datos y Backups:** SQLite local administrada directamente desde Rust, incluyendo un sistema integrado de copias de seguridad y restauración en un clic.
+- **Frontend:** React, Tailwind CSS v4, gestión de estado persistente con Zustand, validación de esquemas con Zod y generación de documentos con jsPDF.
 
 ## Resultado
 
-**Techno Fuegos System** eliminó la dependencia del fabricante en el proceso comercial. El equipo de administración ahora presupuesta y envía cotizaciones profesionales por WhatsApp en menos de 5 minutos, permitiendo que el taller se dedique exclusivamente a la producción y fabricación en hierro.
+**Techno Fuegos System** eliminó las interrupciones en el sector de soldadura por consultas de precios y redujo el tiempo de confección de presupuestos a menos de 5 minutos, estandarizando el cálculo de costos y protegiendo los márgenes comerciales del taller.

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T16:20:00-03:00",
+  "title": "Design System: Adriel Montes Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Obsidian Ink",
+        "canonical": "oklch(18% 0 0)",
+        "tonalRamp": [
+          "oklch(14% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(32% 0 0)",
+          "oklch(44% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(76% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(96% 0 0)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Canvas Ground",
+        "canonical": "oklch(99% 0 0)",
+        "tonalRamp": [
+          "oklch(14% 0 0)",
+          "oklch(19% 0 0)",
+          "oklch(29% 0 0)",
+          "oklch(44% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(86% 0 0)",
+          "oklch(96% 0 0)",
+          "oklch(99% 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Headline",
+        "purpose": "Títulos principales de página y nombre en Hero."
+      },
+      "label": {
+        "displayName": "Technical Mono Label",
+        "purpose": "Metadatos, cabeceras de módulos, badges de tecnologías y botones."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out-standard",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Transición suave de bordes e imágenes en tarjetas y filtros."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Botón principal monocromático en fuente monoespaciada.",
+      "html": "<a href=\"#\" class=\"ds-btn-primary\">Ver proyectos &rarr;</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono, monospace); font-size: 0.875rem; font-weight: 500; padding: 0.625rem 1.5rem; background-color: var(--color-primary, #111); color: var(--color-primary-foreground, #fafafa); border: 1px solid transparent; text-decoration: none; transition: opacity 0.2s; } .ds-btn-primary:hover { opacity: 0.9; } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-ring, #111); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tech Badge",
+      "kind": "chip",
+      "refersTo": "badge-default",
+      "description": "Etiqueta técnica rectangular para lenguajes y herramientas.",
+      "html": "<span class=\"ds-badge\">Rust</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; font-family: var(--font-mono, monospace); font-size: 0.75rem; padding: 0.25rem 0.625rem; border: 1px solid var(--color-border, #d9d9d9); background-color: var(--color-surface, #f3f3f3); color: var(--color-muted-foreground, #555); transition: color 0.2s, border-color 0.2s; } .ds-badge:hover { color: var(--color-foreground, #090909); border-color: var(--color-foreground, #090909); }"
+    },
+    {
+      "name": "Window Module Card",
+      "kind": "card",
+      "refersTo": "card-module",
+      "description": "Contenedor técnico con barra de título tipo ventana de terminal.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-header\"><span>01 // modulo</span><span>Escritorio</span></div><div class=\"ds-card-body\"><h3>Techno Fuegos System</h3><p>Cotizador metalúrgico en Rust y Tauri.</p></div></article>",
+      "css": ".ds-card { border: 1px solid var(--color-border, #d9d9d9); background-color: var(--color-card, #fcfcfc); color: var(--color-foreground, #090909); transition: border-color 0.2s; } .ds-card:hover { border-color: var(--color-foreground, #090909); } .ds-card-header { display: flex; justify-content: space-between; padding: 0.5rem 0.875rem; border-bottom: 1px solid var(--color-border, #d9d9d9); background-color: var(--color-surface, #f3f3f3); font-family: var(--font-mono, monospace); font-size: 0.75rem; color: var(--color-muted-foreground, #555); } .ds-card-body { padding: 1.25rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Monochromatic Spec & Terminal",
+    "overview": "El sistema visual combina la precisión de un entorno de desarrollo (IDE / terminal de línea de comandos) con la claridad de lectura de un documento técnico editorial. Evita el ruido cromático y los artificios decorativos para que la arquitectura de cada software, las capturas reales de las interfaces y los resultados operativos sean los protagonistas.",
+    "keyCharacteristics": [
+      "Escala acromática estricta en OKLCH: Blancos puros, negros profundos y grises neutros calibrados para alto contraste.",
+      "Tríada tipográfica funcional: Space Grotesk para titulares, Inter para lectura fluida y JetBrains Mono para metadatos y controles.",
+      "Geometría de módulos técnicos: Contenedores con esquinas rectas (0px), cabeceras de ventana e indicadores geométricos monocromáticos."
+    ],
+    "rules": [
+      {
+        "name": "The Zero-Hue Discipline Rule",
+        "body": "Ningún componente introduce colores semánticos saturados en la interfaz general; toda diferenciación jerárquica se resuelve mediante contraste luminoso, grosor de borde, inversión de fondo y tipografía monoespaciada.",
+        "section": "colors"
+      },
+      {
+        "name": "The Functional Monospace Rule",
+        "body": "JetBrains Mono se reserva para metadatos estructurales, identificadores de módulo, tecnologías, rutas, dimensiones de imagen y controles interactivos; nunca para párrafos extensos de lectura.",
+        "section": "typography"
+      },
+      {
+        "name": "The Border-Over-Shadow Rule",
+        "body": "La elevación e interactividad de una tarjeta o módulo se expresa incrementando el contraste de su borde y alternando entre capas de superficie, nunca apilando sombras borrosas sobre bordes.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do mantener los prefijos numerados en JetBrains Mono (01 //, 02 //) en los encabezados de sección principales para guiar el escaneo visual.",
+      "Do envolver las capturas de pantalla de proyectos en marcos de ventana (figure) con su epígrafe descriptivo visible (figcaption).",
+      "Do garantizar foco de teclado visible (focus-visible:outline-2) en todos los enlaces, pestañas de filtro y botones."
+    ],
+    "donts": [
+      "Don't introducir colores fuera de la escala acromática ni sombras duras neobrutalistas.",
+      "Don't exponer números de teléfono o enlaces de WhatsApp en ningún componente de contacto o pie de página.",
+      "Don't usar guiones largos en texto narrativo generado, lenguaje emocional exagerado ni etiquetas de 'Pasantía' en los módulos de experiencia."
+    ]
+  }
+}

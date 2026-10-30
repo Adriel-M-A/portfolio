@@ -11,129 +11,142 @@ const linkedinUrl = PERSONAL_INFO.linkedin;
 <Layout title={`Contacto | ${PERSONAL_INFO.fullName}`}>
   <main class="max-w-5xl mx-auto px-6 py-16">
     <div class="mb-12">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 border border-border bg-surface/80 font-mono text-xs text-muted-foreground mb-4">
+        <span>01 // canales_contacto.cfg</span>
+      </div>
       <h1 class="mb-4">Contacto</h1>
-      <p class="text-lg text-muted-foreground">
-        Contactame para oportunidades laborales, colaboraciones o simplemente
-        para saludar.
+      <p class="text-lg text-muted-foreground max-w-2xl">
+        Disponible para oportunidades laborales en desarrollo de software, proyectos a medida o consultas técnicas.
       </p>
     </div>
 
-    <div class="max-w-3xl mx-auto">
-      <!-- Tarjeta Unificada de Contacto -->
+    <div class="max-w-3xl">
+      <!-- Tarjeta Unificada de Contacto con Cabecera de Ventana -->
       <div
-        class="bg-card border border-border p-6 rounded-none hover:border-foreground/20 hover:shadow-sm transition-all duration-300"
+        class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50"
       >
-        <h2 class="text-xl mb-6">Conectá conmigo</h2>
-
-        <div class="divide-y divide-border/60">
-          <!-- GitHub -->
-          <div
-            class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 first:pt-0"
-          >
-            <div class="flex items-center gap-3">
-              <Icon
-                name="github"
-                class="w-5 h-5 text-muted-foreground shrink-0"
-              />
-              <div class="min-w-0">
-                <span class="text-sm font-semibold text-foreground block"
-                  >GitHub</span
-                >
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block"
-                >
-                  {githubUrl.replace("https://", "")}
-                </a>
-              </div>
-            </div>
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
-            >
-              Visitar <Icon name="external-link" size={12} />
-            </a>
+        <div class="px-5 py-3 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground select-none">
+          <div class="flex items-center gap-2">
+            <span class="size-2 bg-foreground inline-block" aria-hidden="true"></span>
+            <span class="text-foreground font-medium">canales_directos</span>
           </div>
+          <span>status: activo</span>
+        </div>
 
-          <!-- LinkedIn -->
-          <div
-            class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-          >
-            <div class="flex items-center gap-3">
-              <Icon
-                name="linkedin"
-                class="w-5 h-5 text-muted-foreground shrink-0"
-              />
-              <div class="min-w-0">
-                <span class="text-sm font-semibold text-foreground block"
-                  >LinkedIn</span
-                >
-                <a
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block"
-                >
-                  linkedin.com/in/adriel-agustin-montes...
-                </a>
-              </div>
-            </div>
-            <a
-              href={linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none shrink-0"
+        <div class="p-6">
+          <h2 class="text-xl mb-6">Conectá conmigo</h2>
+
+          <div class="divide-y divide-border/70">
+            <!-- Email -->
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 first:pt-0"
             >
-              Visitar <Icon name="external-link" size={12} />
-            </a>
-          </div>
-
-          <!-- Email -->
-          <div
-            class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 last:pb-0"
-          >
-            <div class="flex items-center gap-3">
-              <Icon
-                name="mail"
-                class="w-5 h-5 text-muted-foreground shrink-0"
-              />
-              <div class="min-w-0">
-                <span class="text-sm font-semibold text-foreground block"
-                  >Email</span
-                >
+              <div class="flex items-center gap-3 min-w-0">
+                <Icon
+                  name="mail"
+                  class="w-5 h-5 text-foreground shrink-0"
+                />
+                <div class="min-w-0">
+                  <span class="text-sm font-semibold text-foreground block"
+                    >Email</span
+                  >
+                  <a
+                    href={`mailto:${email}`}
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 font-mono truncate block"
+                  >
+                    {email}
+                  </a>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 w-full sm:w-auto shrink-0">
                 <a
                   href={`mailto:${email}`}
-                  class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300 font-mono truncate block"
+                  class="font-mono text-xs px-3.5 py-2 font-medium transition-colors duration-200 cursor-pointer border border-transparent bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring flex items-center justify-center gap-1.5 rounded-none grow sm:grow-0 text-center"
                 >
-                  {email}
+                  Escribir
                 </a>
+                <button
+                  id="copy-email-btn"
+                  type="button"
+                  class="font-mono text-xs px-3.5 py-2 font-medium transition-colors duration-200 cursor-pointer border border-border text-foreground bg-transparent hover:bg-surface hover:border-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring flex items-center justify-center gap-1.5 rounded-none grow sm:grow-0"
+                  aria-label="Copiar email al portapapeles"
+                  title="Copiar email"
+                >
+                  <Icon name="copy" size={12} />
+                  <Icon
+                    name="check"
+                    size={12}
+                    class="hidden text-foreground"
+                  />
+                  <span id="copy-btn-text">Copiar</span>
+                </button>
               </div>
             </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto shrink-0">
-              <a
-                href={`mailto:${email}`}
-                class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0 text-center"
-              >
-                Escribir
-              </a>
-              <button
-                id="copy-email-btn"
-                class="font-mono text-xs px-3 py-1.5 font-medium transition-colors duration-300 cursor-pointer border border-border text-muted-foreground bg-transparent hover:text-foreground hover:bg-surface focus-visible:outline-none flex items-center justify-center gap-1.5 rounded-none flex-grow sm:flex-grow-0"
-                aria-label="Copiar email al portapapeles"
-                title="Copiar email"
-              >
-                <Icon name="copy" size={12} />
+
+            <!-- LinkedIn -->
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+            >
+              <div class="flex items-center gap-3 min-w-0">
                 <Icon
-                  name="check"
-                  size={12}
-                  class="hidden text-green-600 dark:text-green-400"
+                  name="linkedin"
+                  class="w-5 h-5 text-foreground shrink-0"
                 />
-                <span id="copy-btn-text">Copiar</span>
-              </button>
+                <div class="min-w-0">
+                  <span class="text-sm font-semibold text-foreground block"
+                    >LinkedIn</span
+                  >
+                  <a
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 font-mono truncate block"
+                  >
+                    linkedin.com/in/adriel-agustin-montes
+                  </a>
+                </div>
+              </div>
+              <a
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono text-xs px-3.5 py-2 font-medium transition-colors duration-200 cursor-pointer border border-border text-foreground bg-transparent hover:bg-surface hover:border-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring flex items-center justify-center gap-1.5 rounded-none shrink-0"
+              >
+                Visitar <Icon name="external-link" size={12} />
+              </a>
+            </div>
+
+            <!-- GitHub -->
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 last:pb-0"
+            >
+              <div class="flex items-center gap-3 min-w-0">
+                <Icon
+                  name="github"
+                  class="w-5 h-5 text-foreground shrink-0"
+                />
+                <div class="min-w-0">
+                  <span class="text-sm font-semibold text-foreground block"
+                    >GitHub</span
+                  >
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 font-mono truncate block"
+                  >
+                    {githubUrl.replace("https://", "")}
+                  </a>
+                </div>
+              </div>
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono text-xs px-3.5 py-2 font-medium transition-colors duration-200 cursor-pointer border border-border text-foreground bg-transparent hover:bg-surface hover:border-foreground/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring flex items-center justify-center gap-1.5 rounded-none shrink-0"
+              >
+                Visitar <Icon name="external-link" size={12} />
+              </a>
             </div>
           </div>
         </div>

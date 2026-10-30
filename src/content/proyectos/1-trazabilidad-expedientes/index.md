@@ -1,6 +1,6 @@
 ---
 title: "Sistema de Trazabilidad de Expedientes"
-description: "Aplicación interna desarrollada para el ENRE Chubut que permite controlar la ubicación, circulación y custodia de expedientes físicos dentro de la institución."
+description: "Aplicación interna cliente-servidor desarrollada para el EPRESP Chubut que permite controlar la ubicación, circulación y custodia de expedientes físicos dentro de la institución."
 tecnologias:
   frontend:
     - "C#"
@@ -21,67 +21,45 @@ imagenes:
   - "./screenshot-4.webp"
   - "./screenshot-5.webp"
 imagenesAlt:
-  - "Listado de todos los expedientes con filtros (estado y custido)"
-  - "Listado de expedientes en poder del usuario actual"
-  - "Pantalla con detalles de un expediente"
-  - "Formulario para registrar una nueva transferencia interna de expediente"
-  - "Panel de administración para la gestión de personal y roles"
+  - "Listado general de expedientes con filtros por estado actual y área en custodia"
+  - "Bandeja de expedientes asignados en poder del usuario autenticado"
+  - "Vista detallada de un expediente con su historial completo de movimientos"
+  - "Formulario para registrar una nueva transferencia interna de expediente entre sectores"
+  - "Panel de administración para la gestión de personal, sectores y roles del sistema"
 categoria: "Escritorio"
 ---
 
 ## Resumen
 
-Sistema de escritorio cliente-servidor desarrollado durante mi pasantía en el ENRE
-(Ente Regulador de Servicios Públicos de la Provincia del Chubut) para centralizar
-el control de expedientes físicos que circulaban entre las distintas áreas del organismo.
-Utilizado por entre 10 y 30 empleados de diferentes sectores: administración,
-asesoría legal, contaduría e ingeniería.
+Sistema de escritorio cliente-servidor desarrollado en el **EPRESP** (Ente Regulador de Servicios Públicos de la Provincia del Chubut) para centralizar el control y la auditoría de los expedientes físicos que circulaban entre las distintas áreas del organismo. Utilizado a diario por más de 30 profesionales de administración, asesoría legal, contaduría e ingeniería.
 
 ## El problema
 
-El ENRE trabajaba a diario con documentación física que pasaba constantemente de
-mano en mano entre áreas. Sin ninguna herramienta centralizada, nadie sabía con
-certeza dónde estaba un expediente en un momento dado, quién lo tenía ni cuánto
-tiempo llevaba en ese lugar. La única forma de ubicarlo era preguntando de escritorio
-en escritorio.
+El EPRESP trabajaba a diario con documentación física crítica que pasaba constantemente de mano en mano entre áreas. Sin una herramienta centralizada, no existía certeza sobre dónde estaba un expediente en un momento dado, quién lo tenía bajo custodia ni cuánto tiempo llevaba en ese sector. La única forma de rastrearlo era recorriendo las oficinas escritorio por escritorio.
 
 ## La solución
 
-Diseñé e implementé un sistema que registra cada movimiento de un expediente:
-desde que se solicita hasta que se devuelve a administración, pasando por cada
-transferencia intermedia. Cualquier empleado puede ver en tiempo real dónde está
-un documento y consultar su historial completo de circulación.
+Relevé los requerimientos directamente con las áreas legales, contables y administrativas, documenté los flujos de trabajo y diseñé un sistema que registra cada movimiento de un expediente: desde su alta y solicitud hasta su devolución final a administración, auditando cada transferencia intermedia. Cualquier profesional autorizado puede consultar en tiempo real la ubicación actual de un documento y su historial completo de pases.
 
-El sistema diferencia dos roles: los usuarios comunes pueden solicitar expedientes
-y registrar pases entre compañeros, mientras que administración tiene control total
-sobre entregas, devoluciones y acciones críticas.
+El sistema implementa control de acceso basado en roles: los usuarios operativos pueden solicitar expedientes y registrar transferencias hacia otros sectores, mientras que el área de administración conserva el control exclusivo sobre altas, entregas iniciales, devoluciones definitivas y operaciones críticas.
 
 ## Características
 
-- Registro completo del ciclo de vida de cada expediente: solicitud, entrega,
-  transferencias y devolución.
-- Trazabilidad en tiempo real: ubicación actual y historial de cada documento.
-- Sistema de autenticación con roles diferenciados (administrador / usuario).
-- Restricciones de seguridad para operaciones críticas, reservadas a administración.
-- Interfaz familiar para operadores no técnicos, construida sobre Windows Forms.
+- Registro completo del ciclo de vida de cada expediente: alta, solicitud, entrega, transferencias entre sectores y devolución.
+- Trazabilidad y auditoría en tiempo real: ubicación exacta actual e historial cronológico de cada documento.
+- Autenticación con permisos diferenciados por rol (administrador / operador por área).
+- Restricciones de integridad para evitar pases duplicados o movimientos sobre expedientes cerrados.
+- Interfaz de escritorio rápida y familiar para usuarios administrativos y técnicos, construida en Windows Forms.
 
 ## Arquitectura
 
-Aplicación de escritorio con arquitectura cliente-servidor sobre red local privada:
+Aplicación de escritorio estructurada bajo **arquitectura en capas** (presentación, lógica de negocio y persistencia de datos) operando sobre la red local privada del organismo:
 
-- Frontend: C# con Windows Forms. La elección de WinForms fue deliberada:
-  los operadores ya conocían el paradigma de escritorio de Windows, lo que redujo
-  la curva de adopción al mínimo.
-- Backend / Base de datos: PostgreSQL en un servidor local dentro de la red
-  interna del organismo, sin exposición a internet.
-- Despliegue: La parte más desafiante del proyecto fue configurar el acceso
-  concurrente de múltiples clientes sobre la red institucional, garantizando que
-  las operaciones sobre los expedientes fueran consistentes sin importar cuántos
-  usuarios estuvieran conectados al mismo tiempo.
+- **Capa de Presentación:** C# (.NET) con Windows Forms, priorizando velocidad de respuesta por teclado y mínima curva de aprendizaje para el personal administrativo.
+- **Capa de Lógica y Persistencia:** Separación estricta entre las validaciones de negocio (reglas de custodia y estados de transferencia) y el acceso a datos mediante consultas parametrizadas.
+- **Base de Datos:** Modelo relacional diseñado en **PostgreSQL**, alojado en un servidor local dentro de la red interna del EPRESP sin exposición a internet.
+- **Despliegue y Concurrencia:** Configuré el entorno de red y el acceso concurrente de múltiples puestos de trabajo simultáneos sobre el servidor PostgreSQL local, garantizando consistencia transaccional en cada pase de expediente.
 
 ## Resultado
 
-El sistema fue desplegado con éxito y adoptado por el personal del ENRE. Eliminó
-por completo la dependencia de búsquedas manuales e informales para ubicar
-documentación, y le dio a administración visibilidad total sobre la circulación
-interna de expedientes por primera vez.
+El sistema fue desplegado en producción en todos los sectores del EPRESP. Eliminó las búsquedas manuales de documentación física, redujo los tiempos de localización a segundos y otorgó a la dirección y a la mesa de entradas visibilidad completa sobre el flujo interno de expedientes.

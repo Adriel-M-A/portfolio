@@ -5,46 +5,112 @@ import { PERSONAL_INFO } from "../constants";
 ---
 
 <section
-  class="min-h-[70vh] w-full flex flex-col justify-center py-16"
+  class="min-h-[70vh] w-full flex flex-col justify-center py-16 md:py-20"
 >
-  <div class="max-w-3xl w-full flex flex-col items-start gap-4">
-    <div class="space-y-3">
-      <h1>{PERSONAL_INFO.fullName}</h1>
-      <p
-        class="text-xl md:text-2xl text-muted-foreground font-medium"
-      >
-        {PERSONAL_INFO.jobTitle}
-      </p>
-      <p class="text-base text-muted-foreground/85 max-w-2xl pt-2 leading-relaxed">
-        Me especializo en el desarrollo de aplicaciones de escritorio y web, con foco en resolver problemas reales para todo tipo de organizaciones, desde automatizar procesos manuales hasta construir sistemas que antes simplemente no existían.
-      </p>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+    <!-- Columna Principal: Presentación Editorial -->
+    <div class="lg:col-span-7 flex flex-col items-start gap-5">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 border border-border bg-surface/80 font-mono text-xs text-muted-foreground">
+        <span class="size-2 bg-foreground inline-block" aria-hidden="true"></span>
+        <span>~/adriel-montes — desarrollo de software</span>
+      </div>
+
+      <div class="space-y-3">
+        <h1 class="tracking-tight">{PERSONAL_INFO.fullName}</h1>
+        <p class="text-xl md:text-2xl text-muted-foreground font-medium font-display">
+          {PERSONAL_INFO.jobTitle}
+        </p>
+        <p class="text-base text-muted-foreground max-w-2xl pt-2 leading-relaxed">
+          Desarrollador de software especializado en aplicaciones de escritorio y web. Construyo sistemas de principio a fin: desde el relevamiento funcional y el modelado de bases de datos hasta el despliegue de herramientas offline, sistemas cliente-servidor e interfaces modernas que resuelven problemas operativos reales.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 pt-2">
+        <Button href="/proyectos" variant="primary" size="lg">
+          Ver proyectos &rarr;
+        </Button>
+        <Button href="/sobreMi" variant="outline" size="lg">
+          Sobre mí
+        </Button>
+        <Button href="/contacto" variant="ghost" size="lg" class="border border-transparent hover:border-border">
+          Contacto
+        </Button>
+      </div>
+
+      <div class="flex items-center gap-5 pt-2 font-mono text-xs text-muted-foreground">
+        <a
+          href={PERSONAL_INFO.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          aria-label="GitHub"
+        >
+          <Icon name="github" size={18} />
+          <span>github.com/Adriel-M-A</span>
+        </a>
+        <span class="text-border select-none" aria-hidden="true">/</span>
+        <a
+          href={PERSONAL_INFO.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          aria-label="LinkedIn"
+        >
+          <Icon name="linkedin" size={18} />
+          <span>linkedin</span>
+        </a>
+      </div>
     </div>
 
-    <div class="flex flex-wrap gap-4 pt-4">
-      <Button href="/sobreMi" variant="primary" size="lg"> Sobre mí </Button>
-      <Button href="/contacto" variant="outline" size="lg"> Contacto </Button>
-    </div>
+    <!-- Columna Lateral: Ventana Técnica / Consola Monocromática -->
+    <div class="lg:col-span-5 w-full">
+      <div class="bg-card border border-border">
+        <!-- Barra de título del módulo -->
+        <div class="px-4 py-2.5 border-b border-border bg-surface flex items-center justify-between font-mono text-xs text-muted-foreground select-none">
+          <div class="flex items-center gap-2">
+            <Icon name="terminal" size={14} class="text-foreground" />
+            <span class="text-foreground font-medium">perfil.spec.ts</span>
+          </div>
+          <span class="text-xs uppercase tracking-wider px-1.5 py-0.5 border border-border bg-background">
+            UTF-8 // ES
+          </span>
+        </div>
 
-    <div class="flex items-center gap-4 pt-4">
-      <a
-        href={PERSONAL_INFO.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-muted-foreground hover:text-foreground transition-colors duration-300"
-        aria-label="GitHub"
-      >
-        <Icon name="github" size={22} />
-      </a>
-      <a
-        href={PERSONAL_INFO.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-muted-foreground hover:text-foreground transition-colors duration-300"
-        aria-label="LinkedIn"
-      >
-        <Icon name="linkedin" size={22} />
-      </a>
+        <!-- Cuerpo estilo inspección técnica -->
+        <div class="p-5 font-mono text-xs md:text-sm leading-relaxed space-y-3 bg-card text-muted-foreground">
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">01</span>
+            <p><span class="text-foreground font-semibold">rol:</span> "Desarrollador Desktop & Web"</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">02</span>
+            <p><span class="text-foreground font-semibold">formación:</span> "Analista Programador Univ."</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">03</span>
+            <p><span class="text-foreground font-semibold">lenguajes:</span> [Rust, Python, C#, TS, JS, SQL]</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">04</span>
+            <p><span class="text-foreground font-semibold">entornos:</span> [Tauri, React, Electron, .NET]</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">05</span>
+            <p><span class="text-foreground font-semibold">datos:</span> [PostgreSQL, SQLite, MySQL]</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-muted-foreground/50 select-none w-5 text-right shrink-0">06</span>
+            <p><span class="text-foreground font-semibold">enfoque:</span> "Arquitectura en capas & Offline"</p>
+          </div>
+          <div class="pt-2 mt-2 border-t border-border/70 flex items-center justify-between text-xs text-muted-foreground">
+            <span class="inline-flex items-center gap-2">
+              <span class="size-2 bg-foreground inline-block" aria-hidden="true"></span>
+              status: disponible
+            </span>
+            <span>6 sistemas documentados</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-

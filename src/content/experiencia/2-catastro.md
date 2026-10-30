@@ -1,13 +1,13 @@
 ---
 empresa: "Catastro"
 nombreCompleto: "Dirección General de Catastro de la Provincia del Chubut"
-rol: "Soporte Técnico y Desarrollo Web"
-tipo: "Pasantía"
+rol: "Analista Técnico de Sistemas y Desarrollo Web"
+tipo: ""
 desde: "2022"
 hasta: "2023"
 ubicacion: "Rawson, Chubut"
 ---
 
-- Mantenimiento de equipos (PCs, impresoras, dispositivos de red).
-- Carga y actualización de datos geográficos en sistemas internos y bases de datos.
-- Actualización del sitio web institucional en WordPress, utilizando HTML, CSS y JavaScript para extender funcionalidades.
+- Programé e integré un módulo de cálculo interactivo para trámites catastrales en JavaScript, HTML y CSS sobre el portal institucional en WordPress, reduciendo un 90% el tiempo de procesamiento de expedientes.
+- Administré, cargué y validé periódicamente los registros en las bases de datos geográficas internas asegurando la integridad de la información territorial.
+- Diagnostiqué y resolví de forma presencial incidentes de hardware, sistemas operativos e impresoras en red TCP/IP para más de 20 puestos de trabajo.
