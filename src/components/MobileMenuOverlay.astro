@@ -89,11 +89,20 @@ const links = [
               aria-current={isActive ? "page" : undefined}
             >
               <span class="flex items-center gap-2.5">
+                {isActive && (
+                  <span class="size-1.5 bg-foreground inline-block shrink-0" aria-hidden="true" />
+                )}
                 <span class="text-xs text-muted-foreground/60 select-none">{link.index} //</span>
                 <span>{link.label}</span>
               </span>
-              <span class="text-xs font-semibold text-foreground" aria-hidden="true">
-                {isActive ? ">" : "&rarr;"}
+              <span
+                class:list={[
+                  "text-xs font-mono",
+                  isActive ? "text-foreground font-semibold" : "text-muted-foreground/50",
+                ]}
+                aria-hidden="true"
+              >
+                &rarr;
               </span>
             </a>
           );

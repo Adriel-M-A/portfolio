@@ -13,47 +13,27 @@ const links = [
   { href: "/proyectos", label: "Proyectos", index: "03" },
   { href: "/contacto", label: "Contacto", index: "04" },
 ];
-
-const routeMap: Record<string, string> = {
-  "/": "inicio",
-  "/sobreMi": "sobre-mi",
-  "/proyectos": "proyectos",
-  "/contacto": "contacto",
-};
-
-const activeRouteLabel =
-  routeMap[currentPath] ||
-  (currentPath.startsWith("/proyectos/")
-    ? `proyectos/${currentPath.split("/")[2]}`
-    : currentPath.replace(/^\//, ""));
 ---
 
 <header
   class="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur-md"
 >
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-    <!-- Logo e Indicador de Ruta (Izquierda) -->
-    <div class="flex items-center gap-3 min-w-0">
-      <a href="/" class="flex items-center gap-2 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" aria-label="Ir al inicio">
-        <img
-          src="/logo-dark.svg"
-          alt={PERSONAL_INFO.fullName}
-          width="46"
-          class="h-6 w-auto block dark:hidden"
-        />
-        <img
-          src="/logo-white.svg"
-          alt={PERSONAL_INFO.fullName}
-          width="46"
-          class="h-6 w-auto hidden dark:block"
-        />
-      </a>
-
-      <!-- Prompt de ruta tipo terminal (oculto en pantallas muy angostas) -->
-      <div class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground border border-border px-2 py-0.5 bg-surface/60 truncate select-none">
-        <span class="text-foreground font-semibold">~/{activeRouteLabel}</span>
-      </div>
-    </div>
+    <!-- Logo (Izquierda) -->
+    <a href="/" class="flex items-center gap-2 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" aria-label="Ir al inicio">
+      <img
+        src="/logo-dark.svg"
+        alt={PERSONAL_INFO.fullName}
+        width="46"
+        class="h-6 w-auto block dark:hidden"
+      />
+      <img
+        src="/logo-white.svg"
+        alt={PERSONAL_INFO.fullName}
+        width="46"
+        class="h-6 w-auto hidden dark:block"
+      />
+    </a>
 
     <!-- Navegación y Toggle (Derecha en Desktop) -->
     <nav class="hidden md:flex items-center gap-2" aria-label="Navegación principal">
