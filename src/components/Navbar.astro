@@ -8,50 +8,78 @@ const pathname = Astro.url.pathname;
 const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
 
 const links = [
-  { href: "/", label: "Inicio" },
-  { href: "/sobreMi", label: "Sobre mí" },
-  { href: "/proyectos", label: "Proyectos" },
-  { href: "/contacto", label: "Contacto" },
+  { href: "/", label: "Inicio", index: "01" },
+  { href: "/sobreMi", label: "Sobre mí", index: "02" },
+  { href: "/proyectos", label: "Proyectos", index: "03" },
+  { href: "/contacto", label: "Contacto", index: "04" },
 ];
+
+const routeMap: Record<string, string> = {
+  "/": "inicio",
+  "/sobreMi": "sobre-mi",
+  "/proyectos": "proyectos",
+  "/contacto": "contacto",
+};
+
+const activeRouteLabel =
+  routeMap[currentPath] ||
+  (currentPath.startsWith("/proyectos/")
+    ? `proyectos/${currentPath.split("/")[2]}`
+    : currentPath.replace(/^\//, ""));
 ---
 
 <header
-  class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm"
+  class="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur-md"
 >
-  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo (Izquierda) -->
-    <a href="/" class="flex items-center gap-2">
-      <img
-        src="/logo-dark.svg"
-        alt={PERSONAL_INFO.fullName}
-        width="46"
-        class="h-6 w-auto block dark:hidden"
-      />
-      <img
-        src="/logo-white.svg"
-        alt={PERSONAL_INFO.fullName}
-        width="46"
-        class="h-6 w-auto hidden dark:block"
-      />
-    </a>
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+    <!-- Logo e Indicador de Ruta (Izquierda) -->
+    <div class="flex items-center gap-3 min-w-0">
+      <a href="/" class="flex items-center gap-2 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" aria-label="Ir al inicio">
+        <img
+          src="/logo-dark.svg"
+          alt={PERSONAL_INFO.fullName}
+          width="46"
+          class="h-6 w-auto block dark:hidden"
+        />
+        <img
+          src="/logo-white.svg"
+          alt={PERSONAL_INFO.fullName}
+          width="46"
+          class="h-6 w-auto hidden dark:block"
+        />
+      </a>
+
+      <!-- Prompt de ruta tipo terminal (oculto en pantallas muy angostas) -->
+      <div class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground border border-border px-2 py-0.5 bg-surface/60 truncate select-none">
+        <span class="text-foreground font-semibold">~/{activeRouteLabel}</span>
+      </div>
+    </div>
 
     <!-- Navegación y Toggle (Derecha en Desktop) -->
-    <nav class="hidden md:flex items-center gap-6">
+    <nav class="hidden md:flex items-center gap-2" aria-label="Navegación principal">
       {
-        links.map((link) => (
-          <a
-            href={link.href}
-            class={`text-sm transition-colors duration-300 hover:text-foreground ${
-              currentPath === link.href
-                ? "text-foreground font-medium"
-                : "text-muted-foreground"
-            }`}
-          >
-            {link.label}
-          </a>
-        ))
+        links.map((link) => {
+          const isActive = currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href));
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                "font-mono text-xs uppercase tracking-wider px-3 py-1.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring inline-flex items-center gap-1.5 border",
+                isActive
+                  ? "border-border bg-surface text-foreground font-semibold"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:bg-surface/50",
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {isActive && (
+                <span class="size-1.5 bg-foreground inline-block shrink-0" aria-hidden="true" />
+              )}
+              <span>{link.label}</span>
+            </a>
+          );
+        })
       }
-      <div class="pl-2 border-l border-border flex items-center h-5">
+      <div class="pl-3 ml-2 border-l border-border flex items-center h-6">
         <ThemeToggle />
       </div>
     </nav>

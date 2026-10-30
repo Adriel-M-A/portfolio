@@ -7,39 +7,39 @@ colors:
   background: "oklch(99% 0 0)"
   foreground: "oklch(15% 0 0)"
   surface: "oklch(96% 0 0)"
-  border: "oklch(86% 0 0)"
-  muted-foreground: "oklch(44% 0 0)"
+  border: "oklch(83% 0 0)"
+  muted-foreground: "oklch(38% 0 0)"
   dark-background: "oklch(14% 0 0)"
   dark-foreground: "oklch(98% 0 0)"
   dark-surface: "oklch(19% 0 0)"
   dark-card: "oklch(16.5% 0 0)"
-  dark-border: "oklch(29% 0 0)"
-  dark-muted-foreground: "oklch(71% 0 0)"
+  dark-border: "oklch(31% 0 0)"
+  dark-muted-foreground: "oklch(75% 0 0)"
 typography:
   display:
-    fontFamily: "Space Grotesk, sans-serif"
+    fontFamily: "IBM Plex Sans, -apple-system, sans-serif"
     fontSize: "clamp(1.875rem, 4vw, 3rem)"
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: "-0.025em"
   headline:
-    fontFamily: "Space Grotesk, sans-serif"
+    fontFamily: "IBM Plex Sans, -apple-system, sans-serif"
     fontSize: "clamp(1.5rem, 3vw, 1.875rem)"
     fontWeight: 700
     lineHeight: 1.25
     letterSpacing: "-0.02em"
   title:
-    fontFamily: "Space Grotesk, sans-serif"
+    fontFamily: "IBM Plex Sans, -apple-system, sans-serif"
     fontSize: "1.25rem"
     fontWeight: 600
     lineHeight: 1.35
   body:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "IBM Plex Sans, -apple-system, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
-    lineHeight: 1.625
+    lineHeight: 1.65
   body-sm:
-    fontFamily: "Inter, sans-serif"
+    fontFamily: "IBM Plex Sans, -apple-system, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.625
@@ -112,11 +112,11 @@ Paleta estrictamente acromática definida en el espacio perceptual OKLCH con sop
 
 ## Typography
 
-**Display Font:** Space Grotesk (con fallback `sans-serif`)
-**Body Font:** Inter (con fallback `sans-serif`)
+**Display Font:** IBM Plex Sans (con fallback `sans-serif`)
+**Body Font:** IBM Plex Sans (con fallback `sans-serif`)
 **Label/Mono Font:** JetBrains Mono (con fallback `monospace`)
 
-**Character:** Emparejamiento técnico y sobrio donde la voz monoespaciada actúa como sistema de señalización, metadatos e interacción, mientras la sans-serif garantiza lectura cómoda para clientes no técnicos y reclutadores.
+**Character:** Emparejamiento Developer Mono técnico y sobrio donde la voz monoespaciada actúa como sistema de señalización, metadatos e interacción, mientras IBM Plex Sans garantiza lectura cómoda y nítida para clientes no técnicos y reclutadores.
 
 ### Hierarchy
 - **Display** (`700`, `clamp(1.875rem, 4vw, 3rem)`, `1.15`): Nombre principal en el Hero y títulos de primer nivel (`h1`).

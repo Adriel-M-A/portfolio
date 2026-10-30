@@ -90,7 +90,7 @@
     "overview": "El sistema visual combina la precisión de un entorno de desarrollo (IDE / terminal de línea de comandos) con la claridad de lectura de un documento técnico editorial. Evita el ruido cromático y los artificios decorativos para que la arquitectura de cada software, las capturas reales de las interfaces y los resultados operativos sean los protagonistas.",
     "keyCharacteristics": [
       "Escala acromática estricta en OKLCH: Blancos puros, negros profundos y grises neutros calibrados para alto contraste.",
-      "Tríada tipográfica funcional: Space Grotesk para titulares, Inter para lectura fluida y JetBrains Mono para metadatos y controles.",
+      "Tríada tipográfica funcional: IBM Plex Sans para titulares y lectura fluida, y JetBrains Mono para metadatos, controles y rutas.",
       "Geometría de módulos técnicos: Contenedores con esquinas rectas (0px), cabeceras de ventana e indicadores geométricos monocromáticos."
     ],
     "rules": [
