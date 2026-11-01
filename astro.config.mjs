@@ -7,6 +7,9 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://montesadriel.vercel.app",
   integrations: [sitemap()],
+  devToolbar: {
+    enabled: false,
+  },
   vite: {
     plugins: [tailwindcss()],
   },

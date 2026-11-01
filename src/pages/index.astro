@@ -20,16 +20,17 @@ const maxTechs = TOP_TECHNOLOGIES.slice(0, 20);
 	<main class="max-w-6xl mx-auto px-6">
 		<Hero />
 
-		<!-- 01 // Tecnologías -->
+		<!-- Tecnologías -->
 		<section class="portfolio-section">
 			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8">
-				<h2 class="flex items-baseline gap-3">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">01 //</span>
-					<span>Tecnologías</span>
-				</h2>
-				<span class="font-mono text-xs text-muted-foreground">
-					stack_frecuente.list ({maxTechs.length})
-				</span>
+				<h2>Tecnologías</h2>
+				<a
+					href="/sobreMi"
+					class="font-mono text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+				>
+					<span>Perfil y stack completo</span>
+					<span aria-hidden="true">&rarr;</span>
+				</a>
 			</div>
 
 			<div class="flex flex-wrap gap-2.5">
@@ -52,18 +53,15 @@ const maxTechs = TOP_TECHNOLOGIES.slice(0, 20);
 			</div>
 		</section>
 
-		<!-- 02 // Proyectos Destacados -->
+		<!-- Proyectos Destacados -->
 		<section class="portfolio-section pb-24">
 			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-8">
-				<h2 class="flex items-baseline gap-3">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">02 //</span>
-					<span>Proyectos destacados</span>
-				</h2>
+				<h2>Proyectos destacados</h2>
 				<a
 					href="/proyectos"
 					class="font-mono text-xs md:text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
 				>
-					<span>Ver catálogo completo ({proyectosEntries.length})</span>
+					<span>Ver todos ({proyectosEntries.length})</span>
 					<span aria-hidden="true">&rarr;</span>
 				</a>
 			</div>

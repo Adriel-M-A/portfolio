@@ -9,10 +9,10 @@ const pathname = Astro.url.pathname;
 const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
 
 const links = [
-  { href: "/", label: "Inicio", index: "01" },
-  { href: "/sobreMi", label: "Sobre mí", index: "02" },
-  { href: "/proyectos", label: "Proyectos", index: "03" },
-  { href: "/contacto", label: "Contacto", index: "04" },
+  { href: "/", label: "Inicio" },
+  { href: "/sobreMi", label: "Sobre mí" },
+  { href: "/proyectos", label: "Proyectos" },
+  { href: "/contacto", label: "Contacto" },
 ];
 ---
 
@@ -21,6 +21,7 @@ const links = [
   id="mobile-menu-overlay"
   class="fixed inset-0 z-overlay pointer-events-none md:hidden"
   aria-hidden="true"
+  inert
   role="dialog"
   aria-modal="true"
   aria-label="Menú de navegación"
@@ -37,29 +38,24 @@ const links = [
     data-menu-panel
     class="absolute inset-0 bg-background flex flex-col translate-x-full transition-transform duration-300 ease-in-out"
   >
-    <!-- Cabecera del overlay: logo a la izquierda, etiqueta técnica y botón X -->
+    <!-- Cabecera del overlay: logo a la izquierda y botón X a la derecha -->
     <div
       class="max-w-6xl w-full mx-auto px-6 h-16 flex items-center justify-between border-b border-border bg-surface/50"
     >
-      <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2" aria-label="Ir al inicio">
-          <img
-            src="/logo-dark.svg"
-            alt={PERSONAL_INFO.fullName}
-            width="46"
-            class="h-6 w-auto block dark:hidden"
-          />
-          <img
-            src="/logo-white.svg"
-            alt={PERSONAL_INFO.fullName}
-            width="46"
-            class="h-6 w-auto hidden dark:block"
-          />
-        </a>
-        <span class="font-mono text-xs text-muted-foreground border border-border px-2 py-0.5 bg-background select-none">
-          menu // nav.sh
-        </span>
-      </div>
+      <a href="/" class="flex items-center gap-2" aria-label="Ir al inicio">
+        <img
+          src="/logo-dark.svg"
+          alt={PERSONAL_INFO.fullName}
+          width="46"
+          class="h-6 w-auto block dark:hidden"
+        />
+        <img
+          src="/logo-white.svg"
+          alt={PERSONAL_INFO.fullName}
+          width="46"
+          class="h-6 w-auto hidden dark:block"
+        />
+      </a>
 
       <button
         id="mobile-menu-close"
@@ -72,7 +68,7 @@ const links = [
       </button>
     </div>
 
-    <!-- Links de navegación apilados verticalmente con formato de terminal -->
+    <!-- Links de navegación apilados verticalmente -->
     <nav class="flex flex-col gap-2.5 px-6 mt-8" aria-label="Navegación móvil">
       {
         links.map((link) => {
@@ -88,13 +84,7 @@ const links = [
               ]}
               aria-current={isActive ? "page" : undefined}
             >
-              <span class="flex items-center gap-2.5">
-                {isActive && (
-                  <span class="size-1.5 bg-foreground inline-block shrink-0" aria-hidden="true" />
-                )}
-                <span class="text-xs text-muted-foreground/60 select-none">{link.index} //</span>
-                <span>{link.label}</span>
-              </span>
+              <span>{link.label}</span>
               <span
                 class:list={[
                   "text-xs font-mono",
@@ -146,7 +136,7 @@ const links = [
       </div>
 
       <div class="flex items-center justify-between border-t border-border/70 pt-4 font-mono text-xs text-muted-foreground">
-        <span>Alternar tema:</span>
+        <span>Tema</span>
         <div class="border border-border bg-background p-1 flex items-center">
           <ThemeToggle />
         </div>

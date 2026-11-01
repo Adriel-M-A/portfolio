@@ -13,32 +13,44 @@ function openMenu(): void {
   const overlay = document.getElementById('mobile-menu-overlay');
   if (!btn || !overlay) return;
 
+  overlay.removeAttribute('inert');
+  overlay.setAttribute('aria-hidden', 'false');
   overlay.classList.remove('pointer-events-none');
   overlay.classList.add('pointer-events-auto');
   overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-full');
   overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-0');
   overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-0');
   overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-100');
-  overlay.setAttribute('aria-hidden', 'false');
   btn.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
 }
 
 /**
  * Contrae y oculta el panel del menú móvil mediante clases de transición CSS,
- * restaura el scroll de la página y deshabilita la interacción con el overlay una vez
- * finalizada la animación de salida.
+ * libera el foco interno antes de ocultar para cumplir WAI-ARIA (`aria-hidden` + `inert`),
+ * restaura el scroll de la página y deshabilita la interacción con el overlay.
  */
-function closeMenu(): void {
+function closeMenu(restoreFocusToTrigger = false): void {
   const btn = document.getElementById('mobile-menu-btn');
   const overlay = document.getElementById('mobile-menu-overlay');
   if (!btn || !overlay) return;
+
+  // Evitar que un descendiente conserve el foco al aplicar aria-hidden="true"
+  const activeEl = document.activeElement as HTMLElement | null;
+  if (activeEl && overlay.contains(activeEl)) {
+    if (restoreFocusToTrigger) {
+      btn.focus();
+    } else {
+      activeEl.blur();
+    }
+  }
 
   overlay.querySelector('[data-menu-panel]')?.classList.remove('translate-x-0');
   overlay.querySelector('[data-menu-panel]')?.classList.add('translate-x-full');
   overlay.querySelector('[data-menu-backdrop]')?.classList.remove('opacity-100');
   overlay.querySelector('[data-menu-backdrop]')?.classList.add('opacity-0');
   overlay.setAttribute('aria-hidden', 'true');
+  overlay.setAttribute('inert', '');
   btn.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 
@@ -70,15 +82,15 @@ export function initMobileMenu(): void {
       return;
     }
 
-    // Cerrar menú con el botón de cerrar
+    // Cerrar menú con el botón de cerrar (devolviendo foco al botón disparador)
     if (target.closest('#mobile-menu-close')) {
-      closeMenu();
+      closeMenu(true);
       return;
     }
 
     // Cerrar menú haciendo click en el backdrop oscuro
     if (target.closest('[data-menu-backdrop]')) {
-      closeMenu();
+      closeMenu(true);
       return;
     }
 
@@ -89,7 +101,7 @@ export function initMobileMenu(): void {
 
       if (href) {
         e.preventDefault();
-        closeMenu();
+        closeMenu(false);
 
         setTimeout(() => {
           import('astro:transitions/client')
@@ -101,7 +113,7 @@ export function initMobileMenu(): void {
             });
         }, 300);
       } else {
-        closeMenu();
+        closeMenu(false);
       }
     }
   });
@@ -111,7 +123,7 @@ export function initMobileMenu(): void {
     if (e.key === 'Escape') {
       const btn = document.getElementById('mobile-menu-btn');
       if (btn && btn.getAttribute('aria-expanded') === 'true') {
-        closeMenu();
+        closeMenu(true);
       }
     }
   });

@@ -1,6 +1,6 @@
 ---
-title: "Sistema POS: Control de Ventas"
-description: "Aplicación de escritorio 100% offline para punto de venta en producción real (Elixir Helados): facturación rápida, inventario híbrido, canales de venta y cierres de caja."
+title: "Sistema POS para Control de Ventas"
+description: "Aplicación de escritorio offline para punto de venta en producción real en Elixir Helados, con facturación rápida, inventario híbrido, canales de venta y cierres de caja."
 tecnologias:
   frontend:
     - "TypeScript"

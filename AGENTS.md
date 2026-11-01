@@ -60,6 +60,7 @@ Ver detalles completos en [`docs/stack.md`](./docs/stack.md).
 - Actualizar metadatos SEO de páginas existentes.
 
 ### Qué requiere confirmación explícita
+- **Crear o subir cualquier commit (`git commit` / `git push`)**: Cada commit individual requiere autorización explícita del usuario en ese momento. Una autorización dada en un mensaje anterior NO autoriza commits futuros.
 - Agregar nuevas dependencias (`npm install`, `pnpm add`).
 - Crear nuevas páginas o rutas.
 - Modificar el `Layout.astro` base.
@@ -69,6 +70,7 @@ Ver detalles completos en [`docs/stack.md`](./docs/stack.md).
 - Tocar `pnpm-workspace.yaml` o `package.json`.
 
 ### Lo que nunca debés hacer
+- **Hacer `git commit` o `git push` sin autorización explícita del usuario para ese commit específico** (sin importar el modo de trabajo ni si hubo autorización en mensajes previos).
 - Hacer commits o push directamente a `main`.
 - Agregar dependencias no solicitadas explícitamente.
 - Cambiar la estrategia de despliegue (SSG → SSR u otro).

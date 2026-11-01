@@ -13,7 +13,7 @@ interface Props {
 const { proyecto, headingLevel = 'h2' } = Astro.props;
 const Heading = headingLevel;
 const { data, id } = proyecto;
-const { title, description, tecnologias, github, demo, cover, coverAlt, tipo, categoria } = data;
+const { title, description, tecnologias, github, demo, cover, coverAlt, categoria } = data;
 
 // Obtener las tecnologías representativas manteniendo orden limpio
 const allTechs = tecnologias ? [
@@ -22,34 +22,13 @@ const allTechs = tecnologias ? [
   ...(tecnologias.herramientas ?? []),
 ] : [];
 const cardTechs = allTechs.slice(0, 4);
-
-// Identificador corto tipo módulo/proceso a partir del id (ej. "01 // escritorio")
-const indexMatch = id.match(/^(\d+)/);
-const moduleIndex = indexMatch ? indexMatch[1].padStart(2, '0') : '00';
-const slugLabel = id.replace(/^\d+-/, '');
 ---
 
 <article 
   class="group bg-card border border-border flex flex-col transition-all duration-300 ease-out hover:border-foreground/50 project-card"
   data-category={categoria}
 >
-  <!-- Cabecera estilo ventana / módulo de terminal -->
-  <div class="px-3.5 py-2 border-b border-border bg-surface/70 flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground select-none">
-    <div class="flex items-center gap-2 min-w-0">
-      <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
-        <span class="size-2 border border-foreground/40 bg-background group-hover:bg-foreground transition-colors"></span>
-        <span class="size-2 border border-border bg-transparent"></span>
-      </div>
-      <span class="truncate text-muted-foreground group-hover:text-foreground transition-colors">
-        {moduleIndex} // {slugLabel}
-      </span>
-    </div>
-    <span class="shrink-0 text-xs uppercase tracking-wider px-1.5 py-0.5 border border-border bg-background text-muted-foreground">
-      {tipo || categoria}
-    </span>
-  </div>
-
-  <!-- Imagen -->
+  <!-- Imagen de portada -->
   <a
     href={`/proyectos/${id}`}
     tabindex="-1"
@@ -70,7 +49,7 @@ const slugLabel = id.replace(/^\d+-/, '');
   </a>
 
   <div class="p-5 flex flex-col grow gap-4">
-    <!-- Tecnologías -->
+    <!-- Tecnologías en su propio bloque de ancho completo -->
     <div class="flex flex-wrap gap-1.5">
       {cardTechs.map((tech) => (
         <Badge size="sm">
@@ -91,41 +70,36 @@ const slugLabel = id.replace(/^\d+-/, '');
         {description}
       </p>
     </div>
-    
-    <!-- Footer de la tarjeta con acciones -->
+
+    <!-- Pie de tarjeta dedicado para enlaces y acción principal -->
     <div class="flex items-center justify-between gap-4 mt-auto pt-3 border-t border-border/60">
-      <div class="flex items-center gap-4 font-mono">
-        {github && github.length > 0 && (
-          github.toLowerCase() === 'privado' ? (
-            <span class="text-xs text-muted-foreground inline-flex items-center gap-1.5 cursor-not-allowed" title="Repositorio Privado (Uso Interno)">
-              <Icon name="lock" class="w-3.5 h-3.5" />
-              privado
-            </span>
-          ) : (
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-xs text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-            >
-              <Icon name="github" size={15} />
-              repo
-            </a>
-          )
+      <div class="flex items-center gap-3 font-mono text-xs text-muted-foreground">
+        {github && github.length > 0 && github.toLowerCase() !== 'privado' && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            aria-label={`Repositorio público de ${title}`}
+          >
+            <Icon name="github" size={14} />
+            <span>repo</span>
+          </a>
         )}
         {demo && demo.length > 0 && (
           <a
             href={demo}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-xs text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            class="text-foreground hover:text-muted-foreground transition-colors inline-flex items-center gap-1.5 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            aria-label={`Demo online de ${title}`}
           >
-            <Icon name="external-link" class="w-3.5 h-3.5" />
-            demo
+            <Icon name="external-link" size={14} />
+            <span>demo</span>
           </a>
         )}
       </div>
-      
+
       <Button href={`/proyectos/${id}`} size="sm" variant="outline" aria-label={`Ver detalles del proyecto ${title}`}>
         Ver ficha &rarr;
       </Button>

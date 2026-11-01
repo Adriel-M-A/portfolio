@@ -8,10 +8,10 @@ const pathname = Astro.url.pathname;
 const currentPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
 
 const links = [
-  { href: "/", label: "Inicio", index: "01" },
-  { href: "/sobreMi", label: "Sobre mí", index: "02" },
-  { href: "/proyectos", label: "Proyectos", index: "03" },
-  { href: "/contacto", label: "Contacto", index: "04" },
+  { href: "/", label: "Inicio" },
+  { href: "/sobreMi", label: "Sobre mí" },
+  { href: "/proyectos", label: "Proyectos" },
+  { href: "/contacto", label: "Contacto" },
 ];
 ---
 
@@ -44,16 +44,13 @@ const links = [
             <a
               href={link.href}
               class:list={[
-                "font-mono text-xs uppercase tracking-wider px-3 py-1.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring inline-flex items-center gap-1.5 border",
+                "font-mono text-xs uppercase tracking-wider px-3 py-1.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring inline-flex items-center border",
                 isActive
                   ? "border-border bg-surface text-foreground font-semibold"
                   : "border-transparent text-muted-foreground hover:text-foreground hover:bg-surface/50",
               ]}
               aria-current={isActive ? "page" : undefined}
             >
-              {isActive && (
-                <span class="size-1.5 bg-foreground inline-block shrink-0" aria-hidden="true" />
-              )}
               <span>{link.label}</span>
             </a>
           );

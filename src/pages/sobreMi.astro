@@ -18,11 +18,8 @@ const {
 
 <Layout title={`Sobre mí | ${PERSONAL_INFO.fullName}`}>
 	<main class="max-w-5xl mx-auto px-6 py-16">
-		<!-- 01 // Perfil Profesional -->
+		<!-- Perfil Profesional -->
 		<section class="portfolio-section">
-			<div class="inline-flex items-center gap-2 px-2.5 py-1 border border-border bg-surface/80 font-mono text-xs text-muted-foreground mb-4">
-				<span>01 // perfil_profesional.md</span>
-			</div>
 			<h1 class="mb-8">Sobre mí</h1>
 			<div class="max-w-3xl flex flex-col gap-5 text-muted-foreground leading-relaxed">
 				<p>
@@ -37,13 +34,10 @@ const {
 			</div>
 		</section>
 
-		<!-- 02 // Experiencia Laboral -->
+		<!-- Experiencia Laboral -->
 		<section class="portfolio-section">
 			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-10">
-				<h2 class="flex items-baseline gap-3">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">02 //</span>
-					<span>Experiencia laboral</span>
-				</h2>
+				<h2>Experiencia laboral</h2>
 				<span class="font-mono text-xs text-muted-foreground">
 					historial_cronologico ({experienciaEntries.length})
 				</span>
@@ -98,13 +92,10 @@ const {
 			</div>
 		</section>
 
-		<!-- 03 // Stack Tecnológico -->
+		<!-- Stack Tecnológico -->
 		<section class="portfolio-section">
 			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-10">
-				<h2 class="flex items-baseline gap-3">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">03 //</span>
-					<span>Stack tecnológico</span>
-				</h2>
+				<h2>Stack tecnológico</h2>
 				<span class="font-mono text-xs text-muted-foreground">
 					arquitectura_por_capas
 				</span>
@@ -116,7 +107,7 @@ const {
 					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
 						<div class="flex items-center gap-2">
 							<Icon name="terminal" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">01 // frontend_ui</span>
+							<span class="text-foreground font-medium">frontend_ui</span>
 						</div>
 						<span>[{sortedFrontend.length}]</span>
 					</div>
@@ -137,7 +128,7 @@ const {
 					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
 						<div class="flex items-center gap-2">
 							<Icon name="database" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">02 // backend_data</span>
+							<span class="text-foreground font-medium">backend_data</span>
 						</div>
 						<span>[{sortedBackend.length}]</span>
 					</div>
@@ -158,7 +149,7 @@ const {
 					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
 						<div class="flex items-center gap-2">
 							<Icon name="wrench" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">03 // runtime_tools</span>
+							<span class="text-foreground font-medium">runtime_tools</span>
 						</div>
 						<span>[{sortedHerramientas.length}]</span>
 					</div>
@@ -176,14 +167,11 @@ const {
 			</div>
 		</section>
 
-		<!-- 04 // Educación y Prácticas de Ingeniería -->
+		<!-- Educación y Prácticas de Ingeniería -->
 		<section class="portfolio-section grid grid-cols-1 md:grid-cols-2 gap-8">
 			<!-- Educación y Certificaciones -->
 			<div>
-				<h2 class="flex items-baseline gap-3 mb-6">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">04 //</span>
-					<span>Educación y Certificaciones</span>
-				</h2>
+				<h2 class="mb-6">Educación y Certificaciones</h2>
 				<div class="flex flex-col gap-4">
 					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
 						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
@@ -253,10 +241,7 @@ const {
 
 			<!-- Ingeniería y Análisis Funcional -->
 			<div>
-				<h2 class="flex items-baseline gap-3 mb-6">
-					<span class="font-mono text-sm font-normal text-muted-foreground select-none">05 //</span>
-					<span>Análisis y Arquitectura</span>
-				</h2>
+				<h2 class="mb-6">Análisis y Arquitectura</h2>
 				<div class="flex flex-col gap-4">
 					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
 						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
