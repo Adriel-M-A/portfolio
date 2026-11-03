@@ -5,7 +5,7 @@ rol: "Analista Técnico de Sistemas y Desarrollo Web"
 tipo: ""
 desde: "2022"
 hasta: "2023"
-ubicacion: "Rawson, Chubut"
+ubicacion: ""
 ---
 
 - Programé e integré un módulo de cálculo interactivo para trámites catastrales en JavaScript, HTML y CSS sobre el portal institucional en WordPress, reduciendo un 90% el tiempo de procesamiento de expedientes.

@@ -23,67 +23,52 @@ const {
 			<h1 class="mb-8">Sobre mí</h1>
 			<div class="max-w-3xl flex flex-col gap-5 text-muted-foreground leading-relaxed">
 				<p>
-					Soy desarrollador de software y recibido como <strong class="text-foreground font-semibold">{PERSONAL_INFO.jobTitle}</strong> en la Universidad Nacional de la Patagonia San Juan Bosco. Me dedico a construir aplicaciones que resuelven problemas operativos concretos: sistemas de gestión interna cliente-servidor, puntos de venta offline, herramientas de procesamiento en lote y aplicaciones web.
+					Soy desarrollador de software y recibido como <strong class="text-foreground font-semibold">{PERSONAL_INFO.jobTitle}</strong> en la Universidad Nacional de la Patagonia San Juan Bosco. Me dedico a construir aplicaciones que resuelven problemas operativos concretos, abarcando sistemas de gestión interna en red, puntos de venta locales, herramientas de procesamiento por lotes y aplicaciones web.
 				</p>
 				<p>
 					Trabajo de principio a fin en el ciclo de vida del software. Relevo requerimientos directamente con el cliente o las áreas operativas, modelo la base de datos relacional, diseño la arquitectura en capas, programo la solución, la despliego en los equipos de trabajo y capacito a los usuarios finales.
-				</p>
-				<p>
-					En el desarrollo de escritorio y frontend trabajo con <strong class="text-foreground font-semibold">JavaScript, TypeScript, React y Tailwind CSS</strong> junto con entornos nativos como <strong class="text-foreground font-semibold">.NET (WinForms), Electron y Tauri</strong>. En el backend y procesamiento de datos utilizo <strong class="text-foreground font-semibold">Python, C#, SQL (PostgreSQL, SQLite) y Rust</strong>.
 				</p>
 			</div>
 		</section>
 
 		<!-- Experiencia Laboral -->
 		<section class="portfolio-section">
-			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-10">
-				<h2>Experiencia laboral</h2>
-				<span class="font-mono text-xs text-muted-foreground">
-					historial_cronologico ({experienciaEntries.length})
-				</span>
-			</div>
+			<h2 class="mb-8">Experiencia laboral</h2>
 
 			<div class="relative pl-5 md:pl-8 flex flex-col gap-10 ml-1 md:ml-4">
 				{
 					experienciaEntries.map(async (entry) => {
 						const { Content } = await render(entry);
-						const { rol, empresa, nombreCompleto, desde, hasta, tipo, ubicacion } = entry.data;
+						const { rol, empresa, nombreCompleto, desde, hasta, tipo } = entry.data;
 						return (
-							<article class="relative group bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
+							<article class="relative group bg-card border border-border p-5 md:p-6 transition-colors duration-200 hover:border-foreground/50">
 								<!-- Segmento de línea de tiempo -->
 								<div class="absolute -left-5 md:-left-8 -top-5 -bottom-5 w-px bg-border group-first:top-4 group-last:bottom-auto group-last:h-4" />
 								
 								<!-- Nodo de la línea de tiempo (cuadrado técnico) -->
-								<div class="absolute left-[-26px] md:left-[-38px] top-3.5 w-3 h-3 bg-background border-2 border-foreground/40 group-hover:bg-foreground group-hover:border-foreground transition-colors" />
+								<div class="absolute left-[-26px] md:left-[-38px] top-6 w-3 h-3 bg-background border-2 border-foreground/40 group-hover:bg-foreground group-hover:border-foreground transition-colors" />
 								
-								<!-- Cabecera técnica de la experiencia -->
-								<div class="px-5 py-2.5 border-b border-border bg-surface/70 flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-muted-foreground">
-									<div class="flex items-center gap-2">
+								<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+									<div>
+										<h3 class="text-lg md:text-xl font-semibold text-foreground">
+											{rol}
+										</h3>
+										<p class="font-mono text-xs md:text-sm text-muted-foreground mt-1">
+											{nombreCompleto || empresa}
+										</p>
+									</div>
+									<div class="flex items-center gap-2 font-mono text-xs text-muted-foreground shrink-0">
 										<span class="text-foreground font-semibold">{desde} &rarr; {hasta}</span>
-										{ubicacion && (
-											<>
-												<span class="text-border select-none">//</span>
-												<span>{ubicacion}</span>
-											</>
+										{tipo && tipo.length > 0 && (
+											<span class="uppercase tracking-wider text-[11px] px-2 py-0.5 border border-border bg-surface text-foreground">
+												{tipo}
+											</span>
 										)}
 									</div>
-									{tipo && tipo.length > 0 && (
-										<span class="uppercase tracking-wider text-xs px-2 py-0.5 border border-border bg-background text-foreground">
-											{tipo}
-										</span>
-									)}
 								</div>
 
-								<div class="p-5 flex flex-col gap-2">
-									<h3 class="text-lg md:text-xl font-semibold text-foreground">
-										{rol}
-									</h3>
-									<p class="font-mono text-xs md:text-sm text-muted-foreground">
-										{nombreCompleto || empresa}
-									</p>
-									<div class="experiencia-content mt-2 pt-3 border-t border-border/60 text-muted-foreground leading-relaxed">
-										<Content />
-									</div>
+								<div class="experiencia-content mt-4 pt-4 border-t border-border/60 text-muted-foreground leading-relaxed">
+									<Content />
 								</div>
 							</article>
 						);
@@ -94,192 +79,118 @@ const {
 
 		<!-- Stack Tecnológico -->
 		<section class="portfolio-section">
-			<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-10">
-				<h2>Stack tecnológico</h2>
-				<span class="font-mono text-xs text-muted-foreground">
-					arquitectura_por_capas
-				</span>
-			</div>
+			<h2 class="mb-8">Stack tecnológico</h2>
 			
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<!-- Frontend -->
-				<div class="bg-card border border-border flex flex-col transition-colors duration-200 hover:border-foreground/50">
-					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-						<div class="flex items-center gap-2">
-							<Icon name="terminal" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">frontend_ui</span>
-						</div>
-						<span>[{sortedFrontend.length}]</span>
-					</div>
-					<div class="p-5 flex flex-col gap-4">
+				<div class="bg-card border border-border p-5 flex flex-col gap-4 transition-colors duration-200 hover:border-foreground/50">
+					<div class="flex items-center gap-2.5 text-foreground">
+						<Icon name="terminal" size={18} />
 						<h3 class="text-base font-semibold">Frontend e Interfaces</h3>
-						<div class="flex flex-wrap gap-2">
-							{sortedFrontend.map((tech) => (
-								<Badge size="md">
-									{tech}
-								</Badge>
-							))}
-						</div>
+					</div>
+					<div class="flex flex-wrap gap-2">
+						{sortedFrontend.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
 					</div>
 				</div>
 
 				<!-- Backend -->
-				<div class="bg-card border border-border flex flex-col transition-colors duration-200 hover:border-foreground/50">
-					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-						<div class="flex items-center gap-2">
-							<Icon name="database" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">backend_data</span>
-						</div>
-						<span>[{sortedBackend.length}]</span>
-					</div>
-					<div class="p-5 flex flex-col gap-4">
+				<div class="bg-card border border-border p-5 flex flex-col gap-4 transition-colors duration-200 hover:border-foreground/50">
+					<div class="flex items-center gap-2.5 text-foreground">
+						<Icon name="database" size={18} />
 						<h3 class="text-base font-semibold">Backend y Bases de Datos</h3>
-						<div class="flex flex-wrap gap-2">
-							{sortedBackend.map((tech) => (
-								<Badge size="md">
-									{tech}
-								</Badge>
-							))}
-						</div>
+					</div>
+					<div class="flex flex-wrap gap-2">
+						{sortedBackend.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
 					</div>
 				</div>
 
 				<!-- Herramientas -->
-				<div class="bg-card border border-border flex flex-col transition-colors duration-200 hover:border-foreground/50">
-					<div class="px-4 py-2.5 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-						<div class="flex items-center gap-2">
-							<Icon name="wrench" size={16} class="text-foreground" />
-							<span class="text-foreground font-medium">runtime_tools</span>
-						</div>
-						<span>[{sortedHerramientas.length}]</span>
-					</div>
-					<div class="p-5 flex flex-col gap-4">
+				<div class="bg-card border border-border p-5 flex flex-col gap-4 transition-colors duration-200 hover:border-foreground/50">
+					<div class="flex items-center gap-2.5 text-foreground">
+						<Icon name="wrench" size={18} />
 						<h3 class="text-base font-semibold">Entornos y Herramientas</h3>
-						<div class="flex flex-wrap gap-2">
-							{sortedHerramientas.map((tech) => (
-								<Badge size="md">
-									{tech}
-								</Badge>
-							))}
-						</div>
+					</div>
+					<div class="flex flex-wrap gap-2">
+						{sortedHerramientas.map((tech) => (
+							<Badge size="md">
+								{tech}
+							</Badge>
+						))}
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- Educación y Prácticas de Ingeniería -->
-		<section class="portfolio-section grid grid-cols-1 md:grid-cols-2 gap-8">
-			<!-- Educación y Certificaciones -->
-			<div>
-				<h2 class="mb-6">Educación y Certificaciones</h2>
-				<div class="flex flex-col gap-4">
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>UNPSJB // Trelew, Chubut</span>
+		<!-- Educación y Certificaciones -->
+		<section class="portfolio-section">
+			<h2 class="mb-8">Educación y certificaciones</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- Título Universitario -->
+				<div class="bg-card border border-border p-5 relative overflow-hidden flex flex-col justify-between transition-colors duration-200 hover:border-foreground/50">
+					<div>
+						<div class="flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground mb-3">
+							<span class="uppercase tracking-wider">Título Universitario</span>
 							<span class="text-foreground font-medium">2021 &rarr; 2026</span>
 						</div>
-						<div class="p-5 relative overflow-hidden">
-							<span class="font-mono text-xs text-muted-foreground uppercase tracking-wider block mb-1">
-								Título Universitario (Graduado)
-							</span>
-							<h3 class="mb-1">
-								{PERSONAL_INFO.jobTitle}
-							</h3>
-							<p class="text-sm text-muted-foreground">
-								Universidad Nacional de la Patagonia San Juan Bosco
-							</p>
-							<Icon name="graduation-cap" size={56} class="absolute right-4 bottom-3 text-muted-foreground/10 pointer-events-none" />
-						</div>
+						<h3 class="text-base font-semibold mb-1">
+							{PERSONAL_INFO.jobTitle}
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Universidad Nacional de la Patagonia San Juan Bosco
+						</p>
 					</div>
+					<Icon name="graduation-cap" size={56} class="absolute right-4 bottom-3 text-muted-foreground/10 pointer-events-none" />
+				</div>
 
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>Certificación Técnica</span>
+				<!-- Certificación SQL -->
+				<div class="bg-card border border-border p-5 flex flex-col justify-between transition-colors duration-200 hover:border-foreground/50">
+					<div>
+						<div class="flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground mb-3">
+							<span class="uppercase tracking-wider">Certificación Técnica</span>
 							<span class="text-foreground font-medium">2026</span>
 						</div>
-						<div class="p-5 flex flex-col gap-2">
-							<div class="flex items-start justify-between gap-4">
-								<div>
-									<h3 class="text-base font-semibold">Curso Intensivo de SQL</h3>
-									<p class="text-sm text-muted-foreground">
-										Miguel Ángel Durán (midudev) — Consultas, uniones, agregación y funciones de ventana (112 ejercicios y 7 exámenes).
-									</p>
-								</div>
-								<a
-									href="https://certificados.midudev.com/baabe355-c948-40d0-9e9e-c6d3ddc90d0a.pdf"
-									target="_blank"
-									rel="noopener noreferrer"
-									class="font-mono text-xs px-2.5 py-1 border border-border bg-surface hover:border-foreground/50 text-foreground inline-flex items-center gap-1 shrink-0 transition-colors"
-									aria-label="Ver certificado SQL en PDF"
-								>
-									<span>PDF</span>
-									<Icon name="external-link" size={12} />
-								</a>
+						<div class="flex items-start justify-between gap-3">
+							<div>
+								<h3 class="text-base font-semibold mb-1">Curso Intensivo de SQL</h3>
+								<p class="text-sm text-muted-foreground">
+									Miguel Ángel Durán (midudev). Consultas, uniones, agregación y funciones de ventana (112 ejercicios y 7 exámenes).
+								</p>
 							</div>
-						</div>
-					</div>
-
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>E.S.E.T.P. N° 748 // Trelew</span>
-							<span>2008 &rarr; 2015</span>
-						</div>
-						<div class="p-5 relative overflow-hidden">
-							<span class="font-mono text-xs text-muted-foreground uppercase tracking-wider block mb-1">
-								Educación Secundaria Técnica (Graduado)
-							</span>
-							<h3 class="text-base font-semibold mb-1">
-								Técnico en Equipos e Instalaciones Electromecánicas
-							</h3>
-							<p class="text-sm text-muted-foreground">
-								Secundaria Técnica E.S.E.T.P. N° 748 (ex-ENET Teniente Coronel Luis Piedrabuena)
-							</p>
+							<a
+								href="https://certificados.midudev.com/baabe355-c948-40d0-9e9e-c6d3ddc90d0a.pdf"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-mono text-xs px-2.5 py-1 border border-border bg-surface hover:border-foreground/50 text-foreground inline-flex items-center gap-1 shrink-0 transition-colors mt-0.5"
+								aria-label="Ver certificado SQL en PDF"
+							>
+								<span>PDF</span>
+								<Icon name="external-link" size={12} />
+							</a>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Ingeniería y Análisis Funcional -->
-			<div>
-				<h2 class="mb-6">Análisis y Arquitectura</h2>
-				<div class="flex flex-col gap-4">
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>spec // 01</span>
-							<span>diseño de software</span>
+				<!-- Secundaria Técnica -->
+				<div class="bg-card border border-border p-5 flex flex-col justify-between transition-colors duration-200 hover:border-foreground/50">
+					<div>
+						<div class="flex items-center justify-between gap-2 font-mono text-xs text-muted-foreground mb-3">
+							<span class="uppercase tracking-wider">Secundaria Técnica</span>
+							<span class="text-foreground font-medium">2008 &rarr; 2015</span>
 						</div>
-						<div class="p-5 flex flex-col gap-1.5">
-							<h3 class="text-base font-semibold text-foreground">Arquitectura en Capas y Offline-First</h3>
-							<p class="text-sm text-muted-foreground leading-relaxed">
-								Separación limpia entre presentación, lógica de negocio y persistencia (arquitectura en capas en C# y Python, y repositorios/comandos en Tauri/Rust). Diseño de sistemas locales resilientes a cortes de red o energía.
-							</p>
-						</div>
-					</div>
-
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>spec // 02</span>
-							<span>datos relacionales</span>
-						</div>
-						<div class="p-5 flex flex-col gap-1.5">
-							<h3 class="text-base font-semibold text-foreground">Modelado Relacional y Procesamiento Batch</h3>
-							<p class="text-sm text-muted-foreground leading-relaxed">
-								Diseño de esquemas normalizados en PostgreSQL y SQLite, manejo seguro de montos enteros en centavos (Patrón Safe Money) y parsers tolerantes a fallos en Python para grandes volúmenes de archivos CSV/Excel.
-							</p>
-						</div>
-					</div>
-
-					<div class="bg-card border border-border transition-colors duration-200 hover:border-foreground/50">
-						<div class="px-4 py-2 border-b border-border bg-surface/70 flex items-center justify-between font-mono text-xs text-muted-foreground">
-							<span>spec // 03</span>
-							<span>relevamiento y entrega</span>
-						</div>
-						<div class="p-5 flex flex-col gap-1.5">
-							<h3 class="text-base font-semibold text-foreground">Análisis Funcional y Despliegue en Campo</h3>
-							<p class="text-sm text-muted-foreground leading-relaxed">
-								Traducción de necesidades operativas reales a historias de usuario y flujos de sistema. Instalación en equipos de producción, documentación de manuales de usuario y capacitación presencial.
-							</p>
-						</div>
+						<h3 class="text-base font-semibold mb-1">
+							Técnico en Equipos e Instalaciones Electromecánicas
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							E.S.E.T.P. N° 748 (ex-ENET Teniente Coronel Luis Piedrabuena)
+						</p>
 					</div>
 				</div>
 			</div>

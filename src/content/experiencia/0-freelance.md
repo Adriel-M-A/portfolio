@@ -5,7 +5,7 @@ rol: "Desarrollador de Software Freelance"
 tipo: "Freelance"
 desde: "2025"
 hasta: "Presente"
-ubicacion: "Remoto / Presencial"
+ubicacion: ""
 ---
 
 - Desarrollé el sistema de punto de venta de una heladería (Elixir Helados), actualmente en uso diario, con gestión de salón y delivery, cálculo automatizado de comisiones de PedidosYa, control de stock híbrido y cierres de caja (React, TypeScript, Electron y SQLite).
