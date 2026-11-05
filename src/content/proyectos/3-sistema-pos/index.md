@@ -33,10 +33,6 @@ imagenesAlt:
 categoria: "Escritorio"
 ---
 
-## Resumen
-
-Aplicación de escritorio diseñada a medida para las necesidades operativas de **Elixir Helados**, donde se encuentra en uso diario activo. El sistema automatiza la facturación en mostrador, la discriminación de ventas por delivery, el control de inventario de insumos y los cierres de caja de forma 100% offline, reemplazando planillas manuales por un punto de venta de respuesta inmediata.
-
 ## El problema
 
 El comercio registraba su facturación en una planilla de Excel al finalizar la jornada. El cierre de caja diario requería sumar los tickets en papel manualmente, discriminar los ingresos según el medio de pago (efectivo, tarjetas o transferencias) y deducir a mano las comisiones de PedidosYa, lo que solía derivar en diferencias de arqueo difíciles de rastrear.
@@ -47,28 +43,20 @@ Además, el control de stock de los baldes de helado y los envases físicos (pot
 
 Desarrollé un punto de venta (POS) de escritorio que opera de forma 100% offline para garantizar la continuidad operativa en el mostrador ante cortes de internet. La aplicación unifica la facturación rápida, el arqueo de caja automático y el control de stock en una sola interfaz pensada para el ritmo de atención al público, habiendo realizado la instalación en los equipos del local y la capacitación directa al personal.
 
-El sistema diferencia automáticamente el canal de venta (salón o PedidosYa) aplicando las listas de precios y el cálculo de comisiones correspondientes, y deduce de forma automática el stock de envases según el formato despachado.
+El sistema diferencia automáticamente el canal de venta (salón o PedidosYa) aplicando las listas de precios y el cálculo de comisiones correspondientes, deduciendo automáticamente el stock de envases según el formato despachado.
 
 ## Características
 
-- **Inventario Híbrido:** Descuento automático de stock por transacción para envases físicos contables (potes, cucuruchos) combinado con un módulo de decremento manual ágil en un clic para los baldes de helado a granel.
-- **Gestión de Canales (Salón vs. Delivery):** Discriminación entre ventas de mostrador y PedidosYa con cálculo automatizado de comisiones de plataforma e ingresos netos reales.
-- **Facturación Fluida y Redondeo:** Registro rápido de tickets con múltiples medios de pago combinables y ajuste rápido de vuelto para agilizar el cobro en efectivo.
-- **Cierres de Caja y Analítica:** Arqueos diarios sin diferencias manuales y panel interactivo con curvas de ingresos por hora, ranking de productos (Top 10) y alertas de stock crítico.
+- Esquema de inventario híbrido con descuento automático de envases contables por transacción y un módulo ágil para registrar la baja de baldes de helado a granel.
+- Gestión diferenciada de canales de venta para mostrador y delivery, calculando automáticamente comisiones de plataforma e ingresos netos reales.
+- Registro ágil de tickets con múltiples medios de pago combinables y cálculo rápido de vuelto para cobros en efectivo.
+- Arqueos diarios automatizados y panel de estadísticas con curvas de ingresos por hora, ranking de productos más vendidos y alertas de stock crítico.
 
-## El desafío técnico central
+## Arquitectura y decisiones técnicas
 
-El núcleo de ingeniería de este proyecto consistió en resolver dos desafíos principales de modelado de dominio y empaquetado nativo:
+El desarrollo resolvió dos desafíos técnicos principales en torno al modelado de dominio y el empaquetado nativo:
 
-- **Modelado del Inventario Híbrido:** El helado artesanal a granel no se vende por unidad cerrada y su peso exacto por porción varía en cada despacho (cucurucho, 1/4 kg, 1/2 kg, 1 kg), lo que vuelve inviable un descuento automático por gramos en tiempo de caja. Diseñé un esquema híbrido: el motor de ventas descuenta automáticamente los envases físicos asociados a cada ítem del ticket (que sí son discretos y contables), mientras que provee un control directo para dar de baja cada balde de helado cuando se agota en la conservadora, manteniendo trazabilidad exacta de rotación sin frenar al cajero.
-- **Compilación C++ Nativa (`better-sqlite3` en Electron):** Para lograr lecturas y escrituras síncronas de latencia cero sin servidor externo, integré SQLite mediante `better-sqlite3`. Al tratarse de un addon nativo en C++, configuré el pipeline con `electron-rebuild` para compilar los binarios contra los encabezados exactos del runtime de Node.js embebido en Electron sobre Windows, generando un instalador autónomo listo para producción.
-
-## Arquitectura
-
-- **Entorno de Ejecución:** Electron, empaquetado como ejecutable nativo de Windows para el equipo de mostrador.
-- **Frontend y Visualización:** React con TypeScript, Tailwind CSS, componentes accesibles de shadcn/ui y gráficos estadísticos en Recharts.
-- **Persistencia Local:** Base de datos relacional SQLite operada vía `better-sqlite3` en el proceso principal, comunicada de forma segura con la interfaz mediante IPC.
-
-## Resultado
-
-El sistema se encuentra en producción diaria en **Elixir Helados**. Eliminó las diferencias en los cierres de caja nocturnos, transparentó la rentabilidad real descontando comisiones de delivery y permitió al comercio anticipar compras de insumos y producción de gustos mediante métricas históricas reales.
+- **Modelado de inventario híbrido:** Como el helado a granel no se despacha en porciones exactas ni unidades cerradas, automatizar el descuento por gramos en el mostrador era inviable. El sistema descuenta de forma determinista los envases físicos contables de cada ítem y proporciona un mecanismo directo para que el personal dé de baja cada balde cuando se agota en la conservadora.
+- **Compilación C++ nativa con `better-sqlite3`:** Para lograr operaciones síncronas de latencia cero sin depender de un servidor externo, integré SQLite mediante `better-sqlite3`. Al tratarse de un addon nativo en C++, configuré la compilación con `electron-rebuild` contra el runtime de Node.js embebido en Electron para Windows.
+- **Frontend y persistencia:** Interfaz construida con React, TypeScript, Tailwind CSS y gráficos en Recharts, comunicada de forma segura con el proceso principal mediante canales IPC.
+- **Impacto operativo:** La aplicación se encuentra en uso diario activo en Elixir Helados, eliminando los desfasajes en los arqueos nocturnos y transparentando la rentabilidad neta del comercio.

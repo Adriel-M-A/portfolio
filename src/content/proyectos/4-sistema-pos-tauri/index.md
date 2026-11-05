@@ -24,84 +24,39 @@ imagenes:
   - "./screenshot-4.webp"
 imagenesAlt:
   - "Módulo de inventario mostrando stock mínimo y herramientas de edición"
-  - "Seccion de historial de ventas filtrada por fecha"
+  - "Sección de historial de ventas filtrada por fecha"
   - "Sección de reportes diarios con gráficos de barra interactivos de ganancias"
-  - "Modulo de auditorias de cierres de caja"
+  - "Módulo de auditorías de cierres de caja"
 categoria: "Escritorio"
 ---
 
-## Resumen
-
-Segunda generación de mi sistema POS para comercios locales, desarrollada con
-Tauri y Rust para reemplazar la versión anterior basada en Electron. El objetivo
-fue el mismo (digitalizar la operación diaria de un almacén o quiosco), pero
-con una arquitectura más liviana, pensada específicamente para hardware modesto
-y sin dependencia de un runtime pesado.
-
 ## El problema
 
-El comercio anotaba ventas y precios con lápiz y papel. Sin control de stock,
-las pérdidas eran invisibles y los márgenes reales de cada jornada eran una
-estimación. El cliente necesitaba algo rápido y simple que funcionara en una
-computadora vieja, completamente offline, sin instalaciones complejas ni
-servidores.
+El comercio anotaba ventas y precios con lápiz y papel. Sin control de stock, las pérdidas eran invisibles y los márgenes reales de cada jornada eran una estimación. El cliente requería una solución simple y rápida para operar en una computadora modesta, de forma completamente offline y sin necesidad de instalaciones complejas ni servidores externos.
 
-El punto de partida técnico también tenía sus limitaciones: mi solución anterior
-con Electron funcionaba, pero su consumo de RAM era considerablemente alto para
-equipos con recursos limitados. Quería una alternativa que resolviera el mismo
-problema con mucho menos overhead.
+La versión anterior basada en Electron funcionaba correctamente, pero su consumo de memoria RAM era elevado para equipos con recursos limitados. El objetivo fue diseñar una arquitectura ligera que resolviera el problema operativo con un overhead mínimo.
 
 ## La solución
 
-Desarrollé la aplicación con Tauri, que usa el WebView nativo del sistema
-operativo en lugar de empaquetar Chromium completo como hace Electron. El
-backend corre en Rust, lo que se traduce en tiempos de arranque rápidos y un
-consumo de memoria mínimo incluso en hardware antiguo.
+Desarrollé la aplicación con Tauri, aprovechando el WebView nativo del sistema operativo en lugar de empaquetar Chromium completo. El backend en Rust garantiza tiempos de arranque inmediatos y un uso de memoria reducido incluso en hardware antiguo.
 
-La interfaz cubre todo el flujo del punto de venta: facturación de productos
-unitarios y pesables, control de stock con alertas de mínimo, cierres diarios
-con gráficos, y copias de seguridad integradas.
+La interfaz abarca todo el flujo del punto de venta, incluyendo la facturación de productos unitarios o pesables, control de inventario con alertas de stock mínimo, cierres diarios con gráficos estadísticos y respaldos de datos integrados.
 
 ## Características
 
-- Facturación de productos unitarios o pesables (fiambres, verduras, a granel).
-- Control de inventario con avisos de stock mínimo configurable por producto.
-- Historial de ventas con visualización gráfica diaria, semanal y mensual.
-- Métricas de margen de ganancia por producto.
-- Copias de seguridad y restauración de la base de datos integradas en la app.
-- Módulo de ayuda interno que renderiza archivos Markdown como manual de usuario.
-- Arquitectura 100% offline: sin internet, sin servidores, sin configuración
-  de red.
+- Facturación flexible para productos por unidad o pesables a granel.
+- Control de inventario con alertas de stock mínimo configurables por producto.
+- Historial de transacciones con visualización gráfica diaria, semanal y mensual.
+- Cálculo de métricas de margen de ganancia por producto.
+- Copias de seguridad y restauración de base de datos integradas en la aplicación.
+- Manual de usuario interno integrado mediante renderizado de archivos Markdown.
+- Arquitectura completamente local sin dependencias de red ni servicios en la nube.
 
-## El desafío técnico central
+## Arquitectura y decisiones técnicas
 
-El aspecto más interesante de este proyecto fue diseñar el puente de comunicación
-entre el backend en Rust y el frontend en React mediante **Tauri Commands**.
+El diseño técnico se centró en la comunicación desacoplada entre el backend en Rust y el frontend en React a través de comandos de Tauri:
 
-En Tauri, toda interacción entre la vista web y el sistema nativo pasa por
-comandos explícitamente definidos en Rust. Esto obliga a pensar la arquitectura
-en capas desde el principio: las consultas a SQLite, la lógica de negocio y la
-validación de datos viven en Rust, mientras que el frontend solo se encarga de
-la presentación y dispara comandos con los parámetros necesarios.
-
-Para mantener el código ordenado a medida que el sistema crecía, organicé el
-backend en Rust siguiendo un patrón de repositorios y modelos (una capa de
-acceso a datos separada de la lógica de negocio) que hace que cada comando
-expuesto al frontend sea simple, predecible y fácil de mantener.
-
-## Arquitectura
-
-- Backend: Rust con Tauri. Maneja toda la lógica de negocio, las consultas
-  a SQLite y la exposición de comandos al frontend.
-- Frontend: React con JavaScript, Tailwind CSS y Recharts para los gráficos.
-- Base de datos: SQLite nativo gestionado desde Rust, sin ORM.
-- Por qué Tauri sobre Electron: el binario final es significativamente más
-  liviano y el consumo de RAM en reposo es una fracción del que tenía la versión
-  anterior, lo que lo hace viable en equipos con recursos limitados.
-
-## Resultado
-
-El sistema fue entregado y adoptado por el comercio, digitalizando por completo
-el registro de ventas y el control de stock. A nivel técnico, este proyecto
-consolidó mi conocimiento de Rust y Tauri como stack para aplicaciones de
-escritorio donde el rendimiento y el tamaño del ejecutable importan.
+- **Arquitectura en capas en Rust:** Las consultas a SQLite, las reglas de negocio y las validaciones se estructuran mediante un patrón de repositorios y modelos en Rust, aislando la persistencia de la capa visual.
+- **Frontend reactivo:** Desarrollado con React, JavaScript, Tailwind CSS y gráficos en Recharts, encargándose de la presentación e invocación de comandos nativos.
+- **Persistencia local eficiente:** Base de datos SQLite nativa gestionada desde Rust sin capas intermedias pesadas ni ORMs.
+- **Rendimiento comparativo:** El binario final redujo drásticamente el espacio en disco frente a soluciones tradicionales en Chromium y optimizó el consumo de RAM en reposo a una fracción mínima, asegurando fluidez en equipos de bajos recursos.

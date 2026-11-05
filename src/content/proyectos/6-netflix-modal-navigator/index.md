@@ -15,88 +15,32 @@ tipo: "Personal"
 categoria: "Web / Extensiones"
 ---
 
-## Resumen
-
-Extensión para Google Chrome que resuelve un problema concreto de usabilidad en Netflix:
-la imposibilidad de navegar entre recomendaciones del modal de detalles sin abandonar
-el título actual o soportar la reproducción automática. La extensión inyecta un botón
-de información en cada tarjeta de recomendación que carga el título directamente
-en el mismo modal, sin recargas y sin video no solicitado.
-
 ## El problema
 
-Al abrir el modal de detalles de un título en Netflix, la sección "Más títulos
-similares a este" muestra tarjetas de recomendación. El problema es que no hay
-ninguna forma de abrir esas recomendaciones en el propio modal: hacer clic en la
-tarjeta reproduce el video de inmediato, y el único botón disponible "Mi Lista"
-no ayuda a explorar el contenido.
+Al abrir el modal de detalles de un título en Netflix, la sección de títulos similares muestra tarjetas de recomendación. Sin embargo, no existe una forma nativa de abrir esas recomendaciones dentro del propio modal: hacer clic en la tarjeta reproduce el video de inmediato, y el único botón visible añade el contenido a la lista sin permitir su exploración.
 
-Navegar entre recomendaciones sin salir del flujo requería cerrar el modal,
-buscar el título manualmente o tolerar que el reproductor se iniciara solo en segundo
-plano. Un problema pequeño pero constante para cualquier usuario que explore el
-catálogo con regularidad.
+Navegar entre recomendaciones sin salir del flujo requería cerrar el modal, buscar el título manualmente o tolerar que el reproductor se iniciara solo en segundo plano, generando fricción constante al explorar el catálogo.
 
 ## La solución
 
-Desarrollé una extensión que observa el DOM de Netflix en tiempo real y detecta
-cuándo el usuario abre un modal de detalles. Al identificar las tarjetas de
-recomendación dentro de esa vista, inyecta de forma quirúrgica un botón de
-información que dispara la carga del nuevo modal sin salir del flujo de navegación.
+Desarrollé una extensión para Google Chrome que observa el DOM de Netflix en tiempo real y detecta la apertura del modal de detalles. Al identificar las tarjetas de recomendación en esa vista, inyecta un botón de información que dispara la carga del nuevo título sin salir del flujo de navegación.
 
-El botón utiliza el enrutamiento interno de la SPA de Netflix manipulando la
-History API del navegador para que React actualice el modal de detalles de forma
-nativa, sin forzar ninguna recarga de página.
+El botón interactúa con el enrutamiento interno de la SPA de Netflix manipulando la History API del navegador para que React actualice el modal de detalles de forma nativa, sin forzar recargas de página ni reproducir video no solicitado.
 
 ## Características
 
-- Botón de información inyectado en cada tarjeta de recomendación del modal de detalles.
-- Navegación entre títulos similares sin reproducción automática ni recargas.
-- Integración visual indetectable: el botón hereda las clases y estilos nativos de Netflix.
+- Botón de información inyectado en cada tarjeta de recomendación dentro del modal de detalles.
+- Navegación fluida entre títulos similares sin reproducción automática ni recargas de página.
+- Integración visual nativa adoptando las clases y estilos de la interfaz de Netflix.
 - Tooltip flotante personalizado que replica la identidad visual de la plataforma.
-- Aislamiento preciso mediante CSS `:has()` para que los estilos no afecten otras secciones de la interfaz.
-- Sin impacto en el rendimiento: el MutationObserver está debounced a 100ms para no sobrecargar el hilo principal durante el scroll.
+- Aislamiento de estilos mediante selectores CSS con pseudoclase :has() para evitar efectos secundarios en otras vistas.
+- Ejecución eficiente con MutationObserver y debounce de 100 milisegundos para no sobrecargar el hilo principal durante el desplazamiento.
 
-## El desafío técnico central
+## Arquitectura y decisiones técnicas
 
-El reto principal fue integrarse con Netflix sin romper nada. La plataforma es
-una SPA construida sobre React con un enrutador interno propio, y cualquier
-interacción que no pase por ese sistema como un enlace directo o un clic
-en un elemento externo provoca comportamientos inesperados: reproducción
-no solicitada, recargas completas o simplemente que el modal no se abra.
+El reto principal fue integrarse limpiamente con la arquitectura SPA de Netflix sin alterar el comportamiento general de la plataforma:
 
-La solución fue interceptar la navegación a nivel de History API. Al hacer clic
-en el botón inyectado, el script ejecuta `history.pushState` para actualizar la
-URL con el parámetro interno de Netflix (`jbv`) y despacha un `PopStateEvent`
-sintético. El router de React de Netflix lo interpreta como una navegación
-legítima y monta el nuevo modal por su cuenta.
-
-El otro problema fue el rendimiento. Netflix hace un uso intensivo del DOM durante
-el scroll del catálogo decenas de mutaciones por segundo y un MutationObserver
-ingenuo habría degradado los FPS de forma visible. La extensión usa dos optimizaciones:
-primero, descarta las tarjetas fuera del modal usando selectores CSS en lugar de
-deserializar JSON de los atributos de telemetría; segundo, agrupa mutaciones con
-un debounce de 100ms para ejecutar la inyección solo cuando el DOM se estabiliza.
-
-Para evitar tooltips duplicados los de Netflix y los propios apliqué una regla
-CSS que oculta el tooltip nativo de forma reactiva cuando el cursor interactúa con
-el botón inyectado, sin necesidad de procesamiento en JavaScript.
-
-## Arquitectura
-
-- Extensión: Manifest V3 con un content script declarativo. Sin background
-  service worker ni comunicación entre procesos.
-- Lógica central: JavaScript Vanilla. Un único script que configura el
-  MutationObserver, gestiona la inyección de botones y maneja la navegación.
-- Estilos: CSS Vanilla con selectores avanzados (`:has()`) para lograr
-  aislamiento preciso sin clases propias que puedan colisionar con Netflix.
-- Ciclo de vida: Los botones inyectados no se rastrean globalmente. Su
-  existencia está acoplada 100% al ciclo de vida del DOM de Netflix, por lo que
-  el Garbage Collector del navegador los elimina automáticamente junto con el modal,
-  sin fugas de memoria.
-
-## Resultado
-
-La extensión funciona de forma transparente sobre Netflix. El flujo de exploración
-de recomendaciones pasó de ser frustrante con videos que se reproducen solos y
-saltos de contexto constantes a ser directo: abrir un título similar es un clic,
-y el modal lo actualiza sin salir de donde estás.
+- **Navegación nativa vía History API:** Al pulsar el botón inyectado, el script ejecuta `history.pushState` actualizando el parámetro de navegación interno (`jbv`) y despacha un evento `PopStateEvent` sintético. El enrutador de React de Netflix interpreta la acción como una navegación legítima y monta el nuevo modal de forma orgánica.
+- **Optimización del observador del DOM:** Durante el scroll del catálogo, Netflix genera un volumen muy alto de mutaciones por segundo. La extensión descarta tarjetas externas mediante selectores CSS directos y agrupa mutaciones con una pausa de 100 milisegundos, ejecutando la inyección únicamente cuando el DOM se estabiliza.
+- **Gestión reactiva de tooltips:** Para evitar superposiciones con los tooltips nativos de la plataforma, apliqué reglas CSS reactivas al foco e interacción del cursor sobre el botón inyectado, eliminando la necesidad de cálculos en JavaScript.
+- **Ciclo de vida y memoria:** Construida bajo Manifest V3 sin servicios en segundo plano ni dependencias externas. La existencia de los elementos inyectados se acopla al ciclo de vida del modal en el DOM, permitiendo que el recolector de basura del navegador los libere automáticamente al cerrar la vista.

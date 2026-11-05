@@ -13,7 +13,7 @@ proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
   <main class="max-w-6xl mx-auto px-6 py-16">
     <div class="mb-12">
       <h1 class="mb-4">Proyectos</h1>
-      <p class="text-lg text-muted-foreground max-w-2xl">
+      <p class="text-base text-muted-foreground leading-relaxed max-w-2xl">
         Sistemas de escritorio, herramientas de procesamiento de datos y desarrollos web construidos para entornos reales.
       </p>
     </div>
@@ -56,10 +56,6 @@ proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
           Web / Extensiones ({proyectosEntries.filter((p) => p.data.categoria === "Web / Extensiones").length})
         </button>
       </div>
-
-      <span class="font-mono text-xs text-muted-foreground hidden sm:inline-block">
-        mostrando sistemas documentados
-      </span>
     </div>
 
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
