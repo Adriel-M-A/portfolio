@@ -87,12 +87,12 @@ components:
 
 El sistema visual combina la precisión de un entorno de desarrollo (IDE / terminal de línea de comandos) con la claridad de lectura de un documento técnico editorial. Evita el ruido cromático y los artificios decorativos para que la arquitectura de cada software, las capturas reales de las interfaces y los resultados operativos sean los protagonistas.
 
-La interfaz utiliza una estructura de módulos con bordes ortogonales de 1px, cabeceras de barra de ventana (`01 // slug`), numeración de secciones en fuente monoespaciada y una grilla arquitectónica fija de fondo que unifica todas las vistas del portafolio tanto en modo claro como en modo oscuro.
+La interfaz utiliza una estructura de módulos con bordes ortogonales de 1px, metadatos y controles en fuente monoespaciada y una grilla arquitectónica fija de fondo que unifica todas las vistas del portafolio tanto en modo claro como en modo oscuro.
 
 **Key Characteristics:**
 - **Escala acromática estricta en OKLCH:** Blancos puros, negros profundos y grises neutros calibrados para alto contraste (≥ 4.5:1) sin tintes de color saturados.
-- **Tríada tipográfica funcional:** `Space Grotesk` para titulares estructurales, `Inter` para lectura fluida de casos de estudio (65-72ch) y `JetBrains Mono` para metadatos, rutas, etiquetas de stack y controles.
-- **Geometría de módulos técnicos:** Contenedores con esquinas rectas (`0px`), cabeceras de ventana con indicadores geométricos monocromáticos y ausencia de sombras difusas innecesarias.
+- **Dupla tipográfica funcional:** `IBM Plex Sans` para titulares estructurales y lectura fluida de casos de estudio (65-72ch) y `JetBrains Mono` para metadatos, rutas, etiquetas de stack y controles.
+- **Geometría de módulos técnicos:** Contenedores con esquinas rectas (`0px`), bordes definidos de `1px` y ausencia de sombras difusas innecesarias.
 
 ## Colors
 
@@ -103,9 +103,9 @@ Paleta estrictamente acromática definida en el espacio perceptual OKLCH con sop
 
 ### Neutral
 - **Canvas Ground** (`oklch(99% 0 0)` en claro / `oklch(14% 0 0)` en oscuro): Lienzo base de la aplicación sobre el que se dibuja la grilla arquitectónica.
-- **Module Surface** (`oklch(96% 0 0)` en claro / `oklch(19% 0 0)` en oscuro): Cabeceras de tarjetas tipo ventana, fondos de etiquetas (`Badge`) y bloques de código inline.
-- **Structural Hairline** (`oklch(86% 0 0)` en claro / `oklch(29% 0 0)` en oscuro): Líneas divisorias de 1px, bordes de módulos y trazos de la grilla de fondo.
-- **Technical Muted** (`oklch(44% 0 0)` en claro / `oklch(71% 0 0)` en oscuro): Texto secundario, descripciones de tarjetas, fechas y comentarios de consola.
+- **Module Surface** (`oklch(96% 0 0)` en claro / `oklch(19% 0 0)` en oscuro): Fondos secundarios, etiquetas (`Badge`) y bloques de código inline.
+- **Structural Hairline** (`oklch(83% 0 0)` en claro / `oklch(31% 0 0)` en oscuro): Líneas divisorias de 1px, bordes de módulos y trazos de la grilla de fondo.
+- **Technical Muted** (`oklch(38% 0 0)` en claro / `oklch(75% 0 0)` en oscuro): Texto secundario, descripciones de tarjetas y metadatos de fechas.
 
 ### Named Rules
 **The Zero-Hue Discipline Rule.** Ningún componente introduce colores semánticos saturados (verdes, rojos o azules brillantes) en la interfaz general; toda diferenciación jerárquica se resuelve mediante contraste luminoso, grosor de borde, inversión de fondo y tipografía monoespaciada.
@@ -120,19 +120,19 @@ Paleta estrictamente acromática definida en el espacio perceptual OKLCH con sop
 
 ### Hierarchy
 - **Display** (`700`, `clamp(1.875rem, 4vw, 3rem)`, `1.15`): Nombre principal en el Hero y títulos de primer nivel (`h1`).
-- **Headline** (`700`, `clamp(1.5rem, 3vw, 1.875rem)`, `1.25`): Encabezados de sección (`h2`) acompañados por prefijos numerados en `JetBrains Mono` (`01 //`, `02 //`).
+- **Headline** (`700`, `clamp(1.5rem, 3vw, 1.875rem)`, `1.25`): Encabezados de sección (`h2`).
 - **Title** (`600`, `1.25rem`, `1.35`): Títulos de tarjetas de proyecto, puestos laborales e hitos educativos (`h3`).
 - **Body** (`400`, `1rem`, `1.625`): Narrativa en primera persona y desarrollo de casos de estudio, limitado a `72ch` para lectura óptima.
-- **Label** (`500`, `0.75rem`, `1.4`): Botones, pestañas de filtro, cabeceras de ventana, rutas tipo `cd ../proyectos` y badges tecnológicos.
+- **Label** (`500`, `0.75rem`, `1.4`): Botones, pestañas de filtro, enlaces de navegación y badges tecnológicos.
 
 ### Named Rules
-**The Functional Monospace Rule.** `JetBrains Mono` se reserva para metadatos estructurales, identificadores de módulo, tecnologías, rutas, dimensiones de imagen y controles interactivos; nunca para párrafos extensos de lectura.
+**The Functional Monospace Rule.** `JetBrains Mono` se reserva para metadatos estructurales, tecnologías, fechas, navegación y controles interactivos; nunca para párrafos extensos de lectura.
 
 ## Layout
 
 Contenedor centrado (`max-w-6xl` en Inicio y Catálogo; `max-w-5xl` en Sobre mí y Contacto; `max-w-4xl` en fichas de lectura técnica) con padding horizontal de `1.5rem` (`px-6`). Las secciones se separan mediante bloques `.portfolio-section` con `py-20 md:py-24` y borde superior continuo de `1px` (`border-border`).
 
-El Hero se estructura en una grilla asimétrica de 12 columnas en escritorio (`7 columnas` para propuesta de valor y acciones + `5 columnas` para el módulo de inspección técnica `perfil.spec.ts`).
+El Hero se estructura en un bloque editorial limpio (`max-w-3xl`) con presentación principal, acciones directas y enlaces profesionales en fuente monoespaciada.
 
 ## Elevation & Depth
 
@@ -157,17 +157,17 @@ Geometría ortogonal de ángulos rectos (`0px`) en tarjetas, botones, badges y m
 
 ### Cards / Containers (`ProyectoCard`, Módulos de Experiencia y Galería)
 - **Corner Style:** `0px` (recto).
-- **Window Header:** Barra superior en `--color-surface/70` con borde inferior de `1px`, indicadores geométricos cuadrados e identificador en `JetBrains Mono` (`01 // slug` o `captura_01.img`).
+- **Borders:** Borde ortogonal de `1px` (`border-border`) con transición a `hover:border-foreground/50`.
 - **Captions:** En las galerías de proyectos, cada captura incluye un pie de foto técnico visible (`figcaption`) debajo de la imagen con el detalle funcional antes de abrir el zoom de PhotoSwipe.
 
 ### Navigation
-- **Navbar:** Barra superior sticky con `backdrop-blur-sm`, borde inferior de `1px`, enlaces limpios y toggle de tema claro/oscuro.
+- **Navbar:** Barra superior sticky con `backdrop-blur-md`, borde inferior de `1px`, enlaces limpios y toggle de tema claro/oscuro.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** mantener los prefijos numerados en `JetBrains Mono` (`01 //`, `02 //`) en los encabezados de sección principales para guiar el escaneo visual.
-- **Do** envolver las capturas de pantalla de proyectos en marcos de ventana (`figure`) con su epígrafe descriptivo visible (`figcaption`).
+- **Do** mantener una jerarquía tipográfica clara entre títulos en `IBM Plex Sans` y metadatos/acciones en `JetBrains Mono`.
+- **Do** envolver las capturas de pantalla de proyectos en contenedores (`figure`) con su epígrafe descriptivo visible (`figcaption`).
 - **Do** garantizar foco de teclado visible (`focus-visible:outline-2`) en todos los enlaces, pestañas de filtro y botones.
 
 ### Don't:

@@ -63,9 +63,9 @@ export const TECHNOLOGIES_BY_CATEGORY = {
     "Visual Studio",
     "Electron",
     "Vite",
-    "cliente-servidor",
-    "Excel / Macros",
-    "Chrome Extension (Manifest V3)",
     "Tauri",
+    "Excel",
+    "Macros",
+    "Chrome Extension (Manifest V3)",
   ],
 } as const;

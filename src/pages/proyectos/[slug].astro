@@ -42,6 +42,7 @@ const tecnologias = tecnologiasObj
 <Layout
 	title={`${title} | ${PERSONAL_INFO.fullName}`}
 	description={description}
+	ogImage={cover?.src}
 >
 	<SchemaProjectLD
 		name={title}
@@ -217,7 +218,7 @@ const tecnologias = tecnologiasObj
 
 		<script>
 			import { initLightbox } from "../../scripts/lightbox";
-			document.addEventListener("astro:page-load", initLightbox);
+			initLightbox();
 		</script>
 	</main>
 </Layout>

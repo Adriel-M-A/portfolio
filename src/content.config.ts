@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content';
-import { z } from 'astro:schema';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 /**
@@ -29,9 +29,9 @@ export const collections = {
         herramientas: z.array(z.string()).default([]),
       }),
       /** Enlace de repositorio de código (URL, vacío o palabra clave 'privado') */
-      github: z.string().url().or(z.string().length(0)).or(z.literal("privado")),
+      github: z.url().or(z.string().length(0)).or(z.literal("privado")),
       /** Enlace opcional a la demo interactiva web */
-      demo: z.string().url().or(z.string().length(0)).optional(),
+      demo: z.url().or(z.string().length(0)).optional(),
       /** Ruta relativa a la imagen de portada (ej: "./cover.webp") */
       cover: image().optional(),
       /** Texto alternativo descriptivo para la imagen de portada */

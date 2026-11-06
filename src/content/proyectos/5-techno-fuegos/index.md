@@ -18,12 +18,12 @@ tecnologias:
     - "Vite"
 github: "https://github.com/Adriel-M-A/techno-fuegos-system"
 demo: ""
-cover: ./cover.png
+cover: "./cover.webp"
 coverAlt: "Interfaz principal del Sistema de Techno Fuegos"
 imagenes:
-  - "./screenshot-1.png"
-  - "./screenshot-2.png"
-  - "./screenshot-3.png"
+  - "./screenshot-1.webp"
+  - "./screenshot-2.webp"
+  - "./screenshot-3.webp"
 imagenesAlt:
   - "Interfaz principal de creación de presupuesto con plantilla de producto seleccionada y desglose de materiales"
   - "Visualización del cálculo comercial final con costos de insumos, mano de obra y margen aplicado"

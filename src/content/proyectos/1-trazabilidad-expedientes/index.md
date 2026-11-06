@@ -3,9 +3,9 @@ title: "Sistema de Trazabilidad de Expedientes"
 description: "Aplicación interna en red desarrollada para el EPRESP Chubut que permite controlar la ubicación, circulación y custodia de expedientes físicos dentro de la institución."
 tecnologias:
   frontend:
-    - "C#"
     - "WinForms"
   backend:
+    - "C#"
     - "PostgreSQL"
   herramientas:
     - "Visual Studio"

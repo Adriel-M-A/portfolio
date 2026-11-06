@@ -8,10 +8,6 @@ import { PERSONAL_INFO } from "../constants";
 <Layout title={`Página no encontrada | ${PERSONAL_INFO.fullName}`} description="La página que buscas no existe. Vuelve al inicio del portafolio.">
   <!-- [Convención Tailwind v4] min-h-[75vh] se utiliza por diseño para centrar el bloque en el viewport sin ocupar la pantalla completa -->
   <main class="relative min-h-[75vh] flex flex-col items-center justify-center px-6 py-16 text-center overflow-hidden">
-    <!-- Grid Pattern Background -->
-    <!-- [Convención Tailwind v4] Se usan valores arbitrarios para linear-gradient, bg-size y mask-image por la complejidad del fondo geométrico que no posee clases equivalentes nativas -->
-    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,oklch(28%_0_0)_1px,transparent_1px),linear-gradient(to_bottom,oklch(28%_0_0)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-35"></div>
-
     <!-- Decorative glitchy/3D 404 -->
     <!-- [Convención Tailwind v4] Se usan text-[9rem] y md:text-[14rem] por requerir un tamaño de fuente gigante específico fuera de la escala estándar de Tailwind -->
     <div class="relative font-extrabold text-[9rem] md:text-[14rem] leading-none tracking-tighter select-none mb-6">
@@ -21,9 +17,9 @@ import { PERSONAL_INFO } from "../constants";
     </div>
 
     <!-- Heading -->
-    <h2 class="text-xl md:text-2xl font-bold tracking-wider uppercase text-foreground mb-4 max-w-2xl">
+    <h1 class="text-xl md:text-2xl font-bold tracking-wider uppercase text-foreground mb-4 max-w-2xl">
       Parece que te has perdido en el código
-    </h2>
+    </h1>
 
     <!-- Description -->
     <p class="text-base text-muted-foreground max-w-lg mb-10 leading-relaxed">

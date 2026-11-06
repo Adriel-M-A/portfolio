@@ -26,11 +26,11 @@ La versión 4 de Tailwind elimina el archivo `tailwind.config.js`. La configurac
 
 @theme {
   /* Variables de color en espacio OKLCH (modo claro y oscuro) */
-  --color-background: oklch(100% 0 0);
-  --color-foreground: oklch(18% 0 0);
+  --color-background: oklch(99% 0 0);
+  --color-foreground: oklch(15% 0 0);
   --color-surface: oklch(96% 0 0);
-  --color-border: oklch(88% 0 0);
-  --color-muted-foreground: oklch(45% 0 0);
+  --color-border: oklch(83% 0 0);
+  --color-muted-foreground: oklch(38% 0 0);
   --color-primary: oklch(18% 0 0);
   --color-primary-foreground: oklch(98% 0 0);
 }

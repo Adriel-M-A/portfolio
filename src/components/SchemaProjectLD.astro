@@ -20,6 +20,8 @@ const {
 } = Astro.props;
 
 const isValidRepo = repoUrl && repoUrl.startsWith('http') && !repoUrl.includes('privado');
+const resolvedAuthorUrl = new URL("/", authorUrl).href;
+const authorId = new URL("/#person", authorUrl).href;
 
 const schema = {
   "@context": "https://schema.org",
@@ -30,9 +32,9 @@ const schema = {
   ...(isValidRepo ? { "codeRepository": repoUrl } : {}),
   "author": {
     "@type": "Person",
-    "@id": `${authorUrl}/#person`,
+    "@id": authorId,
     "name": authorName,
-    "url": authorUrl,
+    "url": resolvedAuthorUrl,
   }
 };
 ---

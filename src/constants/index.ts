@@ -31,5 +31,5 @@ export const PERSONAL_INFO = {
   /** Perfil oficial de LinkedIn */
   linkedin: "https://www.linkedin.com/in/adriel-agustin-montes-66460b202/",
   /** Dominio de producción del portafolio */
-  domain: "https://montesadriel.vercel.app/",
+  domain: "https://montesadriel.vercel.app",
 } as const;

@@ -68,32 +68,31 @@ El layout global actúa como contenedor de toda la aplicación. Sus responsabili
 
 ### `/` — Home (`index.astro`)
 Landing estructurada con impronta técnica:
-- **Hero** en dos columnas: presentación editorial y botones de acción a la izquierda, y ventana de inspección técnica (`perfil.spec.ts`) en fuente monoespaciada a la derecha.
-- **01 // Tecnologías:** Grilla responsiva alimentada desde `TOP_TECHNOLOGIES` (10 en móvil, 15 en tablet, 20 en escritorio).
-- **02 // Proyectos destacados:** Los primeros 3 proyectos de la colección como módulos `<ProyectoCard />`.
+- **Hero** editorial (`max-w-3xl`): presentación directa, propuesta de valor, botones de acción (`Ver proyectos`, `Contacto`) y enlaces rápidos a GitHub y LinkedIn.
+- **Tecnologías:** Grilla responsiva alimentada desde `TOP_TECHNOLOGIES` (10 en móvil, 15 en tablet, 20 en escritorio).
+- **Proyectos destacados:** Los primeros 3 proyectos de la colección como tarjetas `<ProyectoCard />`.
 
 ### `/proyectos` — Catálogo (`proyectos.astro`)
 Índice completo de sistemas. Muestra todos los proyectos ordenados por su ID numérico, con pestañas de filtro por categoría (`Todos`, `Escritorio`, `Web / Extensiones`) con contadores e indicadores de estado accesibles.
 
 ### `/sobreMi` — Sobre mí (`sobreMi.astro`)
-Sección extendida dividida en 5 bloques numerados:
-- **01 // Perfil profesional:** Narrativa directa del enfoque de trabajo de punta a punta.
-- **02 // Experiencia laboral:** Línea de tiempo de módulos técnicos generada desde la colección `experiencia` (Freelance, EPRESP y Catastro).
-- **03 // Stack tecnológico:** Tres módulos con cabecera de ventana (`Frontend e Interfaces`, `Backend y Bases de Datos`, `Entornos y Herramientas`) desde `TECHNOLOGIES_BY_CATEGORY`.
-- **04 // Educación y Certificaciones:** Título universitario (UNPSJB), certificación intensiva de SQL (midudev, con enlace directo al certificado PDF) y tecnicatura electromecánica.
-- **05 // Análisis y Arquitectura:** Módulos de especialización en arquitectura en capas, modelado relacional y relevamiento funcional.
+Sección extendida dividida en 4 bloques principales:
+- **Sobre mí:** Narrativa directa del perfil profesional y del enfoque de trabajo de punta a punta.
+- **Experiencia laboral:** Línea de tiempo técnica generada desde la colección `experiencia` (Freelance, EPRESP y Catastro).
+- **Stack tecnológico:** Tres tarjetas categorizadas (`Frontend e Interfaces`, `Backend y Bases de Datos`, `Entornos y Herramientas`) desde `TECHNOLOGIES_BY_CATEGORY`.
+- **Educación y certificaciones:** Título universitario (UNPSJB), certificación intensiva de SQL (midudev, con enlace directo al certificado PDF) y tecnicatura electromecánica.
 
 ### `/contacto` — Contacto (`contacto.astro`)
-Módulo unificado con cabecera de ventana que expone únicamente los canales autorizados: Email (con botón de escritura directa y copiado al portapapeles con fallback móvil), LinkedIn y GitHub.
+Módulo unificado que expone únicamente los canales autorizados: Email (con botón de escritura directa y copiado al portapapeles con fallback móvil), LinkedIn y GitHub.
 
 ### `/proyectos/[slug]` — Detalle de proyecto (`proyectos/[slug].astro`)
 Ruta dinámica generada en build. Para cada proyecto:
-- Barra superior de navegación con ruta estilo consola (`cd ../proyectos`) e identificador de módulo.
+- Barra superior de navegación para regresar al catálogo (`← Volver a proyectos`).
 - Encabezado con título, resumen, badges de tecnologías y enlaces a repositorio/demo.
-- **Portada enmarcada:** Imagen principal dentro de un marco de ventana con su epígrafe visible y soporte de zoom.
-- **Especificación en Markdown (`.prose-content`):** Secciones con prefijo `##` en fuente monoespaciada y listas con indicador `>`.
-- **01 // Galería de capturas:** Cada imagen se presenta dentro de un marco de ventana de aplicación (`captura_XX.img`) con sus dimensiones reales, zoom interactivo con PhotoSwipe y su epígrafe descriptivo (`imagenesAlt`) visible al pie de cada captura.
-- **Schema.org** `CreativeWork` insertado vía `<SchemaProjectLD />`.
+- **Portada enmarcada:** Imagen principal dentro de un contenedor `figure` con su epígrafe visible y soporte de zoom.
+- **Especificación en Markdown (`.prose-content`):** Secciones estructuradas y listas con indicador `>` en fuente monoespaciada.
+- **Galería de capturas:** Cada imagen se presenta dentro de un marco `figure` con zoom interactivo mediante PhotoSwipe y su epígrafe descriptivo (`imagenesAlt`) visible al pie de cada captura.
+- **Schema.org** `CreativeWork` insertado vía `<SchemaProjectLD />` y `og:image` dinámico con la portada del proyecto.
 
 ### `/404` — Error 404 (`404.astro`)
 Pantalla de error que mantiene el layout completo (header/footer) para consistencia visual.
@@ -102,7 +101,7 @@ Pantalla de error que mantiene el layout completo (header/footer) para consisten
 
 ## Colecciones de Contenido (`src/content.config.ts`)
 
-El proyecto usa la API de Astro Content Collections con loaders `glob`.
+El proyecto usa la API de Astro Content Collections con loaders `glob` y esquemas validados con `astro/zod`.
 
 ### Colección `proyectos`
 
@@ -117,8 +116,8 @@ proyectos: defineCollection({
       backend: z.array(z.string()).default([]),
       herramientas: z.array(z.string()).default([]),
     }),
-    github: z.string().url().or(z.string().length(0)).or(z.literal("privado")),
-    demo: z.string().url().or(z.string().length(0)).optional(),
+    github: z.url().or(z.string().length(0)).or(z.literal("privado")),
+    demo: z.url().or(z.string().length(0)).optional(),
     cover: image().optional(),
     coverAlt: z.string().optional(),
     imagenes: z.array(image()).optional(),
@@ -154,7 +153,7 @@ experiencia: defineCollection({
 Controla el menú de navegación fullscreen en móvil. Usa delegación de eventos sobre `document` con una bandera `listenersAdded` para evitar registros duplicados durante las transiciones SPA. Maneja accesibilidad (`aria-expanded`, `aria-hidden`, tecla `Escape`) y bloquea el scroll del body mientras el menú está abierto.
 
 ### `lightbox.ts`
-Inicializa PhotoSwipe en la galería de imágenes de cada proyecto. La librería se importa dinámicamente (`() => import('photoswipe')`) para no penalizar el bundle inicial. El script se re-inicializa en el evento `astro:page-load` para funcionar correctamente con el `<ClientRouter />`.
+Inicializa PhotoSwipe en la galería de imágenes de cada proyecto. La librería se importa dinámicamente (`() => import('photoswipe')`) para no penalizar el bundle inicial. El script se re-inicializa en el evento `astro:page-load` destruyendo cualquier instancia previa para evitar fugas de memoria con `<ClientRouter />`.
 
 ---
 
@@ -164,8 +163,8 @@ Inicializa PhotoSwipe en la galería de imágenes de cada proyecto. La librería
 |---|---|
 | `ui/Badge.astro` | Etiqueta rectangular de tecnología en `JetBrains Mono` |
 | `ui/Button.astro` | Botón rectangular con variantes (`primary`, `secondary`, `outline`, `ghost`) y foco accesible |
-| `ui/Icon.astro` | SVG inline por nombre. Recibe `name`, `size` y `class`. Sin fuentes externas |
-| `ProyectoCard.astro` | Módulo de proyecto con cabecera de ventana (`01 // slug`) para grillas de catálogo y home |
+| `ui/Icon.astro` | SVG inline tipado por nombre (`IconName`). Recibe `name`, `size` y `class`. Sin fuentes externas |
+| `ProyectoCard.astro` | Tarjeta de proyecto con portada, tecnologías principales, resumen y acciones para grillas de catálogo y home |
 | `SchemaPersonLD.astro` | JSON-LD `Person` con datos del autor |
 | `SchemaProjectLD.astro` | JSON-LD `CreativeWork` para fichas de proyecto |
 | `ThemeToggle.astro` | Toggle de modo claro/oscuro que persiste en `localStorage` |

@@ -23,7 +23,7 @@ La propuesta de valor diferencial es el enfoque **de punta a punta**: desde el r
 | Estilos | [Tailwind CSS](https://tailwindcss.com/) | v4 |
 | Gestor de paquetes | pnpm | 11.x |
 | Lenguaje de tipado | TypeScript | 6.x |
-| Validación de contenido | Zod (via `astro:schema`) | integrado |
+| Validación de contenido | Zod (via `astro/zod`) | integrado |
 | Galería interactiva | [PhotoSwipe](https://photoswipe.com/) | 5.x |
 | Optimización de imágenes | [Sharp](https://sharp.pixelplumbing.com/) | integrado en build |
 | Sitemap | `@astrojs/sitemap` | integrado |
@@ -34,7 +34,7 @@ La propuesta de valor diferencial es el enfoque **de punta a punta**: desde el r
 ## Características Clave
 
 - **Generación estática (SSG):** Cero JavaScript innecesario en el cliente. Todo el HTML se genera en tiempo de compilación.
-- **Identidad visual monocromática de programador/terminal:** Grilla arquitectónica de fondo, tarjetas con cabeceras de módulo/ventana, prefijos numerados en `JetBrains Mono` y capturas de pantalla enmarcadas con epígrafes técnicos visibles.
+- **Identidad visual monocromática de programador/terminal:** Grilla arquitectónica de fondo, tarjetas con bordes técnicos de 1px, metadatos en `JetBrains Mono` y capturas de pantalla enmarcadas con epígrafes técnicos visibles.
 - **Navegación SPA fluida:** El componente `<ClientRouter />` de Astro intercepta los clics y transiciona el contenido sin recargar la página.
 - **Contenido tipado:** Las colecciones de Astro (proyectos y experiencia) usan esquemas Zod que detienen la compilación ante datos inválidos.
 - **Galería interactiva:** PhotoSwipe provee soporte táctil, gestos y zoom en la galería de capturas de cada proyecto.
@@ -48,7 +48,7 @@ La propuesta de valor diferencial es el enfoque **de punta a punta**: desde el r
 El contenido dinámico del sitio vive en `src/content/` y se administra a través de Astro Content Collections:
 
 ### Proyectos (`src/content/proyectos/`)
-Cada proyecto es un directorio con un `index.md` (frontmatter tipado + especificación técnica en Markdown) y sus imágenes (`cover.webp` / `cover.png`, `screenshot-N.webp` / `screenshot-N.png`). Actualmente incluye:
+Cada proyecto es un directorio con un `index.md` (frontmatter tipado + especificación técnica en Markdown) y sus imágenes (`cover.webp`, `screenshot-N.webp`). Actualmente incluye:
 
 1. **Sistema de Trazabilidad de Expedientes** (`EPRESP` — C# / WinForms / PostgreSQL / Arquitectura en capas)
 2. **Sistema de Reportes de Cooperativas** (`EPRESP` — Python / Flet / Procesamiento batch CSV & Excel)

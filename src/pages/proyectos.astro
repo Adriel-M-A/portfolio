@@ -65,6 +65,8 @@ proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
 </Layout>
 
 <script>
+  const filterTimeouts = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+
   function initFilters() {
     const filterTabsContainer = document.getElementById("filter-tabs");
     if (!filterTabsContainer) return;
@@ -97,10 +99,10 @@ proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
           const category = card.getAttribute("data-category");
 
           // Cancelar cualquier timeout anterior
-          const anyCard = card as any;
-          if (anyCard._filterTimeout) {
-            clearTimeout(anyCard._filterTimeout);
-            anyCard._filterTimeout = null;
+          const prevTimeout = filterTimeouts.get(card);
+          if (prevTimeout) {
+            clearTimeout(prevTimeout);
+            filterTimeouts.delete(card);
           }
 
           if (filter === "Todos" || category === filter) {
@@ -122,17 +124,17 @@ proyectosEntries.sort((a, b) => a.id.localeCompare(b.id));
             card.style.transform = "scale(0.95)";
 
             // Ocultar físicamente al finalizar la animación
-            anyCard._filterTimeout = setTimeout(() => {
+            const timeoutId = setTimeout(() => {
               card.classList.add("hidden");
-              anyCard._filterTimeout = null;
+              filterTimeouts.delete(card);
             }, 300);
+            filterTimeouts.set(card, timeoutId);
           }
         });
       });
     });
   }
 
-  // Ejecutar al cargar la página e inicializar con Astro View Transitions
-  initFilters();
+  // Inicializar con Astro View Transitions (incluye la carga inicial)
   document.addEventListener("astro:page-load", initFilters);
 </script>
